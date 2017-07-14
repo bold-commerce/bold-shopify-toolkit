@@ -5,6 +5,10 @@
         {
             "name": "Jeremy Ayerst",
             "email": "jeremyayerst@gmail.com"
+        },
+        {
+            "name": "Nathan Koop",
+            "email": "nathan.koop@gmail.com"
         }
     ],
     "require": {
