@@ -1,0 +1,15 @@
+stages:
+  - test suite
+
+cache:
+  paths:
+  - vendor/
+
+test suite:
+  stage: test suite
+  script:
+    - composer install --no-plugins --no-scripts
+    -  php vendor/bin/phpunit tests/ --report-useless-tests --coverage-text
+  tags:
+    - bold-apps-test-suite
+

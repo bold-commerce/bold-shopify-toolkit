@@ -1,0 +1,26 @@
+{
+    "name": "boldapps/bold-shopify-toolkit",
+    "authors": [
+        {
+            "name": "Jer",
+            "email": "jeremy@boldapps.net"
+        }
+    ],
+    "require": {
+        "illuminate/support": "5.2.* || 5.3.* || 5.4.*",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "BoldApps\\ShopifyToolkit\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BoldApps\\ShopifyToolkit\\Test\\": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.5.*"
+    }
+}
