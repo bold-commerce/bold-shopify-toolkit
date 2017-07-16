@@ -2,9 +2,9 @@
 
 namespace BoldApps\Common\Test\Services\Shopify;
 
+use BoldApps\ShopifyToolkit\Test\Fakes\FakeBase;
 use BoldApps\ShopifyToolkit\Test\Fakes\FakeModel;
 use BoldApps\ShopifyToolkit\Services\Client;
-use BoldApps\ShopifyToolkit\Services\Base;
 
 class ShopifyBaseServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class ShopifyBaseServiceTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $base = new Base($shopifyClientMock);
+        $base = new FakeBase($shopifyClientMock);
 
         $dataModel = [
             'foo' => 'donkey',
@@ -36,7 +36,7 @@ class ShopifyBaseServiceTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $base = new Base($shopifyClientMock);
+        $base = new FakeBase($shopifyClientMock);
 
         $fakeModel = new FakeModel();
         $fakeModel->setFoo('donkey');
@@ -55,7 +55,7 @@ class ShopifyBaseServiceTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $base = new Base($shopifyClientMock);
+        $base = new FakeBase($shopifyClientMock);
 
         $dataModel = [
             'foo' => 'donkey',
@@ -79,7 +79,7 @@ class ShopifyBaseServiceTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $base = new Base($shopifyClientMock);
+        $base = new FakeBase($shopifyClientMock);
 
 
         $expectedResult =[
