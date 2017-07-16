@@ -1,5 +1,7 @@
 # Bold Shopify Toolkit
 
+[![CircleCI](https://circleci.com/gh/bold-commerce/bold-shopify-toolkit/tree/master.svg?style=svg)](https://circleci.com/gh/bold-commerce/bold-shopify-toolkit/tree/master)
+
 Bold Shopify Toolkit is a Symfony Based Shopify Wrapper that makes it easy to interact with Shopify.
 
 ## Getting Started
