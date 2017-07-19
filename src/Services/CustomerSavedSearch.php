@@ -25,7 +25,7 @@ class CustomerSavedSearch extends CollectionEntity
     /**
      * @param $array
      *
-     * @return CustomerSavedSearchModel
+     * @return CustomerSavedSearchModel | object
      */
     public function createFromArray($array)
     {
@@ -35,7 +35,7 @@ class CustomerSavedSearch extends CollectionEntity
     /**
      * @param CustomerSavedSearchModel $customerSavedSearch
      *
-     * @return CustomerSavedSearchModel
+     * @return CustomerSavedSearchModel | object
      */
     public function create(CustomerSavedSearchModel $customerSavedSearch)
     {
@@ -49,7 +49,7 @@ class CustomerSavedSearch extends CollectionEntity
     /**
      * @param CustomerSavedSearchModel $customerSavedSearch
      *
-     * @return CustomerSavedSearchModel
+     * @return CustomerSavedSearchModel | object
      */
     public function edit(CustomerSavedSearchModel $customerSavedSearch)
     {
@@ -81,7 +81,7 @@ class CustomerSavedSearch extends CollectionEntity
 
         $customers = array_map(function ($customer) {
             return $this->unserializeModel($customer, CustomerSavedSearchModel::class);
-        }, $raw['customers']);
+        }, $raw['customer_saved_searches']);
 
         return new Collection($customers);
     }
