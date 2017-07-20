@@ -2,26 +2,24 @@
 
 [![CircleCI](https://circleci.com/gh/bold-commerce/bold-shopify-toolkit/tree/master.svg?style=svg)](https://circleci.com/gh/bold-commerce/bold-shopify-toolkit/tree/master)
 
-Bold Shopify Toolkit is a Symfony Based Shopify Wrapper that makes it easy to interact with Shopify.
+Bold Shopify Toolkit is a [Symfony](https://symfony.com/)-based [Shopify](https://shopify.com) wrapper that makes it easy to interact with Shopify.
 
 ## Getting Started
-
 This package works best with a Dependency Injection Container since there are many dependencies that need to be resolved.
 
 ### Prerequisites
-
 To use this package, you will need to bind Models to the following interfaces.
 
-- ShopAccessInfo
-- ShopBaseInfo
-- ApplicationInfo
-- ApiSleeper
+- [ShopAccessInfo](src/Contracts/ShopAccessInfo.php)
+- [ShopBaseInfo](src/Contracts/ShopBaseInfo.php)
+- [ApplicationInfo](src/Contracts/ApplicationInfo.php)
+- [ApiSleeper](src/Contracts/ApiSleeper.php)
 
 An example API Sleeper has been included in this package.
 
-Laravel: (In AppServiceProvider.php)
+**Laravel**: (see AppServiceProvider.php)
 
-```
+```php
     $this->app->bind(\BoldApps\ShopifyToolkit\Contracts\ApiSleeper::class,
             \BoldApps\ShopifyToolkit\Support\ShopifyApiHandler::class);
 
@@ -31,13 +29,13 @@ Laravel: (In AppServiceProvider.php)
 
 Add to composer.json
 
-```
-composer require bold-commerce/bold-shopify-toolkit
+```sh
+$ composer require bold-commerce/bold-shopify-toolkit
 ```
 
 Bind the appropriate models during your request lifecycle.
 
-```
+```php
     $this->app->bind(\BoldApps\ShopifyToolkit\Contracts\ApiSleeper::class,
             \BoldApps\ShopifyToolkit\Support\ShopifyApiHandler::class);
 
@@ -46,8 +44,8 @@ Bind the appropriate models during your request lifecycle.
 
 ## Running the tests
 
-```
-vendor/bin/phpunit tests
+```sh
+$ vendor/bin/phpunit tests
 ```
 
 ## TODO
