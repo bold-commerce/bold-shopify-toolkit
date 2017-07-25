@@ -57,17 +57,20 @@ class Client
      * @param array $params
      * @param array $cookies
      * @param string $password
+     * @param bool $frontendApi
      *
      * If password is set it will auth to /password before it does anything. Useful for frontend calls.
      * Cookies is an array of SetCookie objects. See the Cart service for an example.
      *
      * @return array
      */
-    public function get($path, $params = [], array $cookies = [], $password = null)
+    public function get($path, $params = [], array $cookies = [], $password = null, $frontendApi = false)
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken()];
 
-        $uri = new Uri(sprintf('https://%s/%s', $this->shopBaseInfo->getMyShopifyDomain(), $path));
+        $domain = $frontendApi ? $this->shopBaseInfo->getDomain() : $this->shopBaseInfo->getMyShopifyDomain();
+
+        $uri = new Uri(sprintf('https://%s/%s', $domain, $path));
         $uri = $uri->withQuery(http_build_query($params));
         $request = new Request('GET', $uri, $headers);
 
@@ -79,16 +82,20 @@ class Client
      * @param array $params
      * @param array $cookies
      * @param string $password
+     * @param bool $frontendApi
      *
      * If password is set it will auth to /password before it does anything. Useful for frontend calls.
      * Cookies is an array of SetCookie objects. See the Cart service for an example.
      *
      * @return array
      */
-    public function post($path, $params = [], $body, array $cookies = [], $password = null)
+    public function post($path, $params = [], $body, array $cookies = [], $password = null, $frontendApi = false)
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
-        $uri = new Uri(sprintf('https://%s/%s', $this->shopBaseInfo->getMyShopifyDomain(), $path));
+
+        $domain = $frontendApi ? $this->shopBaseInfo->getDomain() : $this->shopBaseInfo->getMyShopifyDomain();
+
+        $uri = new Uri(sprintf('https://%s/%s', $domain, $path));
         $uri = $uri->withQuery(http_build_query($params));
 
         $json = \GuzzleHttp\json_encode($body);
@@ -157,17 +164,20 @@ class Client
         ];
 
         try {
+            $domain = $request->getUri()->getHost();
+
             if($password) {
 
-                $uri = new Uri(sprintf('https://%s/password', $this->shopBaseInfo->getMyShopifyDomain()));
+                $uri = new Uri(sprintf('https://%s/password', $domain));
                 $uri = $uri->withQuery(http_build_query(['password' => $password]));
                 $authRequest = new Request('GET', $uri);
                 $this->client->send($authRequest,$options);
 
             }
+
             foreach($cookies as $cookie) {
                 //set the cookies that were passed in for the next request
-                $cookie->setDomain($this->shopBaseInfo->getMyShopifyDomain());
+                $cookie->setDomain($domain);
                 $cookieJar->setCookie($cookie);
             }
 
