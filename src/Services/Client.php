@@ -68,7 +68,7 @@ class Client
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken()];
 
-        $domain = $frontendApi?$this->shopBaseInfo->getDomain():$this->shopBaseInfo->getMyShopifyDomain();
+        $domain = $frontendApi ? $this->shopBaseInfo->getDomain() : $this->shopBaseInfo->getMyShopifyDomain();
 
         $uri = new Uri(sprintf('https://%s/%s', $domain, $path));
         $uri = $uri->withQuery(http_build_query($params));
@@ -93,7 +93,7 @@ class Client
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
 
-        $domain = $frontendApi?$this->shopBaseInfo->getDomain():$this->shopBaseInfo->getMyShopifyDomain();
+        $domain = $frontendApi ? $this->shopBaseInfo->getDomain() : $this->shopBaseInfo->getMyShopifyDomain();
 
         $uri = new Uri(sprintf('https://%s/%s', $domain, $path));
         $uri = $uri->withQuery(http_build_query($params));
