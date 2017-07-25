@@ -16,7 +16,7 @@ class Cart extends Base
     public function get($cartToken, $password = null)
     {
 
-        $raw = $this->client->get('cart.json',[], $this->getCartCookie($cartToken), $password);
+        $raw = $this->client->get('cart.json',[], $this->getCartCookie($cartToken), $password, true);
 
         $raw['items'] = $this->unserializeItems($raw['items']);
         $cart = $this->unserializeModel($raw, CartModel::class);
@@ -34,7 +34,7 @@ class Cart extends Base
 
         $cookies = $this->getCartCookie($cartToken);
 
-        $raw = $this->client->post('cart/clear.json', [], [], $cookies , $password);
+        $raw = $this->client->post('cart/clear.json', [], [], $cookies , $password, true);
 
         /**
          * @var CartModel $cart
@@ -59,7 +59,7 @@ class Cart extends Base
         }
 
         if($needToUpdateCart){
-            $raw = $this->client->post("cart/update.json", [], ['note' => '','attributes' => $cart->getAttributes()], $this->getCartCookie($cartToken), $password);
+            $raw = $this->client->post("cart/update.json", [], ['note' => '','attributes' => $cart->getAttributes()], $this->getCartCookie($cartToken), $password, true);
 
             return $this->unserializeModel($raw, CartModel::class);
         }
@@ -77,7 +77,7 @@ class Cart extends Base
     {
         $serializedModel = ['cart' => $this->serializeModel($cart)];
 
-        $raw = $this->client->post("cart/update.json", [], $serializedModel, $this->getCartCookie($cartToken), $password);
+        $raw = $this->client->post("cart/update.json", [], $serializedModel, $this->getCartCookie($cartToken), $password, true);
 
         return $this->unserializeModel($raw, CartModel::class);
     }
