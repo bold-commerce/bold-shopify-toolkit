@@ -2,6 +2,7 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Models\Asset as AssetModel;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use BoldApps\ShopifyToolkit\Services\Theme as ShopifyThemeService;
 use BoldApps\ShopifyToolkit\Models\Theme as ShopifyTheme;
@@ -52,7 +53,9 @@ class Asset extends Base
     /**
      * @param string $key
      *
-     * @return \BoldApps\ShopifyToolkit\Models\Asset
+     * @return null|object
+     *
+     * @throws \Exception
      */
     public function getByKey($key)
     {
@@ -68,7 +71,7 @@ class Asset extends Base
                     'key' => $key,
                 ],
             ]);
-            $asset = $this->unserializeModel($raw['asset'], \BoldApps\ShopifyToolkit\Models\Asset::class);
+            $asset = $this->unserializeModel($raw['asset'], AssetModel::class);
         } catch(RequestException $e) {
             switch ($e->getResponse()->getStatusCode()) {
                 case 404:
@@ -96,7 +99,7 @@ class Asset extends Base
         $raw = $this->client->get("admin/themes/$themeId/assets.json");
 
         $assets = array_map(function ($asset) {
-            return $this->unserializeModel($asset, \BoldApps\ShopifyToolkit\Models\Asset::class);
+            return $this->unserializeModel($asset, AssetModel::class);
         }, $raw['assets']);
 
         return new Collection($assets);
@@ -119,11 +122,11 @@ class Asset extends Base
     }
 
     /**
-     * @param \BoldApps\ShopifyToolkit\Models\Asset $asset
+     * @param AssetModel $asset
      *
      * @return object
      */
-    public function create(\BoldApps\ShopifyToolkit\Models\Asset $asset)
+    public function create(AssetModel $asset)
     {
         if (is_null($this->currentTheme)) {
             $this->loadTheme();
@@ -135,16 +138,36 @@ class Asset extends Base
 
         $raw = $this->client->put("admin/themes/$themeId/assets.json", [], $serializedModel);
 
-        return $this->unserializeModel($raw['asset'], \BoldApps\ShopifyToolkit\Models\Asset::class);
+        return $this->unserializeModel($raw['asset'], AssetModel::class);
     }
 
     /**
-     * @param \BoldApps\ShopifyToolkit\Models\Asset $asset
+     * @param AssetModel $asset
      *
      * @return object
      */
-    public function update(\BoldApps\ShopifyToolkit\Models\Asset $asset)
+    public function update(AssetModel $asset)
     {
         return $this->create($asset);
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return array
+     */
+    public function delete($key)
+    {
+        if (is_null($this->currentTheme)) {
+            $this->loadTheme();
+        }
+
+        $themeId = $this->currentTheme->getId();
+
+        return $this->client->delete("admin/themes/$themeId/assets.json", [
+            'asset' => [
+                'key' => $key,
+            ],
+        ]);
     }
 }
