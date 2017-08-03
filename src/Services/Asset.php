@@ -51,7 +51,7 @@ class Asset extends Base
     }
 
     /**
-     * @param $key
+     * @param string $key
      *
      * @return null|object
      *
@@ -152,7 +152,7 @@ class Asset extends Base
     }
 
     /**
-     * @param $key
+     * @param string $key
      *
      * @return array
      */
