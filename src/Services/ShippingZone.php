@@ -36,7 +36,7 @@ class ShippingZone extends Base
     /**
      * @param $data
      *
-     * @return array
+     * @return Collection
      */
     public function unserializeCountries($data)
     {
@@ -49,14 +49,14 @@ class ShippingZone extends Base
             return $this->unserializeModel($country, Country::class);
         }, $data);
 
-        return $countries;
+        return collect($countries);
     }
 
 
     /**
      * @param $data
      *
-     * @return array
+     * @return Collection
      */
     public function unserializeProvinces($data)
     {
@@ -67,6 +67,6 @@ class ShippingZone extends Base
             return $this->unserializeModel($province, Province::class);
         }, $data);
 
-        return $provinces;
+        return collect($provinces);
     }
 }
