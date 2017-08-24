@@ -8,6 +8,11 @@ class ShippingZone implements Serializeable
 {
 
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
      * @var string
      */
     protected $name;
@@ -32,6 +37,13 @@ class ShippingZone implements Serializeable
      */
     protected $weightBasedShippingRates;
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string

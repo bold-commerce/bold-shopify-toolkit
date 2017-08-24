@@ -7,6 +7,11 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 class Province implements Serializeable
 {
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
      * @var string
      */
     protected $code;
@@ -15,11 +20,6 @@ class Province implements Serializeable
      * @var int
      */
     protected $countryId;
-
-    /**
-     * @var int
-     */
-    protected $id;
 
     /**
      * @var string
