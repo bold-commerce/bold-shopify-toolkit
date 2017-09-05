@@ -13,10 +13,14 @@
         {
             "name": "Chris Chatelain",
             "email": "chris@digiex.ca"
+        },
+        {
+            "name": "Chris Pappas",
+            "email": "pappas.christopher@gmail.com"
         }
     ],
     "require": {
-        "illuminate/support": "5.2.* || 5.3.* || 5.4.*",
+        "illuminate/support": "5.2.* || 5.3.* || 5.4.* || 5.5.*",
         "guzzlehttp/guzzle": "^6.2"
     },
     "autoload": {
