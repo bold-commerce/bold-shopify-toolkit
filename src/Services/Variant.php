@@ -28,6 +28,16 @@ class Variant extends Base
     }
 
     /**
+     * @param $array
+     *
+     * @return object
+     */
+    public function createFromArray($array)
+    {
+        return $this->unserializeModel($array, ShopifyVariant::class);
+    }
+
+    /**
      * @param $id
      *
      * @return ShopifyVariant
@@ -62,16 +72,6 @@ class Variant extends Base
     public function delete(ShopifyProduct $product, ShopifyVariant $variant)
     {
         return $this->client->delete("admin/products/{$product->getId()}/variants/{$variant->getId()}.json");
-    }
-
-    /**
-     * @param $array
-     *
-     * @return object
-     */
-    public function createFromArray($array)
-    {
-        return $this->unserializeModel($array, ShopifyVariant::class);
     }
 
     /**
