@@ -28,6 +28,16 @@ class Variant extends Base
     }
 
     /**
+     * @param $array
+     *
+     * @return object
+     */
+    public function createFromArray($array)
+    {
+        return $this->unserializeModel($array, ShopifyVariant::class);
+    }
+
+    /**
      * @param $id
      *
      * @return ShopifyVariant
