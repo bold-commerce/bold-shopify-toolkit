@@ -4,6 +4,9 @@ namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 
+/**
+ * Class Variant
+ */
 class Variant implements Serializeable
 {
     /** @var  string */
@@ -80,6 +83,9 @@ class Variant implements Serializeable
 
     /** @var string */
     protected $weightUnit;
+
+    /** @var array */
+    protected $metafields;
 
     /**
      * @return string
@@ -479,5 +485,21 @@ class Variant implements Serializeable
     public function setWeightUnit($weightUnit)
     {
         $this->weightUnit = $weightUnit;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMetafields()
+    {
+        return $this->metafields;
+    }
+
+    /**
+     * @param array $metafields
+     */
+    public function setMetafields($metafields)
+    {
+        $this->metafields = $metafields;
     }
 }
