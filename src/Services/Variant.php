@@ -69,9 +69,7 @@ class Variant extends Base
      * @param ShopifyMetafield $metafield
      *
      * @return Collection
-     *
-     * @internal param ShopifyProduct $product
-     */
+     **/
     public function createMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
     {
         $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
@@ -82,15 +80,16 @@ class Variant extends Base
     }
 
     /**
+     * @param ShopifyVariant $variant
      * @param ShopifyMetafield $metafield
      *
      * @return Collection
      */
-    public function updateMetafield(ShopifyMetafield $metafield)
+    public function updateMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
     {
         $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
 
-        $raw = $this->client->put("admin/metafields/{$metafield->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("admin/variants/{$variant->getId()}/metafields/{$metafield->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
