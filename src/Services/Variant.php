@@ -79,9 +79,7 @@ class Variant extends Base
      * @param ShopifyMetafield $metafield
      *
      * @return Collection
-     *
-     * @internal param ShopifyProduct $product
-     */
+     **/
     public function createMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
     {
         $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
@@ -92,29 +90,28 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyProduct   $product
-     * @param ShopifyVariant   $variant
+     * @param ShopifyVariant $variant
      * @param ShopifyMetafield $metafield
      *
      * @return Collection
      */
-    public function updateMetafield(ShopifyProduct $product, ShopifyVariant $variant, ShopifyMetafield $metafield)
+    public function updateMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
     {
         $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
 
-        $raw = $this->client->post("admin/variants/{$product->getId()}/metafields/{$variant->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("admin/variants/{$variant->getId()}/metafields/{$metafield->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
 
     /**
-     * @param ShopifyProduct $product
+     * @param ShopifyVariant $variant
      *
      * @return Collection
      */
-    public function getMetafields(ShopifyProduct $product)
+    public function getMetafields(ShopifyVariant $variant)
     {
-        $raw = $this->client->get("admin/products/{$product->getId()}/metafields.json");
+        $raw = $this->client->get("admin/variants/{$variant->getId()}/metafields.json");
 
         $metafields = array_map(function ($metafield) {
             return $this->unserializeModel($metafield, ShopifyMetafield::class);
@@ -124,12 +121,23 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyProduct $product
+     * @param ShopifyVariant $variant
+     * @param ShopifyMetafield $metafield
      *
      * @return Collection
      */
-    public function deleteMetafield(ShopifyProduct $product, ShopifyMetafield $metafield)
+    public function deleteMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
     {
-        return $this->client->delete("admin/products/{$product->getId()}/metafields/{$metafield->getId()}.json");
+        return $this->client->delete("admin/variants/{$variant->getId()}/metafields/{$metafield->getId()}.json");
+    }
+
+    /**
+     * @param ShopifyMetafield $metafield
+     *
+     * @return Collection
+     */
+    public function deleteMetafieldById(ShopifyMetafield $metafield)
+    {
+        return $this->client->delete("admin/metafields/{$metafield->getId()}.json");
     }
 }
