@@ -120,7 +120,11 @@ class DraftOrder extends Base
 
         $draftOrderModel->setLineItems($draftOrderLineItems);
         $draftOrderModel->setNote($cart->getNote());
-        $draftOrderModel->setNoteAttributes($cart->getAttributes());
+
+        $cartAttributes = $cart->getAttributes();
+        if (!empty($cartAttributes)) {
+            $draftOrderModel->setNoteAttributes([$cartAttributes]);
+        }
 
         return $draftOrderModel;
     }
