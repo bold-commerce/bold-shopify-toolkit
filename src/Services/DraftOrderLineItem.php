@@ -96,6 +96,11 @@ class DraftOrderLineItem extends Base
             }
         }
 
+        $lineItemProperties = $draftOrderLineItem->getProperties();
+        if (!empty($lineItemProperties)) {
+            $draftOrderLineItem->setProperties([$lineItemProperties]);
+        }
+
         return $draftOrderLineItem;
     }
 
