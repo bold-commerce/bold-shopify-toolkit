@@ -1,7 +1,9 @@
 <?php
 namespace BoldApps\ShopifyToolkit\Models\Cart;
 
-class Item
+use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+
+class Item implements Serializeable
 {
     /**
      * @var int
