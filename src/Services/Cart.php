@@ -9,6 +9,15 @@ use Illuminate\Support\Collection;
 
 class Cart extends Base
 {
+    protected $unserializationExceptions = [
+        'items' => 'unserializeItems',
+        'variant_options' => 'unserializeOptions',
+    ];
+
+    protected $serializationExceptions = [
+        'items' => 'serializeItems',
+        'variantOptions' => 'serializeOptions',
+    ];
 
     /**
      * @return CartModel
@@ -18,7 +27,6 @@ class Cart extends Base
 
         $raw = $this->client->get('cart.json',[], $this->getCartCookie($cartToken), $password, true);
 
-        $raw['items'] = $this->unserializeItems($raw['items']);
         $cart = $this->unserializeModel($raw, CartModel::class);
 
         return $cart;
@@ -97,6 +105,26 @@ class Cart extends Base
     }
 
     /**
+     * @param $entities
+     *
+     * @return array|null
+     */
+    protected function serializeItems($entities)
+    {
+        if (null === $entities) {
+            return;
+        }
+
+        if ($entities instanceof Collection) {
+            return $entities->map(function ($entity) {
+                return $this->serializeModel($entity);
+            })->toArray();
+        }
+
+        return $entities;
+    }
+
+    /**
      * @param array $data
      *
      * @return Collection
@@ -108,11 +136,30 @@ class Cart extends Base
         }
 
         $items = array_map(function ($item){
-            $item['variant_options'] = $this->unserializeOptions($item['variant_options']);
             return $this->unserializeModel($item, CartItemModel::class);
         }, $data);
 
         return new Collection($items);
+    }
+
+    /**
+     * @param $entities
+     *
+     * @return array|null
+     */
+    protected function serializeOptions($entities)
+    {
+        if (null === $entities) {
+            return;
+        }
+
+        if ($entities instanceof Collection) {
+            return $entities->map(function ($entity) {
+                return $this->serializeModel($entity);
+            })->toArray();
+        }
+
+        return $entities;
     }
 
     /**
