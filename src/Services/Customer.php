@@ -137,7 +137,7 @@ class Customer extends CollectionEntity
      * @param int $shopCustomerId
      * @return array
      */
-    public function sendInvite(int $shopCustomerId) {
+    public function sendAccountCreationInvite(int $shopCustomerId) {
         return $this->client->post("admin/customers/{$shopCustomerId}/send_invite.json", [], []);
     }
 }
