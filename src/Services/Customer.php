@@ -132,4 +132,12 @@ class Customer extends CollectionEntity
     {
         return $this->client->delete("admin/customers/{$customer->getId()}.json");
     }
+
+    /**
+     * @param int $shopCustomerId
+     * @return array
+     */
+    public function sendInvite(int $shopCustomerId) {
+        return $this->client->post("admin/customers/{$shopCustomerId}/send_invite.json", [], []);
+    }
 }
