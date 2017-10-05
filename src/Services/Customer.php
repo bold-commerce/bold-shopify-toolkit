@@ -135,9 +135,12 @@ class Customer extends CollectionEntity
 
     /**
      * @param int $shopifyCustomerId
+     * @param array $params
+     * @param array $body
+     *
      * @return array
      */
-    public function sendAccountCreationInvite(int $shopifyCustomerId) {
-        return $this->client->post("admin/customers/{$shopifyCustomerId}/send_invite.json", [], []);
+    public function sendAccountCreationInvite($shopifyCustomerId, $params, $body) {
+        return $this->client->post("admin/customers/{$shopifyCustomerId}/send_invite.json", $params, $body);
     }
 }
