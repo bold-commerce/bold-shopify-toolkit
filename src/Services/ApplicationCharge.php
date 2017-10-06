@@ -36,4 +36,16 @@ class ApplicationCharge extends Base
 
         return $this->unserializeModel($charge['application_charge'], ShopifyApplicationCharge::class);
     }
+
+    /**
+     * @param $id
+     *
+     * @return ShopifyApplicationCharge \ object
+     */
+    public function activate($id)
+    {
+        $charge = $this->client->get("admin/application_charges/$id/activate.json");
+
+        return $this->unserializeModel($charge['application_charge'], ShopifyApplicationCharge::class);
+    }
 }
