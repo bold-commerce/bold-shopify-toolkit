@@ -243,7 +243,6 @@ class RecurringApplicationCharge implements Serializeable
     public function setTest($test)
     {
         $this->test = $test;
-
     }
 
     /**
@@ -293,5 +292,4 @@ class RecurringApplicationCharge implements Serializeable
     {
         return $this->decoratedReturnUrl;
     }
-
 }
