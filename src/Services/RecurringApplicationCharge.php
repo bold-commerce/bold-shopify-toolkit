@@ -45,8 +45,12 @@ class RecurringApplicationCharge extends Base
      */
     public function activate($id)
     {
-        $charge = $this->client->get("admin/recurring_application_charges/$id/activate.json");
+        $recurringApplicationCharge = new ShopifyRecurringApplicationCharge();
+        $recurringApplicationCharge->setId($id);
+        $serializedModel = ['recurring_application_charge' => $this->serializeModel($recurringApplicationCharge)];
 
-        return $this->unserializeModel($charge['recurring_application_charge'], ShopifyApplicationCharge::class);
+        $raw = $this->client->post("admin/recurring_application_charges/$id/activate.json", [], $serializedModel);
+
+        return $this->unserializeModel($raw['recurring_application_charge'], ShopifyApplicationCharge::class);
     }
 }
