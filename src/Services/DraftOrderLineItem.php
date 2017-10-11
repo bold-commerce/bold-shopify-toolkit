@@ -98,10 +98,28 @@ class DraftOrderLineItem extends Base
 
         $lineItemProperties = $draftOrderLineItem->getProperties();
         if (!empty($lineItemProperties)) {
-            $draftOrderLineItem->setProperties([$lineItemProperties]);
+            $draftOrderLineItem->setProperties($this->translateLineItemProperties($lineItemProperties));
         }
 
         return $draftOrderLineItem;
+    }
+
+    /**
+     * @param $lineItemProperties
+     * @return array
+     */
+    private static function translateLineItemProperties($lineItemProperties)
+    {
+        $draftOrderFormattedLineItemProperties = [];
+        foreach ($lineItemProperties as $name => $value) {
+            if (!empty($name) && !empty($value)) {
+                $draftOrderFormattedLineItemProperties[] = [
+                    'name' => $name,
+                    'value' => $value,
+                ];
+            }
+        }
+        return $draftOrderFormattedLineItemProperties;
     }
 
     /**

@@ -123,10 +123,28 @@ class DraftOrder extends Base
 
         $cartAttributes = $cart->getAttributes();
         if (!empty($cartAttributes)) {
-            $draftOrderModel->setNoteAttributes([$cartAttributes]);
+            $draftOrderModel->setNoteAttributes($this->translateNoteAttributes($cartAttributes));
         }
 
         return $draftOrderModel;
+    }
+
+    /**
+     * @param $noteAttributes
+     * @return array
+     */
+    private static function translateNoteAttributes($noteAttributes)
+    {
+        $draftOrderFormattedNoteAttributes = [];
+        foreach ($noteAttributes as $name => $value) {
+            if (!empty($name) && !empty($value)) {
+                $draftOrderFormattedNoteAttributes[] = [
+                    'name' => $name,
+                    'value' => $value,
+                ];
+            }
+        }
+        return $draftOrderFormattedNoteAttributes;
     }
 
     /**
