@@ -12,12 +12,15 @@ use BoldApps\ShopifyToolkit\Models\DraftOrderLineItem as DraftOrderLineItemModel
 use BoldApps\ShopifyToolkit\Services\DraftOrderAppliedDiscount as AppliedDiscountService;
 use BoldApps\ShopifyToolkit\Models\DraftOrderAppliedDiscount as AppliedDiscountModel;
 use BoldApps\ShopifyToolkit\Models\Cart\Cart as CartModel;
+use BoldApps\ShopifyToolkit\Traits\Order as OrderTrait;
 
 /**
  * Class DraftOrder
  */
 class DraftOrder extends Base
 {
+    use OrderTrait;
+
     /**
      * @var TaxLineService
      */
@@ -123,28 +126,10 @@ class DraftOrder extends Base
 
         $cartAttributes = $cart->getAttributes();
         if (!empty($cartAttributes)) {
-            $draftOrderModel->setNoteAttributes($this->translateNoteAttributes($cartAttributes));
+            $draftOrderModel->setNoteAttributes($this->translatePropertiesArray($cartAttributes));
         }
 
         return $draftOrderModel;
-    }
-
-    /**
-     * @param $noteAttributes
-     * @return array
-     */
-    private static function translateNoteAttributes($noteAttributes)
-    {
-        $draftOrderFormattedNoteAttributes = [];
-        foreach ($noteAttributes as $name => $value) {
-            if (!empty($name) && !empty($value)) {
-                $draftOrderFormattedNoteAttributes[] = [
-                    'name' => $name,
-                    'value' => $value,
-                ];
-            }
-        }
-        return $draftOrderFormattedNoteAttributes;
     }
 
     /**

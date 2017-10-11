@@ -10,12 +10,15 @@ use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
 use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
 use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItem;
 use Illuminate\Support\Collection;
+use BoldApps\ShopifyToolkit\Traits\Order as OrderTrait;
 
 /**
  * Class DraftOrderLineItem
  */
 class DraftOrderLineItem extends Base
 {
+    use OrderTrait;
+
     /**
      * @var DraftOrderAppliedDiscount
      */
@@ -98,28 +101,10 @@ class DraftOrderLineItem extends Base
 
         $lineItemProperties = $draftOrderLineItem->getProperties();
         if (!empty($lineItemProperties)) {
-            $draftOrderLineItem->setProperties($this->translateLineItemProperties($lineItemProperties));
+            $draftOrderLineItem->setProperties($this->translatePropertiesArray($lineItemProperties));
         }
 
         return $draftOrderLineItem;
-    }
-
-    /**
-     * @param $lineItemProperties
-     * @return array
-     */
-    private static function translateLineItemProperties($lineItemProperties)
-    {
-        $draftOrderFormattedLineItemProperties = [];
-        foreach ($lineItemProperties as $name => $value) {
-            if (!empty($name) && !empty($value)) {
-                $draftOrderFormattedLineItemProperties[] = [
-                    'name' => $name,
-                    'value' => $value,
-                ];
-            }
-        }
-        return $draftOrderFormattedLineItemProperties;
     }
 
     /**
