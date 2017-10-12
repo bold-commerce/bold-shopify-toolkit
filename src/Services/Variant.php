@@ -106,10 +106,11 @@ class Variant extends Base
 
     /**
      * @param ShopifyVariant $variant
-     * @param null $params
+     * @param array $params
+     *
      * @return Collection
      */
-    public function getMetafields(ShopifyVariant $variant, $params = null)
+    public function getMetafields(ShopifyVariant $variant, $params = [])
     {
         $raw = $this->client->get("admin/variants/{$variant->getId()}/metafields.json", $params);
 
