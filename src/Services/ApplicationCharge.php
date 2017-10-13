@@ -44,6 +44,7 @@ class ApplicationCharge extends Base
      */
     public function activate(ShopifyApplicationCharge $applicationCharge)
     {
+        $id = $applicationCharge->getId();
         $serializedModel = ['application_charge' => $this->serializeModel($applicationCharge)];
 
         $raw = $this->client->post("admin/application_charges/$id/activate.json", [], $serializedModel);
