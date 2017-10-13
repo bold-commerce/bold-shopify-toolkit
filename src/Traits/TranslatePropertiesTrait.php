@@ -3,16 +3,15 @@
 namespace BoldApps\ShopifyToolkit\Traits;
 
 /**
- * Trait Order
+ * Trait TranslatePropertiesTrait
  * @package BoldApps\ShopifyToolkit\Traits
  */
-trait Order
-{
+trait TranslatePropertiesTrait {
     /**
      * @param $orderProperties
      * @return array
      */
-    private static function translatePropertiesArray($orderProperties)
+    private static function translateProperties($orderProperties)
     {
         $translatedOrderProperties = [];
         foreach ($orderProperties as $name => $value) {
