@@ -5,6 +5,8 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
 use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
+use BoldApps\ShopifyToolkit\Contracts\ApiRateLimiter;
+use BoldApps\ShopifyToolkit\Contracts\RateLimitKeyGenerator;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\SetCookie;
@@ -38,18 +40,31 @@ class Client
     protected $apiSleeper;
 
     /**
+     * @var ApiRateLimiter
+     */
+    protected $rateLimiter;
+
+    /**
+     * @var RateLimitKeyGenerator
+     */
+    protected $rateLimitKeyGenerator;
+
+    /**
      * Client constructor.
      * @param ShopBaseInfo $shopBaseInfo
      * @param ShopAccessInfo $shopAccessInfo
      * @param GuzzleClient $client
      * @param ApiSleeper $apiSleeper
+     * @param ApiRateLimiter $rateLimiter
      */
-    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, ApiSleeper $apiSleeper)
+    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, ApiSleeper $apiSleeper, ApiRateLimiter $rateLimiter = null, RateLimitKeyGenerator $rateLimitKeyGenerator)
     {
         $this->shopBaseInfo = $shopBaseInfo;
         $this->shopAccessInfo = $shopAccessInfo;
         $this->client = $client;
         $this->apiSleeper = $apiSleeper;
+        $this->rateLimiter = $rateLimiter;
+        $this->rateLimitKeyGenerator = $rateLimitKeyGenerator;
     }
 
     /**
@@ -181,6 +196,12 @@ class Client
                 $cookieJar->setCookie($cookie);
             }
 
+            // rate limit
+            if($this->rateLimitingEnabled()) {
+                $key = $this->rateLimitKeyGenerator->getKey($this->shopBaseInfo->getMyShopifyDomain());
+                $this->rateLimiter->throttle($key);
+            }
+
             $response = $this->client->send($request,$options);
 
             $result = \GuzzleHttp\json_decode((string) $response->getBody(), true);
@@ -203,5 +224,13 @@ class Client
         }
 
         return $result;
+        }
+
+
+    /**
+     * If rate limiting is enabled (rate limiter and key generator configured)
+     */
+    private function rateLimitingEnabled() {
+        return ($this->rateLimiter != null && $this->rateLimitKeyGenerator != null);
     }
 }
