@@ -57,7 +57,7 @@ class Client
      * @param ApiSleeper $apiSleeper
      * @param ApiRateLimiter $rateLimiter
      */
-    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, ApiSleeper $apiSleeper, ApiRateLimiter $rateLimiter = null, RateLimitKeyGenerator $rateLimitKeyGenerator)
+    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, ApiSleeper $apiSleeper, ApiRateLimiter $rateLimiter = null, RateLimitKeyGenerator $rateLimitKeyGenerator = null)
     {
         $this->shopBaseInfo = $shopBaseInfo;
         $this->shopAccessInfo = $shopAccessInfo;
