@@ -13,19 +13,11 @@ class PriceRule implements Serializeable
     /**
      * @var string
      */
-    protected $code;
-    /**
-     * @var string
-     */
     protected $priceRuleId;
     /**
      * @var string
      */
     protected $usageCount;
-    /**
-     * @var string
-     */
-    protected $status;
     /**
      * @var string
      */
@@ -168,17 +160,17 @@ class PriceRule implements Serializeable
     /**
      * @return int
      */
-    public function getCode()
+    public function getTitle()
     {
-        return $this->code;
+        return $this->title;
     }
 
     /**
      * @param $code
      */
-    public function setCode($code)
+    public function setTitle($title)
     {
-        $this->code = $code;
+        $this->title = $title;
     }
 
     /**
@@ -212,23 +204,6 @@ class PriceRule implements Serializeable
     {
         $this->priceRuleId = $usageCount;
     }
-
-    /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param $title
-     */
-    public function setTitle($title)
-    {
-        $this->code = $title;
-    }
-
 
     /**
      * @return string
@@ -291,7 +266,7 @@ class PriceRule implements Serializeable
     /**
      * @param $valueType
      */
-    public function SetValueType($valueType)
+    public function setValueType($valueType)
     {
         $this->valueType = $valueType;
     }
@@ -307,9 +282,9 @@ class PriceRule implements Serializeable
     /**
      * @param $value
      */
-    public function SetValue($value)
+    public function setValue($value)
     {
-        $this->valueType = $value;
+        $this->value = $value;
     }
 
     /**

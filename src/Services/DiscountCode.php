@@ -20,7 +20,7 @@ class DiscountCode extends Base
     {
         $serializedModel = ['discount_code' => $this->serializeModel($discountCode)];
 
-        $raw = $this->client->post('admin/price_rules.json', [], $serializedModel);
+        $raw = $this->client->post("admin/price_rules/$discountCode->setPriceRuleId()/discount_codes.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['discount_code'], ShopifyDiscountCode::class);
     }

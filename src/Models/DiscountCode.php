@@ -25,10 +25,6 @@ class DiscountCode implements Serializeable
     /**
      * @var string
      */
-    protected $status;
-    /**
-     * @var string
-     */
     protected $createdAt;
     /**
      * @var string
