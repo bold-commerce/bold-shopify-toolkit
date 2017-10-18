@@ -93,6 +93,14 @@ class RecurringApplicationCharge implements Serializeable
     }
 
     /**
+     * @return int
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return string
      */
     public function getActivatedOn()
@@ -235,7 +243,6 @@ class RecurringApplicationCharge implements Serializeable
     public function setTest($test)
     {
         $this->test = $test;
-
     }
 
     /**
@@ -285,5 +292,4 @@ class RecurringApplicationCharge implements Serializeable
     {
         return $this->decoratedReturnUrl;
     }
-
 }
