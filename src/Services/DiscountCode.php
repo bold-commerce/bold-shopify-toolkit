@@ -5,7 +5,7 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Models\DiscountCode as ShopifyDiscountCode;
 
 /**
- * Class ApplicationCharge
+ * Class DiscountCode
  * @package BoldApps\ShopifyToolkit\Services
  */
 class DiscountCode extends Base
@@ -20,35 +20,45 @@ class DiscountCode extends Base
     {
         $serializedModel = ['discount_code' => $this->serializeModel($discountCode)];
 
-        $raw = $this->client->post('admin/application_charges.json', [], $serializedModel);
+        $raw = $this->client->post('admin/price_rules.json', [], $serializedModel);
+
+        return $this->unserializeModel($raw['discount_code'], ShopifyDiscountCode::class);
+    }
+
+
+    /**
+     * @param $id
+     *
+     * @return ShopifyDiscountCode \ object
+     */
+    public function getById($id)
+    {
+        $raw = $this->client->get("admin/price_rules/$id/discount_codes.json");
 
         return $this->unserializeModel($raw['discount_code'], ShopifyDiscountCode::class);
     }
 
     /**
-     * @param $id
+     * @param ShopifyDiscountCode $discountCode
      *
-     * @return ShopifyApplicationCharge \ object
+     * @return object
      */
-    public function getById($id)
+    public function update(ShopifyDiscountCode $discountCode)
     {
-        $charge = $this->client->get("admin/application_charges/$id.json");
+        $serializedModel = ['price_rule' => $this->serializeModel($discountCode)];
 
-        return $this->unserializeModel($charge['application_charge'], ShopifyApplicationCharge::class);
+        $raw = $this->client->put("admin/price_rules/$discountCode->getPriceRuleId()/{$discountCode->getId()}.json", [], $serializedModel);
+
+        return $this->unserializeModel($raw['price_rule'], ShopifyDiscountCode::class);
     }
 
     /**
-     * @param ShopifyApplicationCharge $applicationCharge
+     * @param ShopifyDiscountCode $discountCode
      *
-     * @return ShopifyApplicationCharge \ object
+     * @return object
      */
-    public function activate(ShopifyApplicationCharge $applicationCharge)
+    public function delete(ShopifyDiscountCode $discountCode)
     {
-        $id = $applicationCharge->getId();
-        $serializedModel = ['application_charge' => $this->serializeModel($applicationCharge)];
-
-        $raw = $this->client->post("admin/application_charges/$id/activate.json", [], $serializedModel);
-
-        return $this->unserializeModel($raw['application_charge'], ShopifyApplicationCharge::class);
+        return $this->client->delete("admin/price_rules/$discountCode->getPriceRuleId()/discount_codes/{$discountCode->getId()}.json");
     }
 }
