@@ -19,8 +19,8 @@ class DiscountCode extends Base
     public function create(ShopifyDiscountCode $discountCode)
     {
         $serializedModel = ['discount_code' => $this->serializeModel($discountCode)];
-
-        $raw = $this->client->post("admin/price_rules/$discountCode->setPriceRuleId()/discount_codes.json", [], $serializedModel);
+        $priceRuleId = $discountCode->getPriceRuleId();
+        $raw = $this->client->post("admin/price_rules/$priceRuleId/discount_codes.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['discount_code'], ShopifyDiscountCode::class);
     }
@@ -46,8 +46,8 @@ class DiscountCode extends Base
     public function update(ShopifyDiscountCode $discountCode)
     {
         $serializedModel = ['price_rule' => $this->serializeModel($discountCode)];
-
-        $raw = $this->client->put("admin/price_rules/$discountCode->getPriceRuleId()/{$discountCode->getId()}.json", [], $serializedModel);
+        $priceRuleId = $discountCode->getPriceRuleId();
+        $raw = $this->client->put("admin/price_rules/$priceRuleId/{$discountCode->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['price_rule'], ShopifyDiscountCode::class);
     }
@@ -59,6 +59,7 @@ class DiscountCode extends Base
      */
     public function delete(ShopifyDiscountCode $discountCode)
     {
-        return $this->client->delete("admin/price_rules/$discountCode->getPriceRuleId()/discount_codes/{$discountCode->getId()}.json");
+        $priceRuleId = $discountCode->getPriceRuleId();
+        return $this->client->delete("admin/price_rules/$priceRuleId/discount_codes/{$discountCode->getId()}.json");
     }
 }
