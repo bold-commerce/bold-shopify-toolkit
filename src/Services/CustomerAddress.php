@@ -2,6 +2,7 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Models\Customer as ShopifyCustomer;
 use BoldApps\ShopifyToolkit\Models\CustomerAddress as ShopifyCustomerAddress;
 use Illuminate\Support\Collection;
 
@@ -11,28 +12,30 @@ use Illuminate\Support\Collection;
 class CustomerAddress extends Base
 {
     /**
-     * @param int   $customerId
+     * @param ShopifyCustomer   $customer
      * @param int   $id
      *
      * @return ShopifyCustomerAddress|object
      */
-    public function getById(int $customerId, int $id)
+    public function getById($customer, $id)
     {
+        $customerId = $customer->getId();
         $raw = $this->client->get("admin/customers/$customerId/addresses/$id.json");
 
         return $this->unserializeModel($raw['customer_address'], ShopifyCustomerAddress::class);
     }
 
     /**
-     * @param int   $customerId
+     * @param ShopifyCustomer   $customer
      * @param int   $page
      * @param int   $limit
      * @param array $filter
      *
      * @return Collection
      */
-    public function getAll($customerId, $page = 1, $limit = 50, $filter = [])
+    public function getAll($customer, $page = 1, $limit = 50, $filter = [])
     {
+        $customerId = $customer->getId();
         $raw = $this->client->get("admin/customers/$customerId/addresses.json", array_merge(['page' => $page, 'limit' => $limit], $filter));
 
         $customers = array_map(function ($product) {
@@ -43,13 +46,14 @@ class CustomerAddress extends Base
     }
 
     /**
-     * @param int $customerId
+     * @param ShopifyCustomer   $customer
      * @param ShopifyCustomerAddress $address
      *
      * @return ShopifyCustomerAddress | object
      */
-    public function create(int $customerId, ShopifyCustomerAddress $address)
+    public function create($customer, ShopifyCustomerAddress $address)
     {
+        $customerId = $customer->getId();
         $serializedModel = ['address' => array_merge($this->serializeModel($address))];
 
         $raw = $this->client->post("admin/customers/$customerId/addresses.json", [], $serializedModel);
