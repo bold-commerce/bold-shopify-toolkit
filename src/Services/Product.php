@@ -218,12 +218,13 @@ class Product extends CollectionEntity
 
     /**
      * @param ShopifyProduct $product
+     * @param $filter
      *
      * @return Collection
      */
-    public function getMetafields(ShopifyProduct $product)
+    public function getMetafields(ShopifyProduct $product, $filter = [])
     {
-        $raw = $this->client->get("admin/products/{$product->getId()}/metafields.json");
+        $raw = $this->client->get("admin/products/{$product->getId()}/metafields.json", $filter);
 
         $metafields = array_map(function ($metafield) {
             return $this->unserializeModel($metafield, ShopifyMetafield::class);
