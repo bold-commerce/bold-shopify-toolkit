@@ -25,6 +25,21 @@ class Theme extends Base
     }
 
     /**
+     * @param ShopifyTheme $shopifyTheme
+     *
+     * @return ShopifyTheme
+     */
+    public function update(ShopifyTheme $shopifyTheme)
+    {
+        $id = $shopifyTheme->getId();
+        $serializedModel = ['theme' => $this->serializeModel($shopifyTheme)];
+
+        $raw = $this->client->post("admin/themes/$id.json", [], $serializedModel);
+
+        return $this->unserializeModel($raw['theme'], ShopifyTheme::class);
+    }
+
+    /**
      * @param $id
      *
      * @return ShopifyTheme
