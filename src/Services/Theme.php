@@ -34,7 +34,7 @@ class Theme extends Base
         $id = $shopifyTheme->getId();
         $serializedModel = ['theme' => $this->serializeModel($shopifyTheme)];
 
-        $raw = $this->client->post("admin/themes/$id.json", [], $serializedModel);
+        $raw = $this->client->put("admin/themes/$id.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['theme'], ShopifyTheme::class);
     }
