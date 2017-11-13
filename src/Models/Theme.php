@@ -30,6 +30,9 @@ class Theme implements Serializeable
     /** @var  bool */
     protected $processing;
 
+    /** @var  string */
+    protected $src;
+
     /**
      * @return int
      */
@@ -145,7 +148,8 @@ class Theme implements Serializeable
     /**
      * @return bool
      */
-    public function getPreviewable() {
+    public function getPreviewable()
+    {
         return $this->previewable;
     }
     /**
@@ -167,7 +171,24 @@ class Theme implements Serializeable
     /**
      * @return bool
      */
-    public function getProcessing() {
+    public function getProcessing()
+    {
         return $this->processing;
+    }
+
+    /**
+     * @param string $src
+     */
+    public function setSrc($src)
+    {
+        $this->src = $src;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSrc()
+    {
+        return $this->src;
     }
 }
