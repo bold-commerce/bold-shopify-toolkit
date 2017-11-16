@@ -2,7 +2,7 @@
 
 namespace BoldApps\ShopifyToolkit\Exceptions;
 
-class BadRequestException extends ShopifyException
+class NotAcceptableException extends ShopifyException
 {
 
 }
