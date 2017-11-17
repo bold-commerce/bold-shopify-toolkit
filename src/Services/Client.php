@@ -7,7 +7,9 @@ use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
 use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
 use BoldApps\ShopifyToolkit\Contracts\ApiRateLimiter;
 use BoldApps\ShopifyToolkit\Contracts\RateLimitKeyGenerator;
+use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
+use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\SetCookie;
 use GuzzleHttp\Exception\RequestException;
@@ -106,6 +108,7 @@ class Client
      */
     public function post($path, $params = [], $body, array $cookies = [], $password = null, $frontendApi = false)
     {
+
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
 
         $domain = $frontendApi ? $this->shopBaseInfo->getDomain() : $this->shopBaseInfo->getMyShopifyDomain();
@@ -211,7 +214,10 @@ class Client
             switch ($response->getStatusCode()) {
                 case 401:
                     throw new UnauthorizedException($e->getMessage());
-                //TODO: Add exceptions
+                case 406:
+                    throw new NotAcceptableException($e->getMessage());
+                case 422:
+                    throw new UnprocessableEntityException($e->getMessage());
                 default:
                     throw $e;
             }
