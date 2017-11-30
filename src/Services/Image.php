@@ -17,7 +17,7 @@ class Image extends Base
      *
      * @return object
      */
-    public function create(ShopifyProduct $product, ShopifyImage $image)
+    public function createImageForProduct(ShopifyProduct $product, ShopifyImage $image)
     {
         $serializedModel = ['image' => $this->serializeModel($image)];
 
@@ -41,7 +41,7 @@ class Image extends Base
      * @param array $params
      * @return Collection
      */
-    public function getAll(ShopifyProduct $product, $params = [])
+    public function getAllProductImages(ShopifyProduct $product, $params = [])
     {
         $raw = $this->client->get("admin/products/{$product->getId()}/images.json", $params);
 
@@ -58,7 +58,7 @@ class Image extends Base
      *
      * @return ShopifyImage
      */
-    public function getById(ShopifyProduct $product, $id)
+    public function getProductImageById(ShopifyProduct $product, $id)
     {
         $raw = $this->client->get("admin/products/{$product->getId()}/images/{$id}");
 
@@ -71,7 +71,7 @@ class Image extends Base
      *
      * @return array
      */
-    public function delete(ShopifyProduct $product, ShopifyImage $image)
+    public function deleteProductImage(ShopifyProduct $product, ShopifyImage $image)
     {
         return $this->client->delete("admin/products/{$product->getId()}/images/{$image->getId()}.json");
     }
