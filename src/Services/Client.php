@@ -211,6 +211,11 @@ class Client
         }
         catch (RequestException $e) {
             $response = $e->getResponse();
+
+            if(!$response) {
+                throw $e;
+            }
+
             switch ($response->getStatusCode()) {
                 case 401:
                     throw new UnauthorizedException($e->getMessage());
