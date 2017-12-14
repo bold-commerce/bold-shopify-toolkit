@@ -50,13 +50,14 @@ class Cart extends Base
         $cart = $this->unserializeModel($raw, CartModel::class);
 
         $needToUpdateCart = false;
+        $cartUpdateData = [];
 
-
-        if ($cart->getNote() !== '') {
+        if (!empty($cart->getNote())) {
             $needToUpdateCart = true;
+            $cartUpdateData['note'] = '';
         }
 
-        if(count($cart->getAttributes())) {
+        if (count($cart->getAttributes())) {
             //can't just set attributes to an empty array, gotta set the values to blank
             $clearedAttributes = $cart->getAttributes();
             foreach($clearedAttributes as &$attribute) {
@@ -64,10 +65,11 @@ class Cart extends Base
             }
             $needToUpdateCart = true;
             $cart->setAttributes($clearedAttributes);
+            $cartUpdateData['attributes'] = $clearedAttributes;
         }
 
-        if($needToUpdateCart){
-            $raw = $this->client->post("cart/update.json", [], ['note' => '','attributes' => $cart->getAttributes()], $this->getCartCookie($cartToken), $password, true);
+        if ($needToUpdateCart) {
+            $raw = $this->client->post("cart/update.json", [], $cartUpdateData, $this->getCartCookie($cartToken), $password, true);
 
             return $this->unserializeModel($raw, CartModel::class);
         }
