@@ -59,7 +59,7 @@ class Client
      * @param ApiSleeper $apiSleeper
      * @param ApiRateLimiter $rateLimiter
      */
-    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, ApiSleeper $apiSleeper, ApiRateLimiter $rateLimiter = null, RateLimitKeyGenerator $rateLimitKeyGenerator = null)
+    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, ApiSleeper $apiSleeper, ApiRateLimiter $rateLimiter, RateLimitKeyGenerator $rateLimitKeyGenerator)
     {
         $this->shopBaseInfo = $shopBaseInfo;
         $this->shopAccessInfo = $shopAccessInfo;
@@ -200,10 +200,8 @@ class Client
             }
 
             // rate limit
-            if($this->rateLimitingEnabled()) {
-                $key = $this->rateLimitKeyGenerator->getKey($this->shopBaseInfo->getMyShopifyDomain());
-                $this->rateLimiter->throttle($key);
-            }
+            $key = $this->rateLimitKeyGenerator->getKey($this->shopBaseInfo->getMyShopifyDomain());
+            $this->rateLimiter->throttle($key);
 
             $response = $this->client->send($request,$options);
 
@@ -235,13 +233,5 @@ class Client
         }
 
         return $result;
-        }
-
-
-    /**
-     * If rate limiting is enabled (rate limiter and key generator configured)
-     */
-    private function rateLimitingEnabled() {
-        return ($this->rateLimiter != null && $this->rateLimitKeyGenerator != null);
     }
 }
