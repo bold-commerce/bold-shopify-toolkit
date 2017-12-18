@@ -4,9 +4,7 @@ namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
-use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
-use BoldApps\ShopifyToolkit\Contracts\ApiRateLimiter;
-use BoldApps\ShopifyToolkit\Contracts\RateLimitKeyGenerator;
+use BoldApps\ShopifyToolkit\Contracts\RequestAdjacentActions;
 use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
@@ -59,14 +57,12 @@ class Client
      * @param ApiSleeper $apiSleeper
      * @param ApiRateLimiter $rateLimiter
      */
-    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, ApiSleeper $apiSleeper, ApiRateLimiter $rateLimiter = null, RateLimitKeyGenerator $rateLimitKeyGenerator = null)
+    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, RequestAdjacentActions $requestAdjacentActions)
     {
         $this->shopBaseInfo = $shopBaseInfo;
         $this->shopAccessInfo = $shopAccessInfo;
         $this->client = $client;
-        $this->apiSleeper = $apiSleeper;
-        $this->rateLimiter = $rateLimiter;
-        $this->rateLimitKeyGenerator = $rateLimitKeyGenerator;
+        $this->requestAdjacentActions = $requestAdjacentActions;
     }
 
     /**
@@ -199,11 +195,7 @@ class Client
                 $cookieJar->setCookie($cookie);
             }
 
-            // rate limit
-            if($this->rateLimitingEnabled()) {
-                $key = $this->rateLimitKeyGenerator->getKey($this->shopBaseInfo->getMyShopifyDomain());
-                $this->rateLimiter->throttle($key);
-            }
+            $this->requestAdjacentActions->preRequest($request);
 
             $response = $this->client->send($request,$options);
 
@@ -231,7 +223,7 @@ class Client
             $response = null;
         }
         finally {
-            $this->apiSleeper->sleep($response);
+            $this->requestAdjacentActions->postRequest($response);
         }
 
         return $result;
