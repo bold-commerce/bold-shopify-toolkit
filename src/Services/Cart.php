@@ -85,9 +85,7 @@ class Cart extends Base
      */
     public function update(CartModel $cart, $cartToken, $password = null)
     {
-        $serializedModel = ['cart' => $this->serializeModel($cart)];
-
-        $raw = $this->client->post("cart/update.json", [], $serializedModel, $this->getCartCookie($cartToken), $password, true);
+        $raw = $this->client->post("cart/update.json", [], $this->serializeModel($cart), $this->getCartCookie($cartToken), $password, true);
 
         return $this->unserializeModel($raw, CartModel::class);
     }
