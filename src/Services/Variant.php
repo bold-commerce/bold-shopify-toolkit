@@ -50,6 +50,23 @@ class Variant extends Base
     }
 
     /**
+     * @param int   $productId
+     * @param array $filter
+     *
+     * @return Collection
+     */
+    public function getAllByProductId($productId, $filter = [])
+    {
+        $raw = $this->client->get("admin/products/$productId/variants.json", $filter);
+
+        $variants = array_map(function ($variant) {
+            return $this->unserializeModel($variant, ShopifyVariant::class);
+        }, $raw['variants']);
+
+        return new Collection($variants);
+    }
+
+    /**
      * @param ShopifyVariant $variant
      *
      * @return object
