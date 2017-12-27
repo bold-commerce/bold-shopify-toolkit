@@ -138,6 +138,19 @@ class Order extends CollectionEntity
     }
 
     /**
+     * @param ShopifyOrder $order
+     * @return ShopifyOrder | object
+     */
+    public function create($order)
+    {
+        $serializedModel = ['order' => $this->serializeModel($order)];
+
+        $raw = $this->client->post("admin/orders.json", [], $serializedModel);
+
+        return $this->unserializeModel($raw['order'], ShopifyOrder::class);
+    }
+
+    /**
      * @param $entities
      *
      * @return array|null

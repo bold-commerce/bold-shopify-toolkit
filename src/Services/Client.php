@@ -4,10 +4,10 @@ namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
-use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
-use BoldApps\ShopifyToolkit\Contracts\ApiRateLimiter;
-use BoldApps\ShopifyToolkit\Contracts\RateLimitKeyGenerator;
+use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
+use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
+use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\SetCookie;
 use GuzzleHttp\Exception\RequestException;
@@ -54,17 +54,14 @@ class Client
      * @param ShopBaseInfo $shopBaseInfo
      * @param ShopAccessInfo $shopAccessInfo
      * @param GuzzleClient $client
-     * @param ApiSleeper $apiSleeper
-     * @param ApiRateLimiter $rateLimiter
+     * @param RequestHookInterface $requestHookInterface
      */
-    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, ApiSleeper $apiSleeper, ApiRateLimiter $rateLimiter = null, RateLimitKeyGenerator $rateLimitKeyGenerator = null)
+    public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, RequestHookInterface $requestHookInterface)
     {
         $this->shopBaseInfo = $shopBaseInfo;
         $this->shopAccessInfo = $shopAccessInfo;
         $this->client = $client;
-        $this->apiSleeper = $apiSleeper;
-        $this->rateLimiter = $rateLimiter;
-        $this->rateLimitKeyGenerator = $rateLimitKeyGenerator;
+        $this->requestHookInterface = $requestHookInterface;
     }
 
     /**
@@ -106,6 +103,7 @@ class Client
      */
     public function post($path, $params = [], $body, array $cookies = [], $password = null, $frontendApi = false)
     {
+
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
 
         $domain = $frontendApi ? $this->shopBaseInfo->getDomain() : $this->shopBaseInfo->getMyShopifyDomain();
@@ -196,11 +194,7 @@ class Client
                 $cookieJar->setCookie($cookie);
             }
 
-            // rate limit
-            if($this->rateLimitingEnabled()) {
-                $key = $this->rateLimitKeyGenerator->getKey($this->shopBaseInfo->getMyShopifyDomain());
-                $this->rateLimiter->throttle($key);
-            }
+            $this->requestHookInterface->beforeRequest($request);
 
             $response = $this->client->send($request,$options);
 
@@ -208,10 +202,18 @@ class Client
         }
         catch (RequestException $e) {
             $response = $e->getResponse();
+
+            if(!$response) {
+                throw $e;
+            }
+
             switch ($response->getStatusCode()) {
                 case 401:
                     throw new UnauthorizedException($e->getMessage());
-                //TODO: Add exceptions
+                case 406:
+                    throw new NotAcceptableException($e->getMessage());
+                case 422:
+                    throw new UnprocessableEntityException($e->getMessage());
                 default:
                     throw $e;
             }
@@ -220,17 +222,9 @@ class Client
             $response = null;
         }
         finally {
-            $this->apiSleeper->sleep($response);
+            $this->requestHookInterface->afterRequest($response);
         }
 
         return $result;
-        }
-
-
-    /**
-     * If rate limiting is enabled (rate limiter and key generator configured)
-     */
-    private function rateLimitingEnabled() {
-        return ($this->rateLimiter != null && $this->rateLimitKeyGenerator != null);
     }
 }

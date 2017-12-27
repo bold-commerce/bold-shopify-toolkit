@@ -2,7 +2,7 @@
 
 namespace BoldApps\ShopifyToolkit\Exceptions;
 
-class UnauthorizedException extends \Exception
+class UnauthorizedException extends ShopifyException
 {
 
 }

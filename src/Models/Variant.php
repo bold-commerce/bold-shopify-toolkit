@@ -61,6 +61,9 @@ class Variant implements Serializeable
     protected $title;
 
     /** @var int */
+    protected $inventoryItemId;
+
+    /** @var int */
     protected $inventoryQuantity;
 
     /** @var int */
@@ -357,6 +360,22 @@ class Variant implements Serializeable
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInventoryItemId()
+    {
+        return $this->inventoryItemId;
+    }
+
+    /**
+     * @param int $inventoryItemId
+     */
+    public function setInventoryItemId($inventoryItemId)
+    {
+        $this->inventoryItemId = $inventoryItemId;
     }
 
     /**
