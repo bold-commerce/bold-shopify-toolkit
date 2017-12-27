@@ -147,7 +147,14 @@ class Fulfillment implements Serializeable {
 		return $this->trackingNumbers;
 	}
 
-	/**
+    /**
+     * @param string
+     */
+    public function setTrackingNumbers($trackingNumbers) {
+        $this->trackingNumbers = $trackingNumbers;
+    }
+
+    /**
 	 * @return string
 	 */
 	public function getTrackingUrls() {
