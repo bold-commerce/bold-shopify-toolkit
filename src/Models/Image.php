@@ -36,6 +36,9 @@ class Image implements Serializeable
     /** @var  int */
     protected $height;
 
+    /** @var  string */
+    protected $attachment;
+
     /**
      * @return int
      */
@@ -146,6 +149,22 @@ class Image implements Serializeable
     public function setHeight($height)
     {
         $this->height = $height;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttachment()
+    {
+        return $this->attachment;
+    }
+
+    /**
+     * @param string $attachment
+     */
+    public function setAttachment($attachment)
+    {
+        $this->attachment = $attachment;
     }
 
     /**
