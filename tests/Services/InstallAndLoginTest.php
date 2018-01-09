@@ -28,9 +28,6 @@ class InstallAndLoginTest extends TestCase
     /** @var  \PHPUnit_Framework_MockObject_MockBuilder */
     protected $shopBaseInfoMock;
 
-    /** @var  \PHPUnit_Framework_MockObject_MockBuilder */
-    protected $apiSleeper;
-
     /** @var  HttpClient */
     protected $client;
 
@@ -40,7 +37,6 @@ class InstallAndLoginTest extends TestCase
     public function setUp()
     {
         $this->applicationMock = $this->getMockBuilder(ApplicationInfo::class)->getMock();
-        $this->apiSleeper = $this->getMockBuilder(ApiSleeper::class)->getMock();
         $this->shopBaseInfoMock = $this->getMockBuilder(ShopBaseInfo::class)->getMock();
         $this->client = $this->getMockBuilder(HttpClient::class)->getMock();
 
@@ -58,7 +54,7 @@ class InstallAndLoginTest extends TestCase
      */
     public function testAuthorizeUrlNoRedirect()
     {
-        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock, $this->apiSleeper,
+        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock,
             $this->client);
 
         $this->assertEquals($installService->getAuthorizeUrl('read_products,write_products', ""),
@@ -70,7 +66,7 @@ class InstallAndLoginTest extends TestCase
      */
     public function testAuthorizeUrlWithRedirect()
     {
-        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock, $this->apiSleeper,
+        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock,
             $this->client);
 
         $this->assertEquals($installService->getAuthorizeUrl('read_products,write_products', "https://redirecturi.com"),
@@ -89,7 +85,7 @@ class InstallAndLoginTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new HttpClient(['handler' => $handler]);
 
-        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock, $this->apiSleeper,
+        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock,
             $client);
 
         $code = $installService->getAccessToken("thisisthecode");
@@ -109,7 +105,7 @@ class InstallAndLoginTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new HttpClient(['handler' => $handler]);
 
-        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock, $this->apiSleeper,
+        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock,
             $client);
 
         $installService->getAccessToken("thisisthecode");
@@ -122,7 +118,7 @@ class InstallAndLoginTest extends TestCase
      */
     public function testValidateSignature()
     {
-        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock, $this->apiSleeper,
+        $installService = new InstallAndLogin($this->applicationMock, $this->shopBaseInfoMock, 
             $this->client);
 
         $requestQuery = [
