@@ -2,7 +2,6 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
 use BoldApps\ShopifyToolkit\Contracts\ApplicationInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
@@ -26,27 +25,22 @@ class InstallAndLogin
     /*** @var ShopBaseInfo */
     protected $shopBaseInfo;
 
-    /** @var ApiSleeper */
-    protected $apiSleeper;
 
     /**
      * InstallAndLogin constructor.
      * @param ApplicationInfo $applicationInfo
      * @param ShopBaseInfo $shopBaseInfo
-     * @param ApiSleeper $sleeper
      * @param HttpClient $client
      *
      */
     public function __construct(
         ApplicationInfo $applicationInfo,
         ShopBaseInfo $shopBaseInfo,
-        ApiSleeper $sleeper,
         HttpClient $client
     ) {
         $this->applicationInfo = $applicationInfo;
         $this->shopBaseInfo = $shopBaseInfo;
         $this->client = $client;
-        $this->apiSleeper = $sleeper;
     }
 
     /**
@@ -104,8 +98,6 @@ class InstallAndLogin
                 default:
                     throw $e;
             }
-        } finally {
-            $this->apiSleeper->sleep($response);
         }
 
         return $result;
