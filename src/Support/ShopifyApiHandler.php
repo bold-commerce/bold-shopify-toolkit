@@ -2,19 +2,35 @@
 
 namespace BoldApps\ShopifyToolkit\Support;
 
+use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
 
 /**
  * Class ShopifyApiHandler
  * @package BoldApps\Common\Support
  */
-class ShopifyApiHandler implements ApiSleeper
+class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
 {
 
     /**
      * @var \GuzzleHttp\Psr7\Response|null $response
      */
     private $response;
+
+    /**
+     * @param \GuzzleHttp\Psr7\Request|null $request
+     */
+    public function beforeRequest($request)
+    {
+    }
+
+    /**
+     * @param \GuzzleHttp\Psr7\Response|null $response
+     */
+    public function afterRequest($response)
+    {
+        $this->sleep($response);
+    }
 
     /**
      * @param \GuzzleHttp\Psr7\Response|null $response
