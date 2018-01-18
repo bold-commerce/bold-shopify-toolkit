@@ -108,6 +108,6 @@ class DiscountCode implements Serializeable
      */
     public function setUsageCount($usageCount)
     {
-        $this->priceRuleId = $usageCount;
+        $this->usageCount = $usageCount;
     }
 }
