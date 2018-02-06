@@ -1,34 +1,27 @@
 <?php
+
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 
 class DiscountCode implements Serializeable
 {
-
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $id;
-    /**
-     * @var string
-     */
-    protected $code;
-    /**
-     * @var string
-     */
+
+    /** @var int */
     protected $priceRuleId;
-    /**
-     * @var string
-     */
+
+    /** @var string */
+    protected $code;
+
+    /** @var int */
     protected $usageCount;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $createdAt;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $updatedAt;
 
     /**
@@ -40,11 +33,59 @@ class DiscountCode implements Serializeable
     }
 
     /**
-     * @param $id
+     * @param int $id
      */
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriceRuleId()
+    {
+        return $this->priceRuleId;
+    }
+
+    /**
+     * @param int $priceRuleId
+     */
+    public function setPriceRuleId($priceRuleId)
+    {
+        $this->priceRuleId = $priceRuleId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUsageCount()
+    {
+        return $this->usageCount;
+    }
+
+    /**
+     * @param int $usageCount
+     */
+    public function setUsageCount($usageCount)
+    {
+        $this->usageCount = $usageCount;
     }
 
     /**
@@ -61,53 +102,5 @@ class DiscountCode implements Serializeable
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param $code
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPriceRuleId()
-    {
-        return $this->priceRuleId;
-    }
-
-    /**
-     * @param $priceRuleId
-     */
-    public function setPriceRuleId($priceRuleId)
-    {
-        $this->priceRuleId = $priceRuleId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUsageCount()
-    {
-        return $this->usageCount;
-    }
-
-    /**
-     * @param $usageCount
-     */
-    public function setUsageCount($usageCount)
-    {
-        $this->usageCount = $usageCount;
     }
 }
