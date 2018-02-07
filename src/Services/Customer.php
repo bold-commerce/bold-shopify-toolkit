@@ -5,9 +5,6 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Models\Customer as ShopifyCustomer;
 use Illuminate\Support\Collection;
 
-/**
- * Class Customer.
- */
 class Customer extends CollectionEntity
 {
     /**
@@ -96,6 +93,16 @@ class Customer extends CollectionEntity
     }
 
     /**
+     * @param $array
+     *
+     * @return ShopifyCustomer | object
+     */
+    public function createFromArray($array)
+    {
+        return $this->unserializeModel($array, ShopifyCustomer::class);
+    }
+
+    /**
      * @param ShopifyCustomer $customer
      *
      * @return ShopifyCustomer | object
@@ -134,7 +141,7 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param int $shopifyCustomerId
+     * @param int   $shopifyCustomerId
      * @param array $params
      * @param array $body
      *
