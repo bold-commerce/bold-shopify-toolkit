@@ -130,10 +130,10 @@ class Asset extends Base
     public function create(AssetModel $asset, $themeId = null)
     {
         if (is_null($this->currentTheme)) {
-            $this->loadTheme();
+            $this->loadTheme($themeId);
         }
 
-        $themeId = ($themeId == null)?$this->currentTheme->getId(): $themeId;
+        $themeId = $this->currentTheme->getId();
 
         $serializedModel = ['asset' => $this->serializeModel($asset)];
 
