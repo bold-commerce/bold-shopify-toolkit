@@ -123,7 +123,7 @@ class Asset extends Base
 
     /**
      * @param AssetModel $asset
-     * @param int $themeId
+     * @param integer $themeId
      *
      * @return object
      */
