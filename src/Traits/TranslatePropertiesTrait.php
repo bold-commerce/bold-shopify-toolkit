@@ -15,7 +15,7 @@ trait TranslatePropertiesTrait {
     {
         $translatedOrderProperties = [];
         foreach ($orderProperties as $name => $value) {
-            if (!empty($name) && !empty($value)) {
+            if (!empty($name) && isset($value) ) {
                 $translatedOrderProperties[] = [
                     'name' => $name,
                     'value' => $value,
