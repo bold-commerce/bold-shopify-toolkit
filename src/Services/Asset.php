@@ -123,13 +123,14 @@ class Asset extends Base
 
     /**
      * @param AssetModel $asset
+     * @param int $themeId
      *
      * @return object
      */
-    public function create(AssetModel $asset)
+    public function create(AssetModel $asset, $themeId = null)
     {
         if (is_null($this->currentTheme)) {
-            $this->loadTheme();
+            $this->loadTheme($themeId);
         }
 
         $themeId = $this->currentTheme->getId();
