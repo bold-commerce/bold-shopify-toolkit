@@ -157,12 +157,12 @@ class Product extends CollectionEntity
         $limit = 250;
 
         for ($i = 0; $i < ceil(count($productIds) / $limit); ++$i) {
-            $sliced_ids = implode(',', array_slice($productIds, ($i * $limit), $limit));
+            $idList = implode(',', array_slice($productIds, ($i * $limit), $limit));
 
             $params = array_merge(
                 $filter,
                 [
-                    'ids' => $sliced_ids,
+                    'ids' => $idList,
                     'limit' => $limit,
                 ]
             );
