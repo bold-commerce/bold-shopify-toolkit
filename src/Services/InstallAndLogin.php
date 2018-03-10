@@ -98,12 +98,15 @@ class InstallAndLogin
         } catch (RequestException $e) {
             $response = null;
 
-            switch ($e->getResponse()->getStatusCode()) {
-                case 400:
-                    throw new BadRequestException(400, null, $e);
-                default:
-                    throw $e;
+            if ($e->getResponse() !== null) {
+                switch ($e->getResponse()->getStatusCode()) {
+                    case 400:
+                        throw new BadRequestException(400, null, $e);
+                    default:
+                        throw $e;
+                }
             }
+            throw $e;
         } finally {
             $this->apiSleeper->sleep($response);
         }

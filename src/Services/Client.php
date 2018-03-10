@@ -157,38 +157,38 @@ class Client
         ];
 
         try {
-            if($password) {
+            if ($password) {
 
                 $uri = new Uri(sprintf('https://%s/password', $this->shopBaseInfo->getMyShopifyDomain()));
                 $uri = $uri->withQuery(http_build_query(['password' => $password]));
                 $authRequest = new Request('GET', $uri);
-                $this->client->send($authRequest,$options);
+                $this->client->send($authRequest, $options);
 
             }
-            foreach($cookies as $cookie) {
+            foreach ($cookies as $cookie) {
                 //set the cookies that were passed in for the next request
                 $cookie->setDomain($this->shopBaseInfo->getMyShopifyDomain());
                 $cookieJar->setCookie($cookie);
             }
 
-            $response = $this->client->send($request,$options);
+            $response = $this->client->send($request, $options);
 
-            $result = \GuzzleHttp\json_decode((string) $response->getBody(), true);
-        }
-        catch (RequestException $e) {
+            $result = \GuzzleHttp\json_decode((string)$response->getBody(), true);
+        } catch (RequestException $e) {
             $response = $e->getResponse();
-            switch ($response->getStatusCode()) {
-                case 401:
-                    throw new UnauthorizedException($e->getMessage());
-                //TODO: Add exceptions
-                default:
-                    throw $e;
+            if ($response !== null) {
+                switch ($response->getStatusCode()) {
+                    case 401:
+                        throw new UnauthorizedException($e->getMessage());
+                    //TODO: Add exceptions
+                    default:
+                        throw $e;
+                }
             }
-        }
-        catch (\Exception $e){
+            throw $e;
+        } catch (\Exception $e) {
             $response = null;
-        }
-        finally {
+        } finally {
             $this->apiSleeper->sleep($response);
         }
 

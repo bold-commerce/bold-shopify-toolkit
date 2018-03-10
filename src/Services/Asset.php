@@ -69,14 +69,17 @@ class Asset extends Base
                 ],
             ]);
             $asset = $this->unserializeModel($raw['asset'], \BoldApps\ShopifyToolkit\Models\Asset::class);
-        } catch(RequestException $e) {
-            switch ($e->getResponse()->getStatusCode()) {
-                case 404:
-                    $asset = null;
-                    break;
-                default:
-                    throw $e;
+        } catch (RequestException $e) {
+            if ($e->getResponse() !== null) {
+                switch ($e->getResponse()->getStatusCode()) {
+                    case 404:
+                        $asset = null;
+                        break;
+                    default:
+                        throw $e;
+                }
             }
+            throw $e;
         }
 
         return $asset;
