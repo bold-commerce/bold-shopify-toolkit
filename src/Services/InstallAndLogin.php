@@ -90,7 +90,9 @@ class InstallAndLogin
                 $result = $responseObject['access_token'];
             }
         } catch (RequestException $e) {
-            $response = null;
+            if (!$e->hasResponse()) {
+                throw $e;
+            }
 
             switch ($e->getResponse()->getStatusCode()) {
                 case 400:
