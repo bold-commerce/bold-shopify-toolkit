@@ -133,6 +133,15 @@ class DraftOrder extends Base
     }
 
     /**
+     * @param $id
+     * @return object
+     */
+    public function delete($id)
+    {
+        return $this->client->delete("admin/draft_orders/$id.json");
+    }
+
+    /**
      * @param $entities
      * @return array
      */
