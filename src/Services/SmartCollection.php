@@ -9,26 +9,21 @@ use BoldApps\ShopifyToolkit\Services\SmartCollectionRule as SmartCollectionRuleS
 
 use Illuminate\Support\Collection;
 
-/**
- * Class SmartCollection
- */
 class SmartCollection extends CollectionEntity
 {
-
-    /**
-     * @var SmartCollectionRuleService
-     */
+    /** @var SmartCollectionRuleService */
     protected $ruleService;
 
     /**
      * SmartCollection constructor.
-     * @param Client $client
+     * @param Client                     $client
      * @param SmartCollectionRuleService $ruleService
      */
     public function __construct(
         ShopifyClient $client,
         SmartCollectionRuleService $ruleService
-    ) {
+    )
+    {
         $this->ruleService = $ruleService;
         parent::__construct($client);
     }
@@ -37,30 +32,40 @@ class SmartCollection extends CollectionEntity
      * @var array
      */
     protected $unserializationExceptions = [
-        'rules' => 'unserializeRules'
+        'rules' => 'unserializeRules',
     ];
 
     /**
      * @var array
      */
     protected $serializationExceptions = [
-        'rules' => 'serializeRules'
+        'rules' => 'serializeRules',
     ];
 
     /**
      * @param ShopifySmartCollection $collection
-     * @param bool $publish
+     * @param bool                   $publish
      * @return object
      */
     public function create(ShopifySmartCollection $collection, $publish = true)
     {
         $serializedModel = [
-            'smart_collection' => array_merge($this->serializeModel($collection), ['published' => $publish])
+            'smart_collection' => array_merge($this->serializeModel($collection), ['published' => $publish]),
         ];
 
         $raw = $this->client->post('admin/smart_collections.json', [], $serializedModel);
 
         return $this->unserializeModel($raw['smart_collection'], ShopifySmartCollection::class);
+    }
+
+    /**
+     * @param $array
+     *
+     * @return ShopifySmartCollection | object
+     */
+    public function createFromArray($array)
+    {
+        return $this->unserializeModel($array, ShopifySmartCollection::class);
     }
 
     /**
@@ -76,8 +81,8 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param int $page
-     * @param int $limit
+     * @param int   $page
+     * @param int   $limit
      * @param array $filter
      *
      * @return Collection
@@ -125,8 +130,7 @@ class SmartCollection extends CollectionEntity
 
     /**
      * @param ShopifySmartCollection $collection
-     * @return object
-     *
+     * @return array
      */
     public function delete(ShopifySmartCollection $collection)
     {

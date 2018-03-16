@@ -78,7 +78,7 @@ $variant->getPrice(); //99.0
 Get a collection of variant models and filter it so that we only get their titles, using the product ID:
 ```php
 /** @var Illuminate\Support\Collection $variants */
-$variants = $variantService->getAllByProductId(327661486091, ['fields' => 'title']);
+$variants = $variantService->getAllByProductId(327661486091, ["fields" => "title"]);
  
 /** @var BoldApps\ShopifyToolkit\Models\Variant $variant */
 foreach ($variants as $variant) {
