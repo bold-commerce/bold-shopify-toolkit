@@ -2,7 +2,7 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Models\SmartCollectionRule;
+use BoldApps\ShopifyToolkit\Models\SmartCollectionRule as ShopifySmartCollectionRule;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use BoldApps\ShopifyToolkit\Models\SmartCollection as ShopifySmartCollection;
 use BoldApps\ShopifyToolkit\Services\SmartCollectionRule as SmartCollectionRuleService;
@@ -197,7 +197,7 @@ class SmartCollection extends CollectionEntity
         $ruleService = &$this->ruleService;
 
         $options = array_map(function ($option) use ($ruleService) {
-            return $ruleService->unserializeModel($option, SmartCollectionRule::class);
+            return $ruleService->unserializeModel($option, ShopifySmartCollectionRule::class);
         }, $data);
 
         return new Collection($options);
