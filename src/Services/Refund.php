@@ -48,6 +48,16 @@ class Refund extends Base
     }
 
     /**
+     * @param $array
+     *
+     * @return ShopifyRefund | object
+     */
+    public function createFromArray($array)
+    {
+        return $this->unserializeModel($array, ShopifyRefund::class);
+    }
+
+    /**
      * @param $entity
      * @return array|null
      */
