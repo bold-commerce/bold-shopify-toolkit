@@ -50,6 +50,6 @@ class RecurringApplicationCharge extends Base
 
         $raw = $this->client->post("admin/recurring_application_charges/$id/activate.json", [], $serializedModel);
 
-        return $this->unserializeModel($raw['recurring_application_charge'], ShopifyApplicationCharge::class);
+        return $this->unserializeModel($raw['recurring_application_charge'], ShopifyRecurringApplicationCharge::class);
     }
 }
