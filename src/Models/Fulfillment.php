@@ -132,6 +132,14 @@ class Fulfillment implements Serializeable
     }
 
     /**
+     * @param array $lineItems
+     */
+    public function setLineItems($lineItems)
+    {
+        $this->lineItems = $lineItems;
+    }
+
+    /**
      * @return array
      */
     public function getReceipt()
@@ -156,6 +164,14 @@ class Fulfillment implements Serializeable
     }
 
     /**
+     * @param string $trackingCompany
+     */
+    public function setTrackingCompany($trackingCompany)
+    {
+        $this->trackingCompany = $trackingCompany;
+    }
+
+    /**
      * @return string
      */
     public function getTrackingNumbers()
@@ -177,6 +193,14 @@ class Fulfillment implements Serializeable
     public function getTrackingUrls()
     {
         return $this->trackingUrls;
+    }
+
+    /**
+     * @param array $trackingUrls
+     */
+    public function setTrackingUrls($trackingUrls)
+    {
+        $this->trackingUrls = $trackingUrls;
     }
 
     /**
