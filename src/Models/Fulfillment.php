@@ -134,8 +134,9 @@ class Fulfillment implements Serializeable
 	/**
 	 * @param array $lineItems
 	 */
-	public function setLineItems($lineItems) {
-		$this->lineItems = $lineItems;
+	public function setLineItems($lineItems)
+	{
+       $this->lineItems = $lineItems;
 	}
 
     /**
@@ -165,7 +166,8 @@ class Fulfillment implements Serializeable
 	/**
 	 * @param string $trackingCompany
 	 */
-	public function setTrackingCompany($trackingCompany) {
+	public function setTrackingCompany($trackingCompany)
+	{
 		$this->trackingCompany = $trackingCompany;
 	}
 
@@ -196,7 +198,8 @@ class Fulfillment implements Serializeable
 	/**
 	 * @param array $trackingUrls
 	 */
-	public function setTrackingUrls($trackingUrls) {
+	public function setTrackingUrls($trackingUrls)
+	{
 		$this->trackingUrls = $trackingUrls;
 	}
 
