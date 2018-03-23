@@ -168,7 +168,7 @@ class Fulfillment implements Serializeable
      */
     public function setTrackingCompany($trackingCompany)
     {
-	    $this->trackingCompany = $trackingCompany;
+        $this->trackingCompany = $trackingCompany;
     }
 
     /**
