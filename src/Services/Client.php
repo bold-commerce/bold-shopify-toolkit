@@ -6,6 +6,7 @@ use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
 use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
+use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
 use GuzzleHttp\Client as GuzzleClient;
@@ -214,6 +215,8 @@ class Client
                     throw new NotAcceptableException($e->getMessage());
                 case 422:
                     throw new UnprocessableEntityException($e->getMessage());
+                case 429:
+                    throw new TooManyRequestsException($e->getMessage());
                 default:
                     throw $e;
             }

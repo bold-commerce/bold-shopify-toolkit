@@ -1,6 +1,7 @@
 <?php
 namespace BoldApps\Common\Test\Services\Shopify;
 
+use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use \PHPUnit\Framework\TestCase;
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Shop;
@@ -62,5 +63,24 @@ class ClientTest extends TestCase
         for($i = 0; $i < $times; $i++){
             $raw = $this->client->get("admin/orders/1.json");
         }
+    }
+
+    public function testClientWillThrowExceptionWhenGetting429()
+    {
+        // mock http client
+        $mock = new MockHandler([new Response(429)]);
+        $handler = HandlerStack::create($mock);
+        $mockHttpClient = new \GuzzleHttp\Client(['handler' => $handler]);
+
+        $this->mockShopBaseInfo->expects($this->any())
+            ->method('getMyShopifyDomain')
+            ->will($this->returnValue($this->myShopifyDomain));;
+
+        $this->expectException(TooManyRequestsException::class);
+
+        $this->client = new Client($this->mockShopBaseInfo, $this->mockShopAccessInfo, $mockHttpClient,
+            $this->mockRequestHookInterface);
+
+        $this->client->get("admin/orders/1.json");
     }
 }
