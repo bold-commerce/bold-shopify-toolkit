@@ -209,7 +209,7 @@ class RefundTest extends TestCase
 
         $jsonArray = (array)json_decode($refundJson, true);
 
-        $actual = $this->refundService->unserializeModel($jsonArray, ShopifyRefund::class);
+        $actual = $this->refundService->createFromArray($jsonArray);
 
         $this->assertEquals($expected, $actual);
     }

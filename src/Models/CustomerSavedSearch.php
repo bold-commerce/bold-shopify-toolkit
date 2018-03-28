@@ -4,21 +4,22 @@ namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 
-/**
- * Class CustomerSavedSearch
- * @package BoldApps\ShopifyToolkit\Models
- */
 class CustomerSavedSearch implements Serializeable
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $id;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $name;
+
+    /** @var string */
+    protected $query;
+
+    /** @var string */
+    protected $createdAt;
+
+    /** @var string */
+    protected $updatedAt;
 
     /**
      * @return int
@@ -69,7 +70,18 @@ class CustomerSavedSearch implements Serializeable
     }
 
     /**
-     * @var string
+     * @return string
      */
-    protected $query;
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 }

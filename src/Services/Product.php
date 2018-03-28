@@ -146,6 +146,39 @@ class Product extends CollectionEntity
     }
 
     /**
+     * @param $productIds
+     * @param array $filter
+     *
+     * @return Collection
+     */
+    public function getByProductIdArray($productIds, $filter = [])
+    {
+        $products = [];
+        $limit = 250;
+
+        for ($i = 0; $i < ceil(count($productIds) / $limit); ++$i) {
+            $idList = implode(',', array_slice($productIds, ($i * $limit), $limit));
+
+            $params = array_merge(
+                $filter,
+                [
+                    'ids' => $idList,
+                    'limit' => $limit,
+                ]
+            );
+
+            $shopifyProductsBatch = $this->getByParams($params);
+
+            /** @var ShopifyProduct $shopifyProduct */
+            foreach ($shopifyProductsBatch as $shopifyProduct) {
+                $products[] = $shopifyProduct;
+            }
+        }
+
+        return new Collection($products);
+    }
+
+    /**
      * @param ShopifyProduct $product
      *
      * @return object

@@ -72,7 +72,11 @@ class Asset extends Base
                 ],
             ]);
             $asset = $this->unserializeModel($raw['asset'], AssetModel::class);
-        } catch(RequestException $e) {
+        } catch (RequestException $e) {
+            if (!$e->hasResponse()) {
+                throw $e;
+            }
+
             switch ($e->getResponse()->getStatusCode()) {
                 case 404:
                     $asset = null;

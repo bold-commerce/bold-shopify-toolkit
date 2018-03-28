@@ -58,6 +58,7 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
         $priceRuleEntity->setUsageLimit(null);
         $priceRuleEntity->setCustomerSelection('all');
         $priceRuleEntity->setPrerequisiteSavedSearchIds([]);
+        $priceRuleEntity->setPrerequisiteCustomerIds([]);
         $priceRuleEntity->setPrerequisiteSubtotalRange(array("greater_than_or_equal_to" => "10.0"));
         $priceRuleEntity->setPrerequisiteShippingPriceRange(array("less_than_or_equal_to" => "17.0"));
         $priceRuleEntity->setEntitledProductIds([]);
@@ -93,6 +94,7 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
             "entitled_collection_ids": [],
             "entitled_country_ids": [],
             "prerequisite_saved_search_ids": [],
+            "prerequisite_customer_ids": [],
             "prerequisite_subtotal_range": {"greater_than_or_equal_to": "10.0"},
             "prerequisite_shipping_price_range": {"less_than_or_equal_to": "17.0"},
             "title": "WINTER SALE"
@@ -119,9 +121,10 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
             "entitled_collection_ids" => array(),
             "entitled_country_ids" => array(),
             "prerequisite_saved_search_ids" => array(),
+            "prerequisite_customer_ids" => array(),
             "prerequisite_subtotal_range" => array("greater_than_or_equal_to" => "10.0"),
             "prerequisite_shipping_price_range" => array("less_than_or_equal_to" => "17.0"),
-            "title" => "WINTER SALE"
+            "title" => "WINTER SALE",
         ];
     }
 }
