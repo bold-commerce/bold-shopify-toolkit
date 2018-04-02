@@ -10,7 +10,6 @@ use BoldApps\ShopifyToolkit\Models\ApplicationCharge as ShopifyApplicationCharge
  */
 class ApplicationCharge extends Base
 {
-
     /**
      * @param ShopifyApplicationCharge $applicationCharge
      *
@@ -50,5 +49,15 @@ class ApplicationCharge extends Base
         $raw = $this->client->post("admin/application_charges/$id/activate.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['application_charge'], ShopifyApplicationCharge::class);
+    }
+
+    /**
+     * @param ShopifyApplicationCharge $applicationCharge
+     *
+     * @return array
+     */
+    public function delete(ShopifyApplicationCharge $applicationCharge)
+    {
+        return $this->client->delete("admin/application_charges/{$applicationCharge->getId()}.json");
     }
 }
