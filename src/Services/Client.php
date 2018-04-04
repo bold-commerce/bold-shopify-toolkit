@@ -6,6 +6,7 @@ use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
 use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
+use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
 use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
@@ -166,6 +167,10 @@ class Client
      *
      * @return array|null
      * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws NotAcceptableException
+     * @throws UnprocessableEntityException
+     * @throws TooManyRequestsException
      */
     private function sendRequestToShopify(Request $request, array $cookies = [], $password = null)
     {
@@ -211,6 +216,8 @@ class Client
             switch ($response->getStatusCode()) {
                 case 401:
                     throw new UnauthorizedException($e->getMessage());
+                case 404:
+                    throw new NotFoundException($e->getMessage());
                 case 406:
                     throw new NotAcceptableException($e->getMessage());
                 case 422:
