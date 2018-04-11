@@ -10,7 +10,6 @@ use BoldApps\ShopifyToolkit\Models\RecurringApplicationCharge as ShopifyRecurrin
  */
 class RecurringApplicationCharge extends Base
 {
-
     /**
      * @param ShopifyRecurringApplicationCharge $recurringApplicationCharge
      *
@@ -24,7 +23,6 @@ class RecurringApplicationCharge extends Base
 
         return $this->unserializeModel($raw['recurring_application_charge'], ShopifyRecurringApplicationCharge::class);
     }
-
 
     /**
      * @param $id
@@ -51,5 +49,15 @@ class RecurringApplicationCharge extends Base
         $raw = $this->client->post("admin/recurring_application_charges/$id/activate.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['recurring_application_charge'], ShopifyRecurringApplicationCharge::class);
+    }
+
+    /**
+     * @param ShopifyRecurringApplicationCharge $recurringApplicationCharge
+     *
+     * @return array
+     */
+    public function delete(ShopifyRecurringApplicationCharge $recurringApplicationCharge)
+    {
+        return $this->client->delete("admin/recurring_application_charges/{$recurringApplicationCharge->getId()}.json");
     }
 }
