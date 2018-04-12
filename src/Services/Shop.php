@@ -39,7 +39,7 @@ class Shop extends Base
     {
         $serializedModel = [ 'metafield' => array_merge($this->serializeModel($metafield)) ];
 
-        $raw = $this->client->post("admin/{$shop->getId()}/metafields.json", [], $serializedModel);
+        $raw = $this->client->post("admin/metafields.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
