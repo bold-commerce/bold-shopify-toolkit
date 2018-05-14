@@ -21,7 +21,7 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
      */
     public function ShopifyPriceRuleSerializesProperly()
     {
-        $priceRuleEntity = $this->createPriceRuleEntity();
+        $priceRuleEntity = $this->priceRuleService->createFromArray($this->getPriceRuleArray());
 
         $expected = $this->getPriceRuleArray();
         $actual = $this->priceRuleService->serializeModel($priceRuleEntity);
@@ -37,40 +37,10 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
         $priceRuleJson = $this->getPriceRuleJson();
         $jsonArray = (array)json_decode($priceRuleJson, true);
 
-        $expected = $this->createPriceRuleEntity();
+        $expected = $this->priceRuleService->createFromArray($this->getPriceRuleArray());
         $actual = $this->priceRuleService->unserializeModel($jsonArray, ShopifyPriceRule::class);
 
         $this->assertEquals($expected, $actual);
-    }
-
-    private function createPriceRuleEntity()
-    {
-        /** @var ShopifyPriceRule $priceRuleEntity */
-        $priceRuleEntity = new ShopifyPriceRule();
-        $priceRuleEntity->setId(507328175);
-        $priceRuleEntity->setTitle('WINTER SALE');
-        $priceRuleEntity->setTargetType('line_item');
-        $priceRuleEntity->setTargetSelection('all');
-        $priceRuleEntity->setAllocationMethod('across');
-        $priceRuleEntity->setValueType('fixed_amount');
-        $priceRuleEntity->setValue("-10.0");
-        $priceRuleEntity->setOncePerCustomer(false);
-        $priceRuleEntity->setUsageLimit(null);
-        $priceRuleEntity->setCustomerSelection('all');
-        $priceRuleEntity->setPrerequisiteSavedSearchIds([]);
-        $priceRuleEntity->setPrerequisiteCustomerIds([]);
-        $priceRuleEntity->setPrerequisiteSubtotalRange(array("greater_than_or_equal_to" => "10.0"));
-        $priceRuleEntity->setPrerequisiteShippingPriceRange(array("less_than_or_equal_to" => "17.0"));
-        $priceRuleEntity->setEntitledProductIds([]);
-        $priceRuleEntity->setEntitledVariantIds([]);
-        $priceRuleEntity->setEntitledCollectionIds([]);
-        $priceRuleEntity->setEntitledCountryIds([]);
-        $priceRuleEntity->setStartsAt("2017-09-06T16:23:01-04:00");
-        $priceRuleEntity->setEndsAt("2017-09-18T16:23:01-04:00");
-        $priceRuleEntity->setCreatedAt("2017-09-12T16:23:01-04:00");
-        $priceRuleEntity->setUpdatedAt("2017-09-12T16:23:01-04:00");
-
-        return $priceRuleEntity;
     }
 
     private function getPriceRuleJson()
@@ -95,8 +65,16 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
             "entitled_country_ids": [],
             "prerequisite_saved_search_ids": [],
             "prerequisite_customer_ids": [],
+            "prerequisite_product_ids": [],
+            "prerequisite_variant_ids": [],
+            "prerequisite_collection_ids": [],
             "prerequisite_subtotal_range": {"greater_than_or_equal_to": "10.0"},
+            "prerequisite_quantity_range": {"greater_than_or_equal_to": 5},
             "prerequisite_shipping_price_range": {"less_than_or_equal_to": "17.0"},
+            "prerequisite_to_entitlement_quantity_ratio": {
+                "prerequisite_quantity": 1,
+                "entitled_quantity": 2
+            },
             "title": "WINTER SALE"
         }';
     }
@@ -122,8 +100,13 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
             "entitled_country_ids" => array(),
             "prerequisite_saved_search_ids" => array(),
             "prerequisite_customer_ids" => array(),
+            "prerequisite_product_ids" => array(),
+            "prerequisite_variant_ids" => array(),
+            "prerequisite_collection_ids" => array(),
             "prerequisite_subtotal_range" => array("greater_than_or_equal_to" => "10.0"),
+            "prerequisite_quantity_range" => array("greater_than_or_equal_to" => 5),
             "prerequisite_shipping_price_range" => array("less_than_or_equal_to" => "17.0"),
+            "prerequisite_to_entitlement_quantity_ratio" => array("prerequisite_quantity" => 1, "entitled_quantity" => 2),
             "title" => "WINTER SALE",
         ];
     }
