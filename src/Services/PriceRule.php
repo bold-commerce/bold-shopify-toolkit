@@ -68,6 +68,16 @@ class PriceRule extends CollectionEntity
     }
 
     /**
+     * @param $array
+     *
+     * @return object
+     */
+    public function createFromArray($array)
+    {
+        return $this->unserializeModel($array, ShopifyPriceRule::class);
+    }
+
+    /**
      * @param ShopifyPriceRule $priceRule
      *
      * @return ShopifyPriceRule | object
