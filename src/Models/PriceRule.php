@@ -49,6 +49,21 @@ class PriceRule implements Serializeable
     protected $prerequisiteShippingPriceRange;
 
     /** @var array */
+    protected $prerequisiteQuantityRange;
+
+    /** @var array */
+    protected $prerequisiteToEntitlementQuantityRatio;
+
+    /** @var array */
+    protected $prerequisiteVariantIds;
+
+    /** @var array */
+    protected $prerequisiteProductIds;
+
+    /** @var array */
+    protected $prerequisiteCollectionIds;
+
+    /** @var array */
     protected $entitledProductIds;
 
     /** @var array */
@@ -294,6 +309,86 @@ class PriceRule implements Serializeable
     public function setPrerequisiteShippingPriceRange($prerequisiteShippingPriceRange)
     {
         $this->prerequisiteShippingPriceRange = $prerequisiteShippingPriceRange;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrerequisiteQuantityRange()
+    {
+        return $this->prerequisiteQuantityRange;
+    }
+
+    /**
+     * @param array $prerequisiteQuantityRange
+     */
+    public function setPrerequisiteQuantityRange($prerequisiteQuantityRange)
+    {
+        $this->prerequisiteQuantityRange = $prerequisiteQuantityRange;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrerequisiteToEntitlementQuantityRatio()
+    {
+        return $this->prerequisiteToEntitlementQuantityRatio;
+    }
+
+    /**
+     * @param array $prerequisiteToEntitlementQuantityRatio
+     */
+    public function setPrerequisiteToEntitlementQuantityRatio($prerequisiteToEntitlementQuantityRatio)
+    {
+        $this->prerequisiteToEntitlementQuantityRatio = $prerequisiteToEntitlementQuantityRatio;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrerequisiteVariantIds()
+    {
+        return $this->prerequisiteVariantIds;
+    }
+
+    /**
+     * @param array $prerequisiteVariantIds
+     */
+    public function setPrerequisiteVariantIds($prerequisiteVariantIds)
+    {
+        $this->prerequisiteVariantIds = $prerequisiteVariantIds;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrerequisiteProductIds()
+    {
+        return $this->prerequisiteProductIds;
+    }
+
+    /**
+     * @param array $prerequisiteProductIds
+     */
+    public function setPrerequisiteProductIds($prerequisiteProductIds)
+    {
+        $this->prerequisiteProductIds = $prerequisiteProductIds;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrerequisiteCollectionIds()
+    {
+        return $this->prerequisiteCollectionIds;
+    }
+
+    /**
+     * @param array $prerequisiteCollectionIds
+     */
+    public function setPrerequisiteCollectionIds($prerequisiteCollectionIds)
+    {
+        $this->prerequisiteCollectionIds = $prerequisiteCollectionIds;
     }
 
     /**
