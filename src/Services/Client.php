@@ -16,39 +16,24 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 
-/**
- * Class Client.
- */
 class Client
 {
-    /**
-     * @var ShopBaseInfo
-     */
+    /** @var ShopBaseInfo */
     protected $shopBaseInfo;
 
-    /**
-     * @var ShopAccessInfo
-     */
+    /** @var ShopAccessInfo */
     protected $shopAccessInfo;
 
-    /**
-     * @var Client|GuzzleClient
-     */
+    /** @var Client|GuzzleClient */
     protected $client;
 
-    /**
-     * @var ApiSleeper
-     */
+    /** @var ApiSleeper */
     protected $apiSleeper;
 
-    /**
-     * @var ApiRateLimiter
-     */
+    /** @var ApiRateLimiter */
     protected $rateLimiter;
 
-    /**
-     * @var RateLimitKeyGenerator
-     */
+    /** @var RateLimitKeyGenerator */
     protected $rateLimitKeyGenerator;
 
     /**
@@ -89,6 +74,23 @@ class Client
         $request = new Request('GET', $uri, $headers);
 
         return $this->sendRequestToShopify($request, $cookies, $password);
+    }
+
+    /**
+     * @param string $path
+     * @param array  $params
+     */
+    public function getRedirectLocation($path, $params = [])
+    {
+        $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken()];
+
+        $domain = $this->shopBaseInfo->getMyShopifyDomain();
+
+        $uri = new Uri(sprintf('https://%s/%s', $domain, $path));
+        $uri = $uri->withQuery(http_build_query($params));
+        $request = new Request('GET', $uri, $headers);
+
+        return $this->getRedirectResponseFromShopify($request);
     }
 
     /**
@@ -236,5 +238,93 @@ class Client
         }
 
         return $result;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return null|string
+     *
+     * @throws NotAcceptableException
+     * @throws NotFoundException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
+     * @throws UnprocessableEntityException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function getRedirectResponseFromShopify(Request $request)
+    {
+        $result = null;
+        $locationIndex = 'Location';
+
+        $options = [
+            'allow_redirects' => false,
+        ];
+
+        try {
+            $this->requestHookInterface->beforeRequest($request);
+
+            $response = $this->client->send($request, $options);
+
+            // Redirect response
+            if ($response->getStatusCode() >= 300 && $response->getStatusCode() < 400) {
+                $headers = $response->getHeaders();
+
+                if (!empty($headers) && !empty($headers[$locationIndex]) && count($headers[$locationIndex]) > 0) {
+                    $result = $this->validateRedirectLocation($headers[$locationIndex][0]);
+                }
+            }
+
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+
+            if (!$response) {
+                throw $e;
+            }
+
+            switch ($response->getStatusCode()) {
+                case 401:
+                    throw new UnauthorizedException($e->getMessage());
+                case 404:
+                    throw new NotFoundException($e->getMessage());
+                case 406:
+                    throw new NotAcceptableException($e->getMessage());
+                case 422:
+                    throw new UnprocessableEntityException($e->getMessage());
+                case 429:
+                    throw new TooManyRequestsException($e->getMessage());
+                default:
+                    throw $e;
+            }
+        } catch (\Exception $e) {
+            $response = null;
+        } finally {
+            $this->requestHookInterface->afterRequest($response);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $location
+     *
+     * @return null|string
+     */
+    private function validateRedirectLocation($location)
+    {
+        $redirectLocation = null;
+
+        $isValidURL = filter_var($location, FILTER_VALIDATE_URL);
+
+        if ($isValidURL !== false) {
+            // Shopify sets the location header to the full URL
+            $adminEndpoint = substr($location, strpos($location, 'admin'));
+            if ($adminEndpoint !== false) {
+                // Shopify gives us text/html content
+                $redirectLocation = preg_match('/\.json$/', $adminEndpoint) ? $adminEndpoint : "$adminEndpoint.json";
+            }
+        }
+
+        return $redirectLocation;
     }
 }
