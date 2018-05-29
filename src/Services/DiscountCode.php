@@ -62,6 +62,24 @@ class DiscountCode extends Base
     }
 
     /**
+     * @param string $discountCode
+     *
+     * @return ShopifyDiscountCode | object | null
+     */
+    public function lookup($discountCode)
+    {
+        $result = null;
+        $redirectLocation = $this->client->getRedirectLocation('admin/discount_codes/lookup.json', ['code' => $discountCode]);
+
+        if (!empty($redirectLocation)) {
+            $raw = $this->client->get($redirectLocation);
+            $result = $this->unserializeModel($raw['discount_code'], ShopifyDiscountCode::class);
+        }
+
+        return $result;
+    }
+
+    /**
      * @param ShopifyDiscountCode $discountCode
      *
      * @return object
