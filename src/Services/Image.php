@@ -6,14 +6,11 @@ use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
 use BoldApps\ShopifyToolkit\Models\Image as ShopifyImage;
 use Illuminate\Support\Collection;
 
-/**
- * Class Image.
- */
 class Image extends Base
 {
     /**
-     * @param \BoldApps\ShopifyToolkit\Models\Product $product
-     * @param \BoldApps\ShopifyToolkit\Models\Image $image
+     * @param ShopifyProduct $product
+     * @param ShopifyImage   $image
      *
      * @return object
      */
@@ -37,15 +34,16 @@ class Image extends Base
     }
 
     /**
-     * @param \BoldApps\ShopifyToolkit\Models\Product $product
-     * @param array $params
+     * @param ShopifyProduct $product
+     * @param array          $params
+     *
      * @return Collection
      */
     public function getAllProductImages(ShopifyProduct $product, $params = [])
     {
         $raw = $this->client->get("admin/products/{$product->getId()}/images.json", $params);
 
-        $images = array_map(function($image) {
+        $images = array_map(function ($image) {
             return $this->unserializeModel($image, ShopifyImage::class);
         }, $raw['images']);
 
@@ -53,21 +51,21 @@ class Image extends Base
     }
 
     /**
-     * @param \BoldApps\ShopifyToolkit\Models\Product $product
-     * @param $id
+     * @param ShopifyProduct $product
+     * @param                $id
      *
-     * @return ShopifyImage
+     * @return ShopifyImage|object
      */
     public function getProductImageById(ShopifyProduct $product, $id)
     {
-        $raw = $this->client->get("admin/products/{$product->getId()}/images/{$id}");
+        $raw = $this->client->get("admin/products/{$product->getId()}/images/{$id}.json");
 
-        return $this->unserializeModel($raw['images'], ShopifyImage::class);
+        return $this->unserializeModel($raw['image'], ShopifyImage::class);
     }
 
     /**
-     * @param \BoldApps\ShopifyToolkit\Models\Product $product
-     * @param \BoldApps\ShopifyToolkit\Models\Image $image
+     * @param ShopifyProduct $product
+     * @param ShopifyImage   $image
      *
      * @return array
      */
