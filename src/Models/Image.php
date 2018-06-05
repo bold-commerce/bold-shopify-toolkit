@@ -4,40 +4,40 @@ namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 
-/**
- * Class Image.
- */
 class Image implements Serializeable
 {
-    /** @var  int */
+    /** @var int */
     protected $id;
 
-    /** @var  int */
+    /** @var int */
     protected $position;
 
-    /** @var  int */
+    /** @var int */
     protected $productId;
 
-    /** @var  string */
+    /** @var string */
     protected $src;
 
-    /** @var  array */
+    /** @var array */
     protected $variantIds;
 
-    /** @var  string */
+    /** @var string */
     protected $createdAt;
 
-    /** @var  string */
+    /** @var string */
     protected $updatedAt;
 
-    /** @var  int */
+    /** @var int */
     protected $width;
 
-    /** @var  int */
+    /** @var int */
     protected $height;
 
-    /** @var  string */
+    /** @var string */
     protected $attachment;
+
+    /** @var string */
+    protected $alt;
 
     /**
      * @return int
@@ -165,6 +165,22 @@ class Image implements Serializeable
     public function setAttachment($attachment)
     {
         $this->attachment = $attachment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+
+    /**
+     * @param string $alt
+     */
+    public function setAlt($alt)
+    {
+        $this->alt = $alt;
     }
 
     /**
