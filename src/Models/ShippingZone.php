@@ -3,9 +3,12 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class ShippingZone implements Serializeable
 {
+
+    use HasAttributesTrait;
 
     /**
      * @var int

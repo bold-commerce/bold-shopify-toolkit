@@ -2,8 +2,13 @@
 
 namespace BoldApps\ShopifyToolkit\Models;
 
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
+
 class RefundLineItem
 {
+
+    use HasAttributesTrait;
+
     /** @var int */
     public $id;
 

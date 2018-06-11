@@ -3,12 +3,16 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 /**
  * Class Variant
  */
 class Variant implements Serializeable
 {
+
+    use HasAttributesTrait;
+
     /** @var  string */
     protected $id;
 

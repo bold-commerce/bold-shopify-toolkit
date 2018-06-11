@@ -3,12 +3,16 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 /**
  * Class Option.
  */
 class Option implements Serializeable
 {
+
+    use HasAttributesTrait;
+
     /** @var  int */
     protected $id;
 
@@ -59,7 +63,8 @@ class Option implements Serializeable
     /**
      * @param $values
      */
-    public function setValues($values) {
+    public function setValues($values)
+    {
         $this->values = $values;
     }
 

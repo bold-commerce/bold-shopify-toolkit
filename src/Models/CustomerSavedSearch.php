@@ -3,9 +3,13 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class CustomerSavedSearch implements Serializeable
 {
+
+    use HasAttributesTrait;
+
     /** @var int */
     protected $id;
 

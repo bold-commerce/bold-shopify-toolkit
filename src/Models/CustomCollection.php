@@ -3,11 +3,8 @@
 
 namespace BoldApps\ShopifyToolkit\Models;
 
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class CustomCollection
- * @package BoldApps\ShopifyToolkit\Models
- */
 /**
  * Class CustomCollection
  * @package BoldApps\ShopifyToolkit\Models
@@ -15,7 +12,9 @@ namespace BoldApps\ShopifyToolkit\Models;
 class CustomCollection
 {
 
-    /*** @var int*/
+    use HasAttributesTrait;
+
+    /*** @var int */
     protected $id;
 
     /*** @var string */
@@ -120,7 +119,8 @@ class CustomCollection
     /**
      * @return array
      */
-    public function getImage(){
+    public function getImage()
+    {
         return $this->image;
     }
 
