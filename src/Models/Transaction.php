@@ -4,9 +4,13 @@ namespace BoldApps\ShopifyToolkit\Models;
 
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Transaction implements Serializeable
 {
+
+    use HasAttributesTrait;
+
     /** @var int */
     public $id;
 

@@ -3,6 +3,7 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 /**
  * Class UsageCharge
@@ -10,6 +11,8 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
  */
 class UsageCharge implements Serializeable
 {
+
+    use HasAttributesTrait;
 
     /**
      * @var int

@@ -3,6 +3,7 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
 
 /**
@@ -10,6 +11,9 @@ use Illuminate\Support\Collection;
  */
 class DraftOrder implements Serializeable
 {
+
+    use HasAttributesTrait;
+
     /** @var  int */
     protected $id;
 
@@ -28,7 +32,7 @@ class DraftOrder implements Serializeable
     /** @var  string */
     protected $currency;
 
-    /** @var   string*/
+    /** @var   string */
     protected $subtotalPrice;
 
     /** @var  string */

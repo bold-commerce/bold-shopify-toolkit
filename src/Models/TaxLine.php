@@ -3,12 +3,15 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 /**
  * Class TaxLine.
  */
 class TaxLine implements Serializeable
 {
+
+    use HasAttributesTrait;
 
     /** @var  string */
     protected $title;
