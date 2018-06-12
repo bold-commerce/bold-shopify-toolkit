@@ -3,10 +3,14 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
 
 class Order implements Serializeable
 {
+
+    use HasAttributesTrait;
+
     /** @var int */
     protected $id;
 
@@ -136,7 +140,7 @@ class Order implements Serializeable
     /** @var string */
     protected $source;
 
-    /** @var id */
+    /** @var int */
     protected $checkoutId;
 
     /** @var string */
@@ -151,11 +155,14 @@ class Order implements Serializeable
     /** @var array */
     protected $discountCodes;
 
-    /** @var object */
+    /** @var array */
     protected $noteAttributes;
 
     /** @var array */
     protected $taxLines;
+
+    /** @var mixed */
+    protected $tax;
 
     /** @var Collection */
     protected $lineItems;
@@ -528,7 +535,7 @@ class Order implements Serializeable
 
     /**
      * @return int
-     9*/
+     */
     public function getCheckoutId()
     {
         return $this->checkoutId;
@@ -713,7 +720,8 @@ class Order implements Serializeable
     /**
      * @return string
      */
-    public function getTransactions() {
+    public function getTransactions()
+    {
         return $this->transactions;
     }
 
@@ -1046,7 +1054,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @param id $checkoutId
+     * @param int $checkoutId
      */
     public function setCheckoutId($checkoutId)
     {
@@ -1200,7 +1208,8 @@ class Order implements Serializeable
     /**
      * @param array $transactions
      */
-    public function setTransactions($transactions) {
+    public function setTransactions($transactions)
+    {
         $this->transactions = $transactions;
     }
 

@@ -3,11 +3,15 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
 
 
 class Refund implements Serializeable
 {
+
+    use HasAttributesTrait;
+
     /** @var  int */
     public $id;
 

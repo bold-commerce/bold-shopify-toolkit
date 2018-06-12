@@ -3,6 +3,7 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -10,181 +11,8 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class OrderLineItem implements Serializeable
 {
-    /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
 
-    /**
-     * @param int $variantId
-     */
-    public function setVariantId(int $variantId)
-    {
-        $this->variantId = $variantId;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @param int $quantity
-     */
-    public function setQuantity(int $quantity)
-    {
-        $this->quantity = $quantity;
-    }
-
-    /**
-     * @param string $price
-     */
-    public function setPrice(string $price)
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @param int $grams
-     */
-    public function setGrams(int $grams)
-    {
-        $this->grams = $grams;
-    }
-
-    /**
-     * @param string $sku
-     */
-    public function setSku(string $sku)
-    {
-        $this->sku = $sku;
-    }
-
-    /**
-     * @param string $variantTitle
-     */
-    public function setVariantTitle(string $variantTitle)
-    {
-        $this->variantTitle = $variantTitle;
-    }
-
-    /**
-     * @param string $vendor
-     */
-    public function setVendor(string $vendor)
-    {
-        $this->vendor = $vendor;
-    }
-
-    /**
-     * @param string $fulfillmentService
-     */
-    public function setFulfillmentService(string $fulfillmentService)
-    {
-        $this->fulfillmentService = $fulfillmentService;
-    }
-
-    /**
-     * @param int $productId
-     */
-    public function setProductId(int $productId)
-    {
-        $this->productId = $productId;
-    }
-
-    /**
-     * @param boolean $requiresShipping
-     */
-    public function setRequiresShipping(bool $requiresShipping)
-    {
-        $this->requiresShipping = $requiresShipping;
-    }
-
-    /**
-     * @param boolean $taxable
-     */
-    public function setTaxable(bool $taxable)
-    {
-        $this->taxable = $taxable;
-    }
-
-    /**
-     * @param boolean $giftCard
-     */
-    public function setGiftCard(bool $giftCard)
-    {
-        $this->giftCard = $giftCard;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @param string $variantInventoryManagement
-     */
-    public function setVariantInventoryManagement(string $variantInventoryManagement)
-    {
-        $this->variantInventoryManagement = $variantInventoryManagement;
-    }
-
-    /**
-     * @param array $properties
-     */
-    public function setProperties(array $properties)
-    {
-        $this->properties = $properties;
-    }
-
-    /**
-     * @param boolean $productExists
-     */
-    public function setProductExists(bool $productExists)
-    {
-        $this->productExists = $productExists;
-    }
-
-    /**
-     * @param string $fulfillmentStatus
-     */
-    public function setFulfillmentStatus(string $fulfillmentStatus)
-    {
-        $this->fulfillmentStatus = $fulfillmentStatus;
-    }
-
-    /**
-     * @param Collection $taxLines
-     */
-    public function setTaxLines(Collection $taxLines)
-    {
-        $this->taxLines = $taxLines;
-    }
-
-    /**
-     * @param int $fulfillableQuantity
-     */
-    public function setFulfillableQuantity(int $fulfillableQuantity)
-    {
-        $this->fulfillableQuantity = $fulfillableQuantity;
-    }
-
-    /**
-     * @param int $totalDiscount
-     */
-    public function setTotalDiscount(int $totalDiscount)
-    {
-        $this->totalDiscount = $totalDiscount;
-    }
+    use HasAttributesTrait;
 
     /** @var  int */
     protected $id;
@@ -251,6 +79,182 @@ class OrderLineItem implements Serializeable
 
     /*** @var int */
     protected $totalDiscount;
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param int $variantId
+     */
+    public function setVariantId($variantId)
+    {
+        $this->variantId = $variantId;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @param string $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @param int $grams
+     */
+    public function setGrams($grams)
+    {
+        $this->grams = $grams;
+    }
+
+    /**
+     * @param string $sku
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
+    }
+
+    /**
+     * @param string $variantTitle
+     */
+    public function setVariantTitle($variantTitle)
+    {
+        $this->variantTitle = $variantTitle;
+    }
+
+    /**
+     * @param string $vendor
+     */
+    public function setVendor($vendor)
+    {
+        $this->vendor = $vendor;
+    }
+
+    /**
+     * @param string $fulfillmentService
+     */
+    public function setFulfillmentService($fulfillmentService)
+    {
+        $this->fulfillmentService = $fulfillmentService;
+    }
+
+    /**
+     * @param int $productId
+     */
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+    }
+
+    /**
+     * @param boolean $requiresShipping
+     */
+    public function setRequiresShipping($requiresShipping)
+    {
+        $this->requiresShipping = $requiresShipping;
+    }
+
+    /**
+     * @param boolean $taxable
+     */
+    public function setTaxable($taxable)
+    {
+        $this->taxable = $taxable;
+    }
+
+    /**
+     * @param boolean $giftCard
+     */
+    public function setGiftCard($giftCard)
+    {
+        $this->giftCard = $giftCard;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string $variantInventoryManagement
+     */
+    public function setVariantInventoryManagement($variantInventoryManagement)
+    {
+        $this->variantInventoryManagement = $variantInventoryManagement;
+    }
+
+    /**
+     * @param array $properties
+     */
+    public function setProperties(array $properties)
+    {
+        $this->properties = $properties;
+    }
+
+    /**
+     * @param boolean $productExists
+     */
+    public function setProductExists($productExists)
+    {
+        $this->productExists = $productExists;
+    }
+
+    /**
+     * @param string $fulfillmentStatus
+     */
+    public function setFulfillmentStatus($fulfillmentStatus)
+    {
+        $this->fulfillmentStatus = $fulfillmentStatus;
+    }
+
+    /**
+     * @param Collection $taxLines
+     */
+    public function setTaxLines(Collection $taxLines)
+    {
+        $this->taxLines = $taxLines;
+    }
+
+    /**
+     * @param int $fulfillableQuantity
+     */
+    public function setFulfillableQuantity($fulfillableQuantity)
+    {
+        $this->fulfillableQuantity = $fulfillableQuantity;
+    }
+
+    /**
+     * @param int $totalDiscount
+     */
+    public function setTotalDiscount($totalDiscount)
+    {
+        $this->totalDiscount = $totalDiscount;
+    }
 
     /**
      * @return int

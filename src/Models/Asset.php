@@ -3,9 +3,12 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Asset implements Serializeable
 {
+    use HasAttributesTrait;
+
     /** @var  string */
     protected $key;
 
