@@ -7,9 +7,6 @@ use BoldApps\ShopifyToolkit\Models\Variant as VariantModel;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use BoldApps\ShopifyToolkit\Services\Variant as VariantService;
 
-/**
- * Class LineItem.
- */
 class LineItem extends Base
 {
     /**

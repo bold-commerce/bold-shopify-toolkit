@@ -5,16 +5,9 @@ namespace BoldApps\ShopifyToolkit\Support;
 use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
 
-/**
- * Class ShopifyApiHandler
- * @package BoldApps\Common\Support
- */
 class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
 {
-
-    /**
-     * @var \GuzzleHttp\Psr7\Response|null $response
-     */
+    /** @var \GuzzleHttp\Psr7\Response|null */
     private $response;
 
     /**
@@ -40,32 +33,31 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
         $this->response = $response;
         $percent = $this->getCallLimitPercent();
 
-        if($percent > 98) {
+        if ($percent > 98) {
             sleep(15);
-        } elseif($percent > 96) {
+        } elseif ($percent > 96) {
             sleep(13);
-        } elseif($percent > 94) {
+        } elseif ($percent > 94) {
             sleep(10);
-        } elseif($percent > 92) {
+        } elseif ($percent > 92) {
             sleep(8);
-        } elseif($percent > 90) {
+        } elseif ($percent > 90) {
             sleep(5);
-        } elseif($percent > 75) {
+        } elseif ($percent > 75) {
             sleep(3);
         }
-
     }
 
     /**
      * @return int
      */
-    private function getCallLimitPercent() {
-
+    private function getCallLimitPercent()
+    {
         $callLimitRatio = $this->getCallLimitRatio();
         $callsMade = $callLimitRatio[0];
         $callLimit = $callLimitRatio[1];
 
-        if($callLimit == 0) {
+        if ($callLimit == 0) {
             return 100;
         }
 
@@ -75,17 +67,16 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
     /**
      * @return array
      */
-    private function getCallLimitRatio() {
-        if($this->response !== null) {
-
+    private function getCallLimitRatio()
+    {
+        if ($this->response !== null) {
             $callLimitHeader = $this->response->getHeader('http_x_shopify_shop_api_call_limit');
 
-            if(isset($callLimitHeader[0])) {
+            if (isset($callLimitHeader[0])) {
                 return explode('/', $callLimitHeader[0]);
             }
         }
 
-        return array(1,100);
+        return array(1, 100);
     }
-
 }

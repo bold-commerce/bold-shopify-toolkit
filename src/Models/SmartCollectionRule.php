@@ -7,7 +7,6 @@ use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class SmartCollectionRule implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var string */

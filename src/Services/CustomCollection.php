@@ -2,19 +2,15 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-
 use BoldApps\ShopifyToolkit\Models\CustomCollection as ShopifyCustomCollection;
-
 use Illuminate\Support\Collection;
 
-/**
- * Class CustomCollection
- */
 class CustomCollection extends CollectionEntity
 {
     /**
      * @param ShopifyCustomCollection $collection
-     * @param bool $publish
+     * @param bool                    $publish
+     *
      * @return object
      */
     public function create(ShopifyCustomCollection $collection, $publish = true)
@@ -74,6 +70,7 @@ class CustomCollection extends CollectionEntity
 
     /**
      * @param ShopifyCustomCollection $collection
+     *
      * @return object
      */
     public function update(ShopifyCustomCollection $collection)
@@ -87,8 +84,8 @@ class CustomCollection extends CollectionEntity
 
     /**
      * @param ShopifyCustomCollection $collection
-     * @return object
      *
+     * @return object
      */
     public function delete(ShopifyCustomCollection $collection)
     {

@@ -3,13 +3,9 @@
 
 class HasAttributesTraitTest extends \PHPUnit\Framework\TestCase
 {
-
     /** @var \BoldApps\ShopifyToolkit\Models\Customer */
     private $customerObject;
 
-    /**
-     *
-     */
     protected function setUp()
     {
         $this->customerObject = new \BoldApps\ShopifyToolkit\Models\Customer();
@@ -54,5 +50,4 @@ class HasAttributesTraitTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertFalse(isset($this->customerObject->first_name));
     }
-
 }

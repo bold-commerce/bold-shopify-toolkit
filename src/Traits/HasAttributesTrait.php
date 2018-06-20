@@ -5,15 +5,11 @@ namespace BoldApps\ShopifyToolkit\Traits;
 use Illuminate\Support\Str;
 
 /**
- * Trait HasAttributesTrait
- *
  * Based off of HasAttributes from Eloquent:
- * https://github.com/laravel/framework/blob/16983a689d15333e7101457c3e0c0d0b7da01d69/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php
- * @package BoldApps\ShopifyToolkit\Traits
+ * https://github.com/laravel/framework/blob/16983a689d15333e7101457c3e0c0d0b7da01d69/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php.
  */
 trait HasAttributesTrait
 {
-
     public function __get($name)
     {
         if ($this->hasGetMutator($name)) {
@@ -23,7 +19,7 @@ trait HasAttributesTrait
 
     public function __isset($name)
     {
-        return ($this->hasGetMutator($name) && $this->{'get'.Str::studly($name)}() !== null);
+        return $this->hasGetMutator($name) && $this->{'get'.Str::studly($name)}() !== null;
     }
 
     public function hasGetMutator($name)
@@ -34,5 +30,4 @@ trait HasAttributesTrait
 
         return method_exists($this, 'get'.Str::studly($name));
     }
-
 }

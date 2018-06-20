@@ -9,9 +9,6 @@ use BoldApps\ShopifyToolkit\Services\Theme as ShopifyThemeService;
 use BoldApps\ShopifyToolkit\Models\Theme as ShopifyTheme;
 use Illuminate\Support\Collection;
 
-/**
- * Class Asset.
- */
 class Asset extends Base
 {
     /**

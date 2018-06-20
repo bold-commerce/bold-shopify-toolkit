@@ -2,41 +2,30 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-
 use BoldApps\ShopifyToolkit\Models\TaxLine as LineItemTaxLine;
 use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
 use Illuminate\Support\Collection;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 
-
-/**
- * Class OrderLineItem.
- */
 class OrderLineItem extends Base
 {
-
-    /**
-     * @var TaxLine
-     */
+    /** @var TaxLine */
     protected $taxLineService;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $unserializationExceptions = [
         'tax_lines' => 'unserializeTaxLines',
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $serializationExceptions = [
         'taxLines' => 'serializeTaxLines',
     ];
 
     /**
      * Order constructor.
-     * @param Client $client
+     *
+     * @param Client         $client
      * @param TaxLineService $taxLineService
      */
     public function __construct(ShopifyClient $client, TaxLineService $taxLineService)
@@ -74,7 +63,6 @@ class OrderLineItem extends Base
      */
     protected function unserializeTaxLines($data)
     {
-
         if (null === $data) {
             return;
         }
@@ -86,7 +74,4 @@ class OrderLineItem extends Base
 
         return new Collection($images);
     }
-
-
-
 }

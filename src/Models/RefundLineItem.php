@@ -6,7 +6,6 @@ use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class RefundLineItem
 {
-
     use HasAttributesTrait;
 
     /** @var int */

@@ -5,10 +5,8 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-
 class Fulfillment implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var string */
@@ -214,5 +212,4 @@ class Fulfillment implements Serializeable
     {
         return $this->variantInventoryManagement;
     }
-
 }

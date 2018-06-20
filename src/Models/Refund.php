@@ -6,43 +6,41 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
 
-
 class Refund implements Serializeable
 {
-
     use HasAttributesTrait;
 
-    /** @var  int */
+    /** @var int */
     public $id;
 
-    /** @var  int */
+    /** @var int */
     public $orderId;
 
-    /** @var  string */
+    /** @var string */
     public $note;
 
-    /** @var  string */
+    /** @var string */
     public $createdAt;
 
-    /** @var  int */
+    /** @var int */
     public $userId;
 
     /** @var float */
     protected $shipping;
 
-    /** @var  bool */
+    /** @var bool */
     protected $restock;
 
-    /** @var  bool */
+    /** @var bool */
     protected $notify;
 
-    /**  @var Collection of Transaction */
+    /** @var Collection of Transaction */
     protected $transactions;
 
     /** @var Collection of RefundLineItem */
     protected $refundLineItems;
 
-    /** @var  Collection */
+    /** @var Collection */
     public $orderAdjustments;
 
     /** @var string */

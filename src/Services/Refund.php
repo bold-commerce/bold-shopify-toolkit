@@ -8,9 +8,6 @@ use BoldApps\ShopifyToolkit\Models\RefundLineItem;
 use BoldApps\ShopifyToolkit\Models\Transaction as ShopifyTransaction;
 use Illuminate\Support\Collection;
 
-/**
- * Class Refund.
- */
 class Refund extends Base
 {
     /**
@@ -30,12 +27,12 @@ class Refund extends Base
         'shipping' => 'deserializeShipping',
         'refund_line_items' => 'deserializeRefundLineItems',
         'transactions' => 'deserializeTransactions',
-        'order_adjustments' => 'deserializeOrderAdjustments'
+        'order_adjustments' => 'deserializeOrderAdjustments',
     ];
-
 
     /**
      * @param ShopifyRefund $refund
+     *
      * @return ShopifyRefund | object
      */
     public function create(ShopifyRefund $refund)
@@ -59,6 +56,7 @@ class Refund extends Base
 
     /**
      * @param $entity
+     *
      * @return array|null
      */
     public function serializeShipping($entity)
@@ -68,12 +66,13 @@ class Refund extends Base
         }
 
         return [
-            'amount' => $entity
+            'amount' => $entity,
         ];
     }
 
     /**
      * @param $data
+     *
      * @return float|Collection|null
      */
     public function deserializeShipping($data)
@@ -81,29 +80,32 @@ class Refund extends Base
         if (null === $data) {
             return null;
         }
-        return (float)$data;
+
+        return (float) $data;
     }
 
     /**
      * @param Collection RefundLineItem $entities
+     *
      * @return Collection|null
      */
     public function serializeRefundLineItems($entities)
     {
-        if (null === $entities || !($entities instanceof Collection) || $entities->count()===0) {
+        if (null === $entities || !($entities instanceof Collection) || $entities->count() === 0) {
             return null;
         }
 
         return $entities->map(function (RefundLineItem $line) {
             return [
                 'line_item_id' => $line->lineItemId,
-                'quantity' => $line->quantity
+                'quantity' => $line->quantity,
             ];
         })->toArray();
     }
 
     /**
      * @param $data
+     *
      * @return Collection
      */
     public function deserializeRefundLineItems($data)
@@ -127,14 +129,14 @@ class Refund extends Base
         return new Collection($refundLineItems);
     }
 
-
     /**
      * @param Collection ShopifyTransaction $entities
+     *
      * @return Collection|null
      */
     public function serializeTransactions($entities)
     {
-        if (null === $entities || !($entities instanceof Collection) || $entities->count()===0) {
+        if (null === $entities || !($entities instanceof Collection) || $entities->count() === 0) {
             return null;
         }
 
@@ -143,13 +145,14 @@ class Refund extends Base
                 'parent_id' => $transaction->parentId,
                 'amount' => $transaction->amount,
                 'kind' => $transaction->kind,
-                'gateway' => $transaction->gateway
+                'gateway' => $transaction->gateway,
             ];
         })->toArray();
     }
 
     /**
      * @param $data
+     *
      * @return Collection|null
      */
     public function deserializeTransactions($data)
@@ -187,11 +190,12 @@ class Refund extends Base
 
     /**
      * @param $entities
+     *
      * @return array|null
      */
     public function serializeOrderAdjustments($entities)
     {
-        if (null === $entities || !($entities instanceof Collection) || $entities->count()===0) {
+        if (null === $entities || !($entities instanceof Collection) || $entities->count() === 0) {
             return null;
         }
 
@@ -210,6 +214,7 @@ class Refund extends Base
 
     /**
      * @param $data
+     *
      * @return Collection|null
      */
     public function deserializeOrderAdjustments($data)
@@ -221,7 +226,6 @@ class Refund extends Base
         $orderAdjustments = array_map(function ($adjustment) {
             return new OrderAdjustment($adjustment['id'], $adjustment['order_id'], $adjustment['refund_id'], $adjustment['amount'], $adjustment['tax_amount'], $adjustment['kind'], $adjustment['reason']);
         }, $data);
-
 
         return new Collection($orderAdjustments);
     }

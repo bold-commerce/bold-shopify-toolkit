@@ -5,39 +5,27 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 
-/**
- * Class Base.
- */
 abstract class Base
 {
     /*
-     *
      * TODO: Implement an ignoredFields property
      *       We should be able to ignore a specific field on the serialization process (IE: Refund.OrderId)
-     *
      */
 
-
-    /**
-     * @var ShopifyClient
-     */
+    /** @var ShopifyClient */
     protected $client;
 
     /**
      * @var array
-     * Key: JSON name
-     * Value: PHP Variable name (string)
+     *            Key: JSON name
+     *            Value: PHP Variable name (string)
      */
     protected $nameMap = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $unserializationExceptions = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $serializationExceptions = [];
 
     /**
@@ -113,7 +101,7 @@ abstract class Base
 
     /**
      * @param string $property
-     *     *
+     *
      * @return string
      */
     private function getArrayPropertyName($property)

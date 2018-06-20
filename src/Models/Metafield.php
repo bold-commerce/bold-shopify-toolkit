@@ -5,42 +5,38 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class Metafield.
- */
 class Metafield implements Serializeable
 {
-
     use HasAttributesTrait;
 
-    /** @var  int */
+    /** @var int */
     protected $id;
 
-    /** @var  string */
+    /** @var string */
     protected $namespace;
 
-    /** @var  string */
+    /** @var string */
     protected $key;
 
-    /** @var  string */
+    /** @var string */
     protected $value;
 
-    /** @var  string */
+    /** @var string */
     protected $valueType;
 
-    /** @var  string */
+    /** @var string */
     protected $description;
 
-    /** @var  int */
+    /** @var int */
     protected $ownerId;
 
-    /** @var  string */
+    /** @var string */
     protected $createdAt;
 
-    /** @var  string */
+    /** @var string */
     protected $updatedAt;
 
-    /** @var  string */
+    /** @var string */
     protected $ownerResource;
 
     /**

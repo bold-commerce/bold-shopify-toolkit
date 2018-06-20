@@ -5,27 +5,23 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class Option.
- */
 class Option implements Serializeable
 {
-
     use HasAttributesTrait;
 
-    /** @var  int */
+    /** @var int */
     protected $id;
 
-    /** @var  string */
+    /** @var string */
     protected $name;
 
-    /** @var  int */
+    /** @var int */
     protected $position;
 
-    /** @var  int */
+    /** @var int */
     protected $productId;
 
-    /** @var  array */
+    /** @var array */
     protected $values;
 
     /**

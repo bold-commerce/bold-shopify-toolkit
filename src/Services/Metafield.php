@@ -4,9 +4,6 @@ namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Models\Metafield as MetafieldModel;
 
-/**
- * Class Metafield.
- */
 class Metafield extends Base
 {
     /**

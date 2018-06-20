@@ -40,7 +40,7 @@ class SmartCollectionTest extends \PHPUnit\Framework\TestCase
     public function ShopifySmartCollectionDeserializesProperly()
     {
         $smartCollectionJson = $this->getSmartCollectionJson();
-        $jsonArray = (array)json_decode($smartCollectionJson, true);
+        $jsonArray = (array) json_decode($smartCollectionJson, true);
 
         $expected = $this->createSmartCollectionEntity();
         $actual = $this->smartCollectionService->unserializeModel($jsonArray, ShopifySmartCollection::class);
@@ -87,27 +87,27 @@ class SmartCollectionTest extends \PHPUnit\Framework\TestCase
     private function getSmartCollectionArray()
     {
         return [
-            "id" => 3465543691,
-            "handle" => "song-birds",
-            "title" => "Song Birds",
-            "updated_at" => "2018-03-15T14:47:39-05:00",
-            "body_html" => "",
-            "published_at" => "2018-01-08T10:56:11-06:00",
-            "sort_order" => "best-selling",
-            "disjunctive" => false,
-            "rules" => [
+            'id' => 3465543691,
+            'handle' => 'song-birds',
+            'title' => 'Song Birds',
+            'updated_at' => '2018-03-15T14:47:39-05:00',
+            'body_html' => '',
+            'published_at' => '2018-01-08T10:56:11-06:00',
+            'sort_order' => 'best-selling',
+            'disjunctive' => false,
+            'rules' => [
                 [
-                    "column" => "tag",
-                    "relation" => "equals",
-                    "condition" => "song bird",
+                    'column' => 'tag',
+                    'relation' => 'equals',
+                    'condition' => 'song bird',
                 ],
                 [
-                    "column" => "tag",
-                    "relation" => "equals",
-                    "condition" => "small",
+                    'column' => 'tag',
+                    'relation' => 'equals',
+                    'condition' => 'small',
                 ],
             ],
-            "published_scope" => "web",
+            'published_scope' => 'web',
         ];
     }
 }

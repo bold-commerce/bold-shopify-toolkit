@@ -7,7 +7,6 @@ use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Image implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var int */

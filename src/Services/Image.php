@@ -73,5 +73,4 @@ class Image extends Base
     {
         return $this->client->delete("admin/products/{$product->getId()}/images/{$image->getId()}.json");
     }
-
 }

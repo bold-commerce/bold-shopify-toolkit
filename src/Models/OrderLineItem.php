@@ -6,78 +6,74 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Database\Eloquent\Collection;
 
-/**
- * Class OrderLineItem.
- */
 class OrderLineItem implements Serializeable
 {
-
     use HasAttributesTrait;
 
-    /** @var  int */
+    /** @var int */
     protected $id;
 
-    /** @var  int */
+    /** @var int */
     protected $variantId;
 
-    /** @var  string */
+    /** @var string */
     protected $title;
 
-    /** @var  int */
+    /** @var int */
     protected $quantity;
 
-    /** @var  string */
+    /** @var string */
     protected $price;
 
-    /** @var  int */
+    /** @var int */
     protected $grams;
 
-    /** @var  string */
+    /** @var string */
     protected $sku;
 
-    /** @var  string */
+    /** @var string */
     protected $variantTitle;
 
-    /** @var  string */
+    /** @var string */
     protected $vendor;
 
-    /** @var  string */
+    /** @var string */
     protected $fulfillmentService;
 
-    /** @var  int */
+    /** @var int */
     protected $productId;
 
-    /** @var  boolean */
+    /** @var bool */
     protected $requiresShipping;
 
-    /** @var  boolean */
+    /** @var bool */
     protected $taxable;
 
-    /** @var  boolean */
+    /** @var bool */
     protected $giftCard;
 
-    /** @var  string */
+    /** @var string */
     protected $name;
 
-    /** @var  string */
+    /** @var string */
     protected $variantInventoryManagement;
 
-    /** @var  array */
+    /** @var array */
     protected $properties;
 
-    /** @var  boolean */
+    /** @var bool */
     protected $productExists;
 
-    /** @var  string */
+    /** @var string */
     protected $fulfillmentStatus;
 
-    /** @var  Collection */
+    /** @var Collection */
     protected $taxLines;
 
-    /*** @var int */
+    /** @var int */
     protected $fulfillableQuantity;
 
-    /*** @var int */
+    /** @var int */
     protected $totalDiscount;
 
     /**
@@ -169,7 +165,7 @@ class OrderLineItem implements Serializeable
     }
 
     /**
-     * @param boolean $requiresShipping
+     * @param bool $requiresShipping
      */
     public function setRequiresShipping($requiresShipping)
     {
@@ -177,7 +173,7 @@ class OrderLineItem implements Serializeable
     }
 
     /**
-     * @param boolean $taxable
+     * @param bool $taxable
      */
     public function setTaxable($taxable)
     {
@@ -185,7 +181,7 @@ class OrderLineItem implements Serializeable
     }
 
     /**
-     * @param boolean $giftCard
+     * @param bool $giftCard
      */
     public function setGiftCard($giftCard)
     {
@@ -217,7 +213,7 @@ class OrderLineItem implements Serializeable
     }
 
     /**
-     * @param boolean $productExists
+     * @param bool $productExists
      */
     public function setProductExists($productExists)
     {
@@ -345,7 +341,7 @@ class OrderLineItem implements Serializeable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getRequiresShipping()
     {
@@ -353,7 +349,7 @@ class OrderLineItem implements Serializeable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getTaxable()
     {
@@ -361,7 +357,7 @@ class OrderLineItem implements Serializeable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getGiftCard()
     {
@@ -393,7 +389,7 @@ class OrderLineItem implements Serializeable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getProductExists()
     {
@@ -431,6 +427,4 @@ class OrderLineItem implements Serializeable
     {
         return $this->totalDiscount;
     }
-
-
 }
