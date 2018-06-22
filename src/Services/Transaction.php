@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 
 class Transaction extends Base
 {
-
     /**
      * @param int $orderId
      *
@@ -19,11 +18,13 @@ class Transaction extends Base
         $transactions = array_map(function ($transaction) {
             return $this->unserializeModel($transaction, ShopifyTransaction::class);
         }, $raw['transactions']);
+
         return new Collection($transactions);
     }
 
     /**
      * @param ShopifyTransaction $shopifyTransaction
+     *
      * @return ShopifyTransaction
      */
     public function create($shopifyTransaction)
@@ -34,5 +35,4 @@ class Transaction extends Base
 
         return $this->unserializeModel($raw['transaction'], ShopifyTransaction::class);
     }
-
 }

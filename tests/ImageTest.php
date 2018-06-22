@@ -62,16 +62,16 @@ class ImageTest extends \PHPUnit\Framework\TestCase
     private function getImageArray()
     {
         return [
-            "id" => 2768351559737,
-            "product_id" => 737929166905,
-            "position" => 1,
-            "created_at" => "2017-09-12T16:23:01-04:00",
-            "updated_at" => "2017-09-12T16:23:01-04:00",
-            "alt" => "alternative text",
-            "width" => 300,
-            "height" => 300,
-            "src" => "https://cdn.shopify.com/s/files/1/0066/5252/6649/products/Training_hoodie.jpg?v=1525729977",
-            "variant_ids" => [7930513948729],
+            'id' => 2768351559737,
+            'product_id' => 737929166905,
+            'position' => 1,
+            'created_at' => '2017-09-12T16:23:01-04:00',
+            'updated_at' => '2017-09-12T16:23:01-04:00',
+            'alt' => 'alternative text',
+            'width' => 300,
+            'height' => 300,
+            'src' => 'https://cdn.shopify.com/s/files/1/0066/5252/6649/products/Training_hoodie.jpg?v=1525729977',
+            'variant_ids' => [7930513948729],
         ];
     }
 }

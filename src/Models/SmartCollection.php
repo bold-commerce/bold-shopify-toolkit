@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
@@ -9,7 +8,6 @@ use Illuminate\Support\Collection;
 
 class SmartCollection implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var int */

@@ -8,12 +8,10 @@ use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
 use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use BoldApps\ShopifyToolkit\Services\Client;
-
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockBuilder as Mock;
 
@@ -63,8 +61,8 @@ class ClientTest extends TestCase
         $this->client = new Client($this->mockShopBaseInfo, $this->mockShopAccessInfo, $mockHttpClient,
             $this->mockRequestHookInterface);
 
-        for ($i = 0; $i < $times; $i++) {
-            $raw = $this->client->get("admin/orders/1.json");
+        for ($i = 0; $i < $times; ++$i) {
+            $raw = $this->client->get('admin/orders/1.json');
         }
     }
 
@@ -84,7 +82,7 @@ class ClientTest extends TestCase
         $this->client = new Client($this->mockShopBaseInfo, $this->mockShopAccessInfo, $mockHttpClient,
             $this->mockRequestHookInterface);
 
-        $this->client->get("admin/orders/1.json");
+        $this->client->get('admin/orders/1.json');
     }
 
     /**
@@ -128,7 +126,7 @@ class ClientTest extends TestCase
             ['expected' => null, 'responseCode' => 303, 'responseHeader' => [], 'exceptionClass' => null],
             ['expected' => null, 'responseCode' => 303, 'responseHeader' => ['Location' => []], 'exceptionClass' => null],
             ['expected' => null, 'responseCode' => 303, 'responseHeader' => ['Connection' => ['keep-alive']], 'exceptionClass' => null],
-            ['expected' => null, 'responseCode' => 303, 'responseHeader' => ['Location' => ["this/is/not/a/valid/url"]], 'exceptionClass' => null],
+            ['expected' => null, 'responseCode' => 303, 'responseHeader' => ['Location' => ['this/is/not/a/valid/url']], 'exceptionClass' => null],
             ['expected' => "$adminURI.json", 'responseCode' => 303, 'responseHeader' => ['Location' => ["https://$shopDomain/$adminURI"]], 'exceptionClass' => null],
             ['expected' => "$adminURI.json", 'responseCode' => 303, 'responseHeader' => ['Location' => ["https://$shopDomain/$adminURI.json"]], 'exceptionClass' => null],
         ];

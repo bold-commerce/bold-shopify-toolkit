@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 
 class Order implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var int */
@@ -62,7 +61,7 @@ class Order implements Serializeable
     /** @var string */
     protected $name;
 
-    /*** @var string */
+    /** @var string */
     protected $referringSite;
 
     /** @var string */
@@ -131,7 +130,7 @@ class Order implements Serializeable
     /** @var int */
     protected $orderNumber;
 
-    /** @var  array */
+    /** @var array */
     protected $paymentGatewayNames;
 
     /** @var string */
@@ -191,25 +190,25 @@ class Order implements Serializeable
     /** @var object */
     protected $customer;
 
-    /** @var  string */
+    /** @var string */
     protected $contactEmail;
 
-    /** @var  string */
+    /** @var string */
     protected $orderStatusUrl;
 
-    /** @var  string */
+    /** @var string */
     protected $transactions;
 
-    /** @var  bool */
+    /** @var bool */
     protected $sendWebhooks;
 
-    /** @var  bool */
+    /** @var bool */
     protected $sendReceipt;
 
-    /** @var  string */
+    /** @var string */
     protected $inventoryBehaviour;
 
-    /** @var  bool */
+    /** @var bool */
     protected $sendFulfillmentReceipt;
 
     /**
@@ -323,7 +322,6 @@ class Order implements Serializeable
     {
         return $this->financialStatus;
     }
-
 
     /**
      * @return string
@@ -726,7 +724,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @param boolean $buyerAcceptsMarketing
+     * @param bool $buyerAcceptsMarketing
      */
     public function setBuyerAcceptsMarketing($buyerAcceptsMarketing)
     {
@@ -774,7 +772,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @param boolean $confirmed
+     * @param bool $confirmed
      */
     public function setConfirmed($confirmed)
     {
@@ -918,7 +916,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @param boolean $taxesIncluded
+     * @param bool $taxesIncluded
      */
     public function setTaxesIncluded($taxesIncluded)
     {
@@ -926,7 +924,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @param boolean $test
+     * @param bool $test
      */
     public function setTest($test)
     {
@@ -1214,7 +1212,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getSendWebhooks()
     {
@@ -1222,7 +1220,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @param boolean $sendWebhooks
+     * @param bool $sendWebhooks
      */
     public function setSendWebhooks($sendWebhooks)
     {
@@ -1230,7 +1228,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getSendReceipt()
     {
@@ -1238,7 +1236,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @param boolean $sendReceipt
+     * @param bool $sendReceipt
      */
     public function setSendReceipt($sendReceipt)
     {
@@ -1262,7 +1260,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getSendFulfillmentReceipt()
     {
@@ -1270,7 +1268,7 @@ class Order implements Serializeable
     }
 
     /**
-     * @param boolean $sendFulfillmentReceipt
+     * @param bool $sendFulfillmentReceipt
      */
     public function setSendFulfillmentReceipt($sendFulfillmentReceipt)
     {

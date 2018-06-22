@@ -8,19 +8,18 @@ use BoldApps\ShopifyToolkit\Models\ShippingZone as ShippingZoneModel;
 
 class ShippingZone extends Base
 {
-
     /**
-     * @param int $page
-     * @param int $limit
+     * @param int   $page
+     * @param int   $limit
      * @param array $filter
      *
      * @return Collection
      */
-    public function getAll($page = 1, $limit = 50, $filter = [ ])
+    public function getAll($page = 1, $limit = 50, $filter = [])
     {
         $raw = $this->client->get('admin/shipping_zones.json', array_merge([
             'page' => $page,
-            'limit' => $limit
+            'limit' => $limit,
         ], $filter));
 
         $shippingZones = array_map(function ($zone) {
@@ -31,7 +30,6 @@ class ShippingZone extends Base
 
         return collect($shippingZones);
     }
-
 
     /**
      * @param $data
@@ -51,7 +49,6 @@ class ShippingZone extends Base
 
         return collect($countries);
     }
-
 
     /**
      * @param $data

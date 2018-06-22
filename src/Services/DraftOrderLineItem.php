@@ -12,34 +12,23 @@ use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItem;
 use Illuminate\Support\Collection;
 use BoldApps\ShopifyToolkit\Traits\TranslatePropertiesTrait;
 
-/**
- * Class DraftOrderLineItem
- */
 class DraftOrderLineItem extends Base
 {
     use TranslatePropertiesTrait;
 
-    /**
-     * @var DraftOrderAppliedDiscount
-     */
+    /** @var DraftOrderAppliedDiscount */
     protected $appliedDiscountService;
 
-    /**
-     * @var TaxLineService
-     */
+    /** @var TaxLineService */
     protected $taxLineService;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $unserializationExceptions = [
         'applied_discount' => 'unserializeAppliedDiscount',
         'tax_lines' => 'unserializeTaxLines',
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $serializationExceptions = [
         'appliedDiscount' => 'serializeAppliedDiscount',
         'taxLines' => 'serializeTaxLines',
@@ -47,9 +36,10 @@ class DraftOrderLineItem extends Base
 
     /**
      * DraftOrderLineItem constructor.
-     * @param Client $client
+     *
+     * @param Client                    $client
      * @param DraftOrderAppliedDiscount $appliedDiscountService
-     * @param TaxLineService $taxlineService
+     * @param TaxLineService            $taxlineService
      */
     public function __construct(ShopifyClient $client,
                                 AppliedDiscountService $appliedDiscountService,
@@ -62,6 +52,7 @@ class DraftOrderLineItem extends Base
 
     /**
      * @param $array
+     *
      * @return object
      */
     public function createFromArray($array)
@@ -71,6 +62,7 @@ class DraftOrderLineItem extends Base
 
     /**
      * @param CartItem $cartItem
+     *
      * @return DraftOrderLineItemModel
      */
     public function createDraftOrderLineItemFromCartItem(CartItem $cartItem)
@@ -101,7 +93,7 @@ class DraftOrderLineItem extends Base
 
         $lineItemProperties = $draftOrderLineItem->getProperties();
         if (!empty($lineItemProperties)) {
-            $draftOrderLineItem->setProperties(DraftOrderLineItem::translateProperties($lineItemProperties));
+            $draftOrderLineItem->setProperties(self::translateProperties($lineItemProperties));
         }
 
         return $draftOrderLineItem;
@@ -109,6 +101,7 @@ class DraftOrderLineItem extends Base
 
     /**
      * @param $entities
+     *
      * @return array
      */
     protected function serializeTaxLines($entities)
@@ -128,11 +121,11 @@ class DraftOrderLineItem extends Base
 
     /**
      * @param $data
+     *
      * @return Collection
      */
     protected function unserializeTaxLines($data)
     {
-
         if (null === $data) {
             return;
         }
@@ -146,6 +139,7 @@ class DraftOrderLineItem extends Base
 
     /**
      * @param $data
+     *
      * @return object
      */
     protected function unserializeAppliedDiscount($data)
@@ -159,6 +153,7 @@ class DraftOrderLineItem extends Base
 
     /**
      * @param $appliedDiscount
+     *
      * @return array
      */
     protected function serializeAppliedDiscount($appliedDiscount)

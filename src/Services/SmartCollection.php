@@ -6,7 +6,6 @@ use BoldApps\ShopifyToolkit\Models\SmartCollectionRule as ShopifySmartCollection
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use BoldApps\ShopifyToolkit\Models\SmartCollection as ShopifySmartCollection;
 use BoldApps\ShopifyToolkit\Services\SmartCollectionRule as SmartCollectionRuleService;
-
 use Illuminate\Support\Collection;
 
 class SmartCollection extends CollectionEntity
@@ -16,14 +15,14 @@ class SmartCollection extends CollectionEntity
 
     /**
      * SmartCollection constructor.
+     *
      * @param Client                     $client
      * @param SmartCollectionRuleService $ruleService
      */
     public function __construct(
         ShopifyClient $client,
         SmartCollectionRuleService $ruleService
-    )
-    {
+    ) {
         $this->ruleService = $ruleService;
         parent::__construct($client);
     }
@@ -45,6 +44,7 @@ class SmartCollection extends CollectionEntity
     /**
      * @param ShopifySmartCollection $collection
      * @param bool                   $publish
+     *
      * @return object
      */
     public function create(ShopifySmartCollection $collection, $publish = true)
@@ -117,6 +117,7 @@ class SmartCollection extends CollectionEntity
 
     /**
      * @param ShopifySmartCollection $collection
+     *
      * @return object
      */
     public function update(ShopifySmartCollection $collection)
@@ -130,6 +131,7 @@ class SmartCollection extends CollectionEntity
 
     /**
      * @param ShopifySmartCollection $collection
+     *
      * @return array
      */
     public function delete(ShopifySmartCollection $collection)

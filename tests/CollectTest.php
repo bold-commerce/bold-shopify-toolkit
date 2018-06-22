@@ -35,7 +35,7 @@ class CollectTest extends \PHPUnit\Framework\TestCase
     public function ShopifyCollectDeserializesProperly()
     {
         $collectJson = $this->getCollectJson();
-        $jsonArray = (array)json_decode($collectJson, true);
+        $jsonArray = (array) json_decode($collectJson, true);
 
         $expected = $this->createCollectEntity();
         $actual = $this->collectService->unserializeModel($jsonArray, ShopifyCollect::class);

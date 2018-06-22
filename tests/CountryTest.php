@@ -35,7 +35,7 @@ class CountryTest extends \PHPUnit\Framework\TestCase
     public function ShopifyCountryDeserializesProperly()
     {
         $countryJson = $this->getCountryJson();
-        $jsonArray = (array)json_decode($countryJson, true);
+        $jsonArray = (array) json_decode($countryJson, true);
 
         $expected = $this->createCountryEntity();
         $actual = $this->countryService->unserializeModel($jsonArray, ShopifyCountry::class);
@@ -89,33 +89,33 @@ class CountryTest extends \PHPUnit\Framework\TestCase
     private function getCountryArray()
     {
         return [
-            "id" => 2644869131,
-            "name" => "Australia",
-            "tax" => 0,
-            "code" => "AU",
-            "tax_name" => "GST",
-            "provinces" => [
+            'id' => 2644869131,
+            'name' => 'Australia',
+            'tax' => 0,
+            'code' => 'AU',
+            'tax_name' => 'GST',
+            'provinces' => [
                 [
-                    "id" => 16168648715,
-                    "country_id" => 2644869131,
-                    "name" => "Australian Capital Territory",
-                    "code" => "ACT",
-                    "tax" => 0,
-                    "tax_name" => "VAT",
-                    "tax_type" => null,
-                    "shipping_zone_id" => 496074763,
-                    "tax_percentage" => 0,
+                    'id' => 16168648715,
+                    'country_id' => 2644869131,
+                    'name' => 'Australian Capital Territory',
+                    'code' => 'ACT',
+                    'tax' => 0,
+                    'tax_name' => 'VAT',
+                    'tax_type' => null,
+                    'shipping_zone_id' => 496074763,
+                    'tax_percentage' => 0,
                 ],
                 [
-                    "id" => 16168681483,
-                    "country_id" => 2644869131,
-                    "name" => "New South Wales",
-                    "code" => "NSW",
-                    "tax" => 0,
-                    "tax_name" => "VAT",
-                    "tax_type" => null,
-                    "shipping_zone_id" => 496074763,
-                    "tax_percentage" => 0,
+                    'id' => 16168681483,
+                    'country_id' => 2644869131,
+                    'name' => 'New South Wales',
+                    'code' => 'NSW',
+                    'tax' => 0,
+                    'tax_name' => 'VAT',
+                    'tax_type' => null,
+                    'shipping_zone_id' => 496074763,
+                    'tax_percentage' => 0,
                 ],
             ],
         ];

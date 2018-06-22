@@ -55,6 +55,7 @@ class Customer extends CollectionEntity
 
     /**
      * @param array $parms
+     *
      * @return Collection
      */
     public function searchByParams($parms)

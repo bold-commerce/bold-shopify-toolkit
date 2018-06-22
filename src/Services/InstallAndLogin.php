@@ -10,28 +10,23 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 
-/**
- * Class InstallAndLogin
- * @package BoldApps\ShopifyToolkit\Services
- */
 class InstallAndLogin
 {
-    /*** @var ApplicationInfo */
+    /** @var ApplicationInfo */
     protected $applicationInfo;
 
     /** @var HttpClient */
     protected $client;
 
-    /*** @var ShopBaseInfo */
+    /** @var ShopBaseInfo */
     protected $shopBaseInfo;
-
 
     /**
      * InstallAndLogin constructor.
-     * @param ApplicationInfo $applicationInfo
-     * @param ShopBaseInfo $shopBaseInfo
-     * @param HttpClient $client
      *
+     * @param ApplicationInfo $applicationInfo
+     * @param ShopBaseInfo    $shopBaseInfo
+     * @param HttpClient      $client
      */
     public function __construct(
         ApplicationInfo $applicationInfo,
@@ -62,7 +57,9 @@ class InstallAndLogin
 
     /**
      * @param $code
+     *
      * @return string
+     *
      * @throws BadRequestException
      */
     public function getAccessToken($code)
@@ -72,7 +69,7 @@ class InstallAndLogin
         $body = [
             'client_id' => $this->applicationInfo->getApiKey(),
             'client_secret' => $this->applicationInfo->getApiSecret(),
-            'code' => $code
+            'code' => $code,
         ];
 
         $uri = new Uri(sprintf('https://%s/%s', $this->shopBaseInfo->getMyShopifyDomain(), $path));
@@ -106,9 +103,10 @@ class InstallAndLogin
     }
 
     /**
-     * This usually will be something the ParameterBag from a symphony request object toArrayed
+     * This usually will be something the ParameterBag from a symphony request object toArrayed.
      *
      * @param $query
+     *
      * @return bool
      */
     public function validateSignature($query)
@@ -128,7 +126,7 @@ class InstallAndLogin
             $key = str_replace('%', '%25', $key);
             $value = str_replace('&', '%26', $value);
             $value = str_replace('%', '%25', $value);
-            $dataString[] = $key . '=' . $value;
+            $dataString[] = $key.'='.$value;
         }
 
         sort($dataString);

@@ -5,14 +5,11 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Models\Script as ShopifyScript;
 use Illuminate\Support\Collection;
 
-/**
- * Class Script.
- */
 class Script extends Base
 {
-
     /**
      * @param ShopifyScript $script
+     *
      * @return object
      */
     public function create(ShopifyScript $script)
@@ -40,6 +37,7 @@ class Script extends Base
 
     /**
      * @param $url
+     *
      * @return Collection
      */
     public function getByUrl($url)
@@ -55,6 +53,7 @@ class Script extends Base
 
     /**
      * @param ShopifyScript $script
+     *
      * @return object
      */
     public function update(ShopifyScript $script)
@@ -66,9 +65,9 @@ class Script extends Base
         return $this->unserializeModel($raw['script_tag'], ShopifyScript::class);
     }
 
-
     /**
      * @param ShopifyScript $script
+     *
      * @return array
      */
     public function delete(ShopifyScript $script)

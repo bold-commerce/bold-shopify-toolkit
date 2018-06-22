@@ -7,7 +7,6 @@ use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class CustomerAddress implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var int */

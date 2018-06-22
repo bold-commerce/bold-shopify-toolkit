@@ -4,10 +4,6 @@ namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Models\ApplicationCharge as ShopifyApplicationCharge;
 
-/**
- * Class ApplicationCharge
- * @package BoldApps\ShopifyToolkit\Services
- */
 class ApplicationCharge extends Base
 {
     /**

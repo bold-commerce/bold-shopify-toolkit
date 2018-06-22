@@ -15,7 +15,7 @@ class Country extends Base
     {
         $serializedModel = ['country' => $this->serializeModel($country)];
 
-        $raw = $this->client->post("admin/countries.json", [], $serializedModel);
+        $raw = $this->client->post('admin/countries.json', [], $serializedModel);
 
         return $this->unserializeModel($raw['country'], ShopifyCountry::class);
     }
@@ -49,7 +49,7 @@ class Country extends Base
      */
     public function getAll($filter = [])
     {
-        $raw = $this->client->get("admin/countries.json", $filter);
+        $raw = $this->client->get('admin/countries.json', $filter);
 
         return $this->unserializeModel($raw['countries'], ShopifyCountry::class);
     }

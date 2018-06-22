@@ -4,19 +4,12 @@ namespace BoldApps\ShopifyToolkit\Test\Fakes;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 
-/**
- * Class FakeModel.
- */
 class FakeModel implements Serializeable
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $foo;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $bar;
 
     /**

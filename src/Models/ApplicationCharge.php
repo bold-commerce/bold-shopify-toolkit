@@ -5,57 +5,41 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class ApplicationCharge
- * @package BoldApps\ShopifyToolkit\Models
- */
 class ApplicationCharge implements Serializeable
 {
     use HasAttributesTrait;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $id;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $confirmationUrl;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $createdAt;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $name;
-    /**
-     * @var float
-     */
+
+    /** @var float */
     protected $price;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $returnUrl;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $status;
-    /**
-     * @var boolean
-     */
+
+    /** @var bool */
     protected $test;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $updatedAt;
-    /**
-     * @var int
-     */
+
+    /** @var int */
     protected $apiClientId;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $decoratedReturnUrl;
 
     /**

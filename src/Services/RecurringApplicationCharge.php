@@ -4,10 +4,6 @@ namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Models\RecurringApplicationCharge as ShopifyRecurringApplicationCharge;
 
-/**
- * Class RecurringApplicationCharge
- * @package BoldApps\ShopifyToolkit\Services
- */
 class RecurringApplicationCharge extends Base
 {
     /**

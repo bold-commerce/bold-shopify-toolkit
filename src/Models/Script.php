@@ -7,7 +7,6 @@ use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Script implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var int */
@@ -27,7 +26,6 @@ class Script implements Serializeable
 
     /** @var string */
     protected $displayScope;
-
 
     /**
      * @return int

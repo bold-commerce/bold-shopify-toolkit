@@ -6,9 +6,6 @@ use BoldApps\ShopifyToolkit\Models\Metafield as ShopifyMetafield;
 use BoldApps\ShopifyToolkit\Models\Shop as ShopifyShop;
 use Illuminate\Support\Collection;
 
-/**
- * Class Shop.
- */
 class Shop extends Base
 {
     /**
@@ -30,16 +27,16 @@ class Shop extends Base
     }
 
     /**
-     * @param ShopifyShop $shop
+     * @param ShopifyShop      $shop
      * @param ShopifyMetafield $metafield
      *
      * @return Collection
      */
     public function createOrUpdateMetafield(ShopifyShop $shop, ShopifyMetafield $metafield)
     {
-        $serializedModel = [ 'metafield' => array_merge($this->serializeModel($metafield)) ];
+        $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
 
-        $raw = $this->client->post("admin/metafields.json", [], $serializedModel);
+        $raw = $this->client->post('admin/metafields.json', [], $serializedModel);
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
