@@ -35,7 +35,7 @@ class VariantTest extends \PHPUnit\Framework\TestCase
     public function ShopifyVariantDeserializesProperly()
     {
         $variantJson = $this->getVariantJson();
-        $jsonArray = (array)json_decode($variantJson, true);
+        $jsonArray = (array) json_decode($variantJson, true);
 
         $expected = $this->createVariantEntity();
         $actual = $this->variantService->unserializeModel($jsonArray, ShopifyVariant::class);

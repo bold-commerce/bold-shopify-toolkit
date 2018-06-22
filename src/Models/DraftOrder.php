@@ -6,93 +6,89 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
 
-/**
- * Class DraftOrder
- */
 class DraftOrder implements Serializeable
 {
-
     use HasAttributesTrait;
 
-    /** @var  int */
+    /** @var int */
     protected $id;
 
-    /** @var  string */
+    /** @var string */
     protected $note;
 
-    /** @var  array */
+    /** @var array */
     protected $noteAttributes;
 
-    /** @var  string */
+    /** @var string */
     protected $email;
 
-    /** @var  bool */
+    /** @var bool */
     protected $taxesIncluded;
 
-    /** @var  string */
+    /** @var string */
     protected $currency;
 
-    /** @var   string */
+    /** @var string */
     protected $subtotalPrice;
 
-    /** @var  string */
+    /** @var string */
     protected $totalTax;
 
-    /** @var  string */
+    /** @var string */
     protected $totalPrice;
 
-    /** @var  string */
+    /** @var string */
     protected $invoiceSentAt;
 
-    /** @var  string */
+    /** @var string */
     protected $createdAt;
 
-    /** @var  string */
+    /** @var string */
     protected $updatedAt;
 
-    /** @var  bool */
+    /** @var bool */
     protected $taxExempt;
 
-    /** @var  string */
+    /** @var string */
     protected $completedAt;
 
-    /** @var  string */
+    /** @var string */
     protected $name;
 
-    /** @var  string */
+    /** @var string */
     protected $status;
 
-    /** @var  collection */
+    /** @var collection */
     protected $lineItems;
 
     //TODO: implement object as a model
-    /** @var  object */
+    /** @var object */
     protected $shippingAddress;
 
     //TODO: implement object as a model
-    /** @var  object */
+    /** @var object */
     protected $billingAddress;
 
-    /** @var  string */
+    /** @var string */
     protected $invoiceUrl;
 
-    /** @var  int */
+    /** @var int */
     protected $orderId;
 
     //TODO: implement object as a model
-    /** @var  object */
+    /** @var object */
     protected $shippingLine;
 
-    /** @var  array */
+    /** @var array */
     protected $taxLines;
 
-    /** @var  string */
+    /** @var string */
     protected $tags;
 
-    /** @var  object */
+    /** @var object */
     protected $customer;
 
-    /** @var  object */
+    /** @var object */
     protected $appliedDiscount;
 
     /**

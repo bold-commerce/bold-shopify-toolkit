@@ -8,55 +8,54 @@ use Illuminate\Support\Collection;
 
 class Product implements Serializeable
 {
-
     use HasAttributesTrait;
 
-    /** @var  int */
+    /** @var int */
     protected $id;
 
-    /** @var  string */
+    /** @var string */
     protected $bodyHtml;
 
-    /** @var  string */
+    /** @var string */
     protected $handle;
 
-    /** @var  string */
+    /** @var string */
     protected $productType;
 
-    /** @var  string */
+    /** @var string */
     protected $publishedScope;
 
-    /** @var  string */
+    /** @var string */
     protected $templateSuffix;
 
-    /** @var  string */
+    /** @var string */
     protected $title;
 
-    /** @var  string */
+    /** @var string */
     protected $vendor;
 
-    /** @var  string */
+    /** @var string */
     protected $tags;
 
-    /** @var  Collection */
+    /** @var Collection */
     protected $options;
 
-    /** @var  Collection */
+    /** @var Collection */
     protected $variants;
 
-    /** @var  Collection */
+    /** @var Collection */
     protected $images;
 
-    /** @var  string */
+    /** @var string */
     protected $createdAt;
 
-    /** @var  string */
+    /** @var string */
     protected $updatedAt;
 
-    /** @var  string */
+    /** @var string */
     protected $publishedAt;
 
-    /** @var  Image */
+    /** @var Image */
     protected $image;
 
     /** @var Collection */

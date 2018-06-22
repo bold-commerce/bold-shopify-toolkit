@@ -5,15 +5,12 @@ namespace BoldApps\ShopifyToolkit\Services;
 use Illuminate\Support\Collection;
 use BoldApps\ShopifyToolkit\Models\Theme as ShopifyTheme;
 
-/**
- * Class Theme.
- */
 class Theme extends Base
 {
     /**
      * @param ShopifyTheme $shopifyTheme
      *
-     * @return  ShopifyTheme
+     * @return ShopifyTheme
      */
     public function create(ShopifyTheme $shopifyTheme)
     {

@@ -15,32 +15,21 @@ use BoldApps\ShopifyToolkit\Services\Image as ImageService;
 use BoldApps\ShopifyToolkit\Services\Metafield as MetafieldService;
 use Illuminate\Support\Collection;
 
-/**
- * Class Product.
- */
 class Product extends CollectionEntity
 {
-    /**
-     * @var Variant
-     */
+    /** @var Variant */
     protected $variantService;
-    /**
-     * @var Option
-     */
+
+    /** @var Option */
     protected $optionService;
-    /**
-     * @var Image
-     */
+
+    /** @var Image */
     protected $imageService;
 
-    /**
-     * @var Metafield
-     */
+    /** @var Metafield */
     protected $metafieldService;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $unserializationExceptions = [
         'variants' => 'unserializeVariants',
         'options' => 'unserializeOptions',
@@ -49,9 +38,7 @@ class Product extends CollectionEntity
         'metafields' => 'unserializeMetafields',
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $serializationExceptions = [
         'variants' => 'serializeVariants',
         'options' => 'serializeOptions',
@@ -63,10 +50,10 @@ class Product extends CollectionEntity
     /**
      * Product constructor.
      *
-     * @param Client  $client
-     * @param Variant $variantService
-     * @param Option  $optionService
-     * @param Image   $imageService
+     * @param Client           $client
+     * @param Variant          $variantService
+     * @param Option           $optionService
+     * @param Image            $imageService
      * @param MetafieldService $metafieldService
      */
     public function __construct(
@@ -228,6 +215,7 @@ class Product extends CollectionEntity
 
     /**
      * @param $array
+     *
      * @return object
      */
     public function createFromArray($array)
@@ -468,6 +456,7 @@ class Product extends CollectionEntity
 
     /**
      * @param $data
+     *
      * @return Collection|void
      */
     protected function unserializeMetafields($data)

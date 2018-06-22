@@ -9,40 +9,40 @@ class Asset implements Serializeable
 {
     use HasAttributesTrait;
 
-    /** @var  string */
+    /** @var string */
     protected $key;
 
-    /** @var  string */
+    /** @var string */
     protected $value;
 
-    /** @var  string */
+    /** @var string */
     protected $attachment;
 
-    /** @var  string */
+    /** @var string */
     protected $contentType;
 
-    /** @var  string */
+    /** @var string */
     protected $publicUrl;
 
-    /** @var  int */
+    /** @var int */
     protected $size;
 
-    /** @var  string */
+    /** @var string */
     protected $sourceKey;
 
-    /** @var  string */
+    /** @var string */
     protected $src;
 
-    /** @var  int */
+    /** @var int */
     protected $themeId;
 
-    /** @var  string */
+    /** @var string */
     protected $createdAt;
 
-    /** @var  string */
+    /** @var string */
     protected $updatedAt;
 
-    /** @var  array */
+    /** @var array */
     protected $warnings;
 
     /**

@@ -35,7 +35,7 @@ class DiscountCodeTest extends \PHPUnit\Framework\TestCase
     public function ShopifyDiscountCodeDeserializesProperly()
     {
         $discountCodeJson = $this->getDiscountCodeJson();
-        $jsonArray = (array)json_decode($discountCodeJson, true);
+        $jsonArray = (array) json_decode($discountCodeJson, true);
 
         $expected = $this->createDiscountCodeEntity();
         $actual = $this->discountCodeService->unserializeModel($jsonArray, ShopifyDiscountCode::class);
@@ -66,12 +66,12 @@ class DiscountCodeTest extends \PHPUnit\Framework\TestCase
     private function getDiscountCodeArray()
     {
         return [
-            "id" => 48528162827,
-            "price_rule_id" => 19275055115,
-            "code" => "CARDINAL",
-            "usage_count" => 0,
-            "created_at" => "2018-01-02T11:54:46-06:00",
-            "updated_at" => "2018-01-02T11:55:11-06:00",
+            'id' => 48528162827,
+            'price_rule_id' => 19275055115,
+            'code' => 'CARDINAL',
+            'usage_count' => 0,
+            'created_at' => '2018-01-02T11:54:46-06:00',
+            'updated_at' => '2018-01-02T11:55:11-06:00',
         ];
     }
 }

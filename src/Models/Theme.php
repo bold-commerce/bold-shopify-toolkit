@@ -7,34 +7,33 @@ use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Theme implements Serializeable
 {
-
     use HasAttributesTrait;
 
-    /** @var  int */
+    /** @var int */
     protected $id;
 
-    /** @var  string */
+    /** @var string */
     protected $name;
 
-    /** @var  string */
+    /** @var string */
     protected $role;
 
-    /** @var  int */
+    /** @var int */
     protected $themeStoreId;
 
-    /** @var  string */
+    /** @var string */
     protected $createdAt;
 
-    /** @var  string */
+    /** @var string */
     protected $updatedAt;
 
-    /** @var  bool */
+    /** @var bool */
     protected $previewable;
 
-    /** @var  bool */
+    /** @var bool */
     protected $processing;
 
-    /** @var  string */
+    /** @var string */
     protected $src;
 
     /**

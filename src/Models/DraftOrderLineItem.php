@@ -5,102 +5,62 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class DraftOrderLineItem
- */
 class DraftOrderLineItem implements Serializeable
 {
-
     use HasAttributesTrait;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $variantId;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $productId;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $title;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $variantTitle;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $sku;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $vendor;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $price;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $grams;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $quantity;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $requiresShipping;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $taxable;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $giftCard;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $fulfillmentService;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $taxLines;
 
-    /**
-     * @var DraftOrderAppliedDiscount
-     */
+    /** @var DraftOrderAppliedDiscount */
     protected $appliedDiscount;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $name;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $properties;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $custom;
 
     /**

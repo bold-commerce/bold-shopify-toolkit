@@ -1,6 +1,7 @@
 <?php
 
 namespace BoldApps\ShopifyToolkit\Services;
+
 use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItemModel;
 use BoldApps\ShopifyToolkit\Models\Cart\Cart as CartModel;
 use BoldApps\ShopifyToolkit\Models\Option as OptionModel;
@@ -24,29 +25,26 @@ class Cart extends Base
      */
     public function get($cartToken, $password = null)
     {
-
-        $raw = $this->client->get('cart.json',[], $this->getCartCookie($cartToken), $password, true);
+        $raw = $this->client->get('cart.json', [], $this->getCartCookie($cartToken), $password, true);
 
         $cart = $this->unserializeModel($raw, CartModel::class);
 
         return $cart;
     }
 
-
     /**
-     * @param string $cartToken
+     * @param string      $cartToken
      * @param string|null $password
+     *
      * @return CartModel|object
      */
-    public function clear($cartToken, $password = null) {
-
+    public function clear($cartToken, $password = null)
+    {
         $cookies = $this->getCartCookie($cartToken);
 
-        $raw = $this->client->post('cart/clear.json', [], [], $cookies , $password, true);
+        $raw = $this->client->post('cart/clear.json', [], [], $cookies, $password, true);
 
-        /**
-         * @var CartModel $cart
-         */
+        /** @var CartModel */
         $cart = $this->unserializeModel($raw, CartModel::class);
 
         $needToUpdateCart = false;
@@ -60,7 +58,7 @@ class Cart extends Base
         if (count($cart->getAttributes())) {
             //can't just set attributes to an empty array, gotta set the values to blank
             $clearedAttributes = $cart->getAttributes();
-            foreach($clearedAttributes as &$attribute) {
+            foreach ($clearedAttributes as &$attribute) {
                 $attribute = '';
             }
             $needToUpdateCart = true;
@@ -69,7 +67,7 @@ class Cart extends Base
         }
 
         if ($needToUpdateCart) {
-            $raw = $this->client->post("cart/update.json", [], $cartUpdateData, $this->getCartCookie($cartToken), $password, true);
+            $raw = $this->client->post('cart/update.json', [], $cartUpdateData, $this->getCartCookie($cartToken), $password, true);
 
             return $this->unserializeModel($raw, CartModel::class);
         }
@@ -78,25 +76,28 @@ class Cart extends Base
     }
 
     /**
-     * @param CartModel $cart
-     * @param string $cartToken
+     * @param CartModel     $cart
+     * @param string        $cartToken
      * @param string | null $password
+     *
      * @return object
      */
     public function update(CartModel $cart, $cartToken, $password = null)
     {
-        $raw = $this->client->post("cart/update.json", [], $this->serializeModel($cart), $this->getCartCookie($cartToken), $password, true);
+        $raw = $this->client->post('cart/update.json', [], $this->serializeModel($cart), $this->getCartCookie($cartToken), $password, true);
 
         return $this->unserializeModel($raw, CartModel::class);
     }
 
     /**
-     * Builds the cookie needed for you to get a cart
+     * Builds the cookie needed for you to get a cart.
      *
      * @param $cartToken
+     *
      * @return array
      */
-    private function getCartCookie($cartToken) {
+    private function getCartCookie($cartToken)
+    {
         $cartCookie = new SetCookie();
         $cartCookie->setName('cart');
         $cartCookie->setValue($cartToken);
@@ -135,7 +136,7 @@ class Cart extends Base
             return;
         }
 
-        $items = array_map(function ($item){
+        $items = array_map(function ($item) {
             return $this->unserializeModel($item, CartItemModel::class);
         }, $data);
 
@@ -179,6 +180,4 @@ class Cart extends Base
 
         return new Collection($options);
     }
-
-
 }

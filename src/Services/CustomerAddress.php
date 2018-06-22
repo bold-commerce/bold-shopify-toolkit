@@ -6,14 +6,11 @@ use BoldApps\ShopifyToolkit\Models\Customer as ShopifyCustomer;
 use BoldApps\ShopifyToolkit\Models\CustomerAddress as ShopifyCustomerAddress;
 use Illuminate\Support\Collection;
 
-/**
- * Class CustomerAddress.
- */
 class CustomerAddress extends Base
 {
     /**
-     * @param ShopifyCustomer   $customer
-     * @param int   $id
+     * @param ShopifyCustomer $customer
+     * @param int             $id
      *
      * @return ShopifyCustomerAddress|object
      */
@@ -26,10 +23,10 @@ class CustomerAddress extends Base
     }
 
     /**
-     * @param ShopifyCustomer   $customer
-     * @param int   $page
-     * @param int   $limit
-     * @param array $filter
+     * @param ShopifyCustomer $customer
+     * @param int             $page
+     * @param int             $limit
+     * @param array           $filter
      *
      * @return Collection
      */
@@ -46,7 +43,7 @@ class CustomerAddress extends Base
     }
 
     /**
-     * @param ShopifyCustomer   $customer
+     * @param ShopifyCustomer        $customer
      * @param ShopifyCustomerAddress $address
      *
      * @return ShopifyCustomerAddress | object

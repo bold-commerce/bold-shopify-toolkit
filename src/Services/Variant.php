@@ -7,9 +7,6 @@ use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
 use BoldApps\ShopifyToolkit\Models\Variant as ShopifyVariant;
 use Illuminate\Support\Collection;
 
-/**
- * Class Variant.
- */
 class Variant extends Base
 {
     /**
@@ -107,7 +104,7 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant $variant
+     * @param ShopifyVariant   $variant
      * @param ShopifyMetafield $metafield
      *
      * @return Collection
@@ -123,7 +120,7 @@ class Variant extends Base
 
     /**
      * @param ShopifyVariant $variant
-     * @param array $params
+     * @param array          $params
      *
      * @return Collection
      */
@@ -139,7 +136,7 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant $variant
+     * @param ShopifyVariant   $variant
      * @param ShopifyMetafield $metafield
      *
      * @return Collection

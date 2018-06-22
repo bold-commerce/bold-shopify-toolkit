@@ -5,12 +5,8 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class Shop.
- */
 class Shop implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var string */
@@ -40,7 +36,7 @@ class Shop implements Serializeable
     /** @var string */
     protected $address1;
 
-    /** @var  string */
+    /** @var string */
     protected $zip;
 
     /** @var string */
@@ -67,10 +63,10 @@ class Shop implements Serializeable
     /** @var int */
     protected $primaryLocationId;
 
-    /** @var  string */
+    /** @var string */
     protected $primaryLocale;
 
-    /** @var  string */
+    /** @var string */
     protected $address2;
 
     /** @var string */

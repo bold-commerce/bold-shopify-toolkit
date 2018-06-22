@@ -2,21 +2,26 @@
 
 namespace BoldApps\ShopifyToolkit\Models;
 
-
 class OrderAdjustment
 {
-    /** @var  int */
+    /** @var int */
     public $id;
-    /** @var  int */
+
+    /** @var int */
     public $orderId;
-    /** @var  int */
+
+    /** @var int */
     public $refundId;
-    /** @var  float */
+
+    /** @var float */
     public $amount;
-    /** @var  float */
+
+    /** @var float */
     public $taxAmount;
-    /** @var  string */
+
+    /** @var string */
     public $kind;
-    /** @var  string */
+
+    /** @var string */
     public $reason;
 }

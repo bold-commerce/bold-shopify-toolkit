@@ -1,15 +1,12 @@
 <?php
 
-
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-
 class User implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var int */
@@ -296,5 +293,4 @@ class User implements Serializeable
     {
         $this->tfaEnabled = $tfaEnabled;
     }
-
 }

@@ -5,88 +5,63 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class RecurringApplicationCharge
- * @package BoldApps\ShopifyToolkit\Models
- */
 class RecurringApplicationCharge implements Serializeable
 {
-
     use HasAttributesTrait;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $id;
-    /**
-     * @var string
-     */
-    protected $activatedOn;
-    /**
-     * @var string
-     */
-    protected $billingOn;
-    /**
-     * @var string
-     */
-    protected $cancelledOn;
-    /**
-     * @var float
-     */
-    protected $cappedAmount;
-    /**
-     * @var string
-     */
-    protected $confirmationUrl;
-    /**
-     * @var string
-     */
-    protected $createdAt;
-    /**
-     * @var string
-     */
-    protected $name;
-    /**
-     * @var float
-     */
-    protected $price;
-    /**
-     * @var string
-     */
-    protected $returnUrl;
-    /**
-     * @var string
-     */
-    protected $status;
-    /**
-     * @var string
-     */
-    protected $terms;
-    /**
-     * @var boolean
-     */
-    protected $test;
-    /**
-     * @var int
-     */
-    protected $trialDays;
-    /**
-     * @var string
-     */
-    protected $trialEndsOn;
-    /**
-     * @var string
-     */
-    protected $updatedAt;
-    /**
-     * @var int
-     */
-    protected $apiClientId;
-    /**
-     * @var string
-     */
-    protected $decoratedReturnUrl;
 
+    /** @var string */
+    protected $activatedOn;
+
+    /** @var string */
+    protected $billingOn;
+
+    /** @var string */
+    protected $cancelledOn;
+
+    /** @var float */
+    protected $cappedAmount;
+
+    /** @var string */
+    protected $confirmationUrl;
+
+    /** @var string */
+    protected $createdAt;
+
+    /** @var string */
+    protected $name;
+
+    /** @var float */
+    protected $price;
+
+    /** @var string */
+    protected $returnUrl;
+
+    /** @var string */
+    protected $status;
+
+    /** @var string */
+    protected $terms;
+
+    /** @var bool */
+    protected $test;
+
+    /** @var int */
+    protected $trialDays;
+
+    /** @var string */
+    protected $trialEndsOn;
+
+    /** @var string */
+    protected $updatedAt;
+
+    /** @var int */
+    protected $apiClientId;
+
+    /** @var string */
+    protected $decoratedReturnUrl;
 
     /**
      * @return int
@@ -231,7 +206,6 @@ class RecurringApplicationCharge implements Serializeable
     {
         $this->terms = $terms;
     }
-
 
     /**
      * @return bool

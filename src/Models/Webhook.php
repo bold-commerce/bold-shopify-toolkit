@@ -7,7 +7,6 @@ use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Webhook implements Serializeable
 {
-
     use HasAttributesTrait;
 
     /** @var int */

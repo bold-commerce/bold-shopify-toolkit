@@ -1,47 +1,41 @@
 <?php
 
-
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class CustomCollection
- * @package BoldApps\ShopifyToolkit\Models
- */
 class CustomCollection
 {
-
     use HasAttributesTrait;
 
-    /*** @var int */
+    /** @var int */
     protected $id;
 
-    /*** @var string */
+    /** @var string */
     protected $title;
 
-    /*** @var string */
+    /** @var string */
     protected $handle;
 
-    /*** @var string */
+    /** @var string */
     protected $updatedAt;
 
-    /*** @var string */
+    /** @var string */
     protected $bodyHtml;
 
-    /*** @var string */
+    /** @var string */
     protected $publishedAt;
 
-    /*** @var string */
+    /** @var string */
     protected $sortOrder;
 
-    /*** @var string|null */
+    /** @var string|null */
     protected $templateSuffix;
 
-    /*** @var string|null */
+    /** @var string|null */
     protected $publishedScope;
 
-    /** @var  array */
+    /** @var array */
     protected $image;
 
     /**
@@ -123,5 +117,4 @@ class CustomCollection
     {
         return $this->image;
     }
-
 }

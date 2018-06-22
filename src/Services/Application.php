@@ -4,14 +4,11 @@ namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 
-/**
- * Class Application
- * @package BoldApps\ShopifyToolkit\Services
- */
 class Application extends Base
 {
     /**
      * Application constructor.
+     *
      * @param Client $client
      */
     public function __construct(ShopifyClient $client)

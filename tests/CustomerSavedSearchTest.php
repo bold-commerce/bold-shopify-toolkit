@@ -35,7 +35,7 @@ class CustomerSavedSearchTest extends \PHPUnit\Framework\TestCase
     public function ShopifyCustomerSavedSearchDeserializesProperly()
     {
         $customerSavedSearchJson = $this->getCustomerSavedSearchJson();
-        $jsonArray = (array)json_decode($customerSavedSearchJson, true);
+        $jsonArray = (array) json_decode($customerSavedSearchJson, true);
 
         $expected = $this->createCustomerSavedSearchEntity();
         $actual = $this->customerSavedSearchService->unserializeModel($jsonArray, ShopifyCustomerSavedSearch::class);
@@ -65,11 +65,11 @@ class CustomerSavedSearchTest extends \PHPUnit\Framework\TestCase
     private function getCustomerSavedSearchArray()
     {
         return [
-            "id" => 1862334091,
-            "name" => "Abandoned checkouts",
-            "created_at" => "2017-05-25T10:02:43-05:00",
-            "updated_at" => "2017-05-25T10:02:43-05:00",
-            "query" => "last_abandoned_order_date:last_month",
+            'id' => 1862334091,
+            'name' => 'Abandoned checkouts',
+            'created_at' => '2017-05-25T10:02:43-05:00',
+            'updated_at' => '2017-05-25T10:02:43-05:00',
+            'query' => 'last_abandoned_order_date:last_month',
         ];
     }
 }
