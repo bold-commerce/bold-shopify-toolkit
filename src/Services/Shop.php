@@ -33,7 +33,7 @@ class Shop extends Base
      * @param ShopifyShop $shop
      * @param ShopifyMetafield $metafield
      *
-     * @return Collection
+     * @return ShopifyMetafield | object
      */
     public function createOrUpdateMetafield(ShopifyShop $shop, ShopifyMetafield $metafield)
     {
@@ -57,11 +57,13 @@ class Shop extends Base
     }
 
     /**
+     * @param array $params
+     *
      * @return Collection
      */
-    public function getMetafields()
+    public function getMetafields(array $params = [])
     {
-        $raw = $this->client->get('admin/metafields.json');
+        $raw = $this->client->get('admin/metafields.json', $params);
 
         $metafields = array_map(function ($metafield) {
             return $this->unserializeModel($metafield, ShopifyMetafield::class);
