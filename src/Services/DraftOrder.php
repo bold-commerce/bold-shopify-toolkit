@@ -13,7 +13,12 @@ use BoldApps\ShopifyToolkit\Services\DraftOrderAppliedDiscount as AppliedDiscoun
 use BoldApps\ShopifyToolkit\Models\DraftOrderAppliedDiscount as AppliedDiscountModel;
 use BoldApps\ShopifyToolkit\Models\Cart\Cart as CartModel;
 use BoldApps\ShopifyToolkit\Traits\TranslatePropertiesTrait;
+use BoldApps\ShopifyToolkit\Models\Variant as VariantModel;
 
+/**
+ * Class DraftOrder
+ * @package BoldApps\ShopifyToolkit\Services
+ */
 class DraftOrder extends Base
 {
     use TranslatePropertiesTrait;
@@ -131,6 +136,31 @@ class DraftOrder extends Base
     public function delete($id)
     {
         return $this->client->delete("admin/draft_orders/$id.json");
+    }
+
+    /**
+     * @param VariantModel $variant
+     * @param $quantity
+     *
+     * @return ShopifyDraftOrder
+     */
+    public function createDraftOrderFromVariant(VariantModel $variant, $quantity)
+    {
+        $draftOrderModel = new ShopifyDraftOrder();
+        $lineitem = new DraftOrderLineItemModel();
+        $lineitem->setProductId($variant->getProductId());
+        $lineitem->setVariantId($variant->getId());
+        $lineitem->setVariantTitle($variant->getTitle());
+        $lineitem->setPrice($variant->getPrice());
+        $lineitem->setTaxable($variant->getTaxable());
+        $lineitem->setQuantity($quantity);
+
+        $draftOrderLineItems = new Collection();
+        $draftOrderLineItems->push($lineitem);
+
+        $draftOrderModel->setLineItems($draftOrderLineItems);
+
+        return $draftOrderModel;
     }
 
     /**
