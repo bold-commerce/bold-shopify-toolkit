@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/php:5.6.30-apache
+      - image: circleci/php:5.6.37-apache-jessie
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
