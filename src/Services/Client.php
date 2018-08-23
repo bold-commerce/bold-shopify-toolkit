@@ -106,9 +106,10 @@ class Client
      *
      * @return array
      */
-    public function post($path, $params, $body, array $cookies = [], $password = null, $frontendApi = false)
+    public function post($path, $params, $body, array $cookies = [], $password = null, $frontendApi = false, $extraHeaders = [])
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
+        $headers = array_merge($headers, $extraHeaders);
 
         $domain = $frontendApi ? $this->shopBaseInfo->getDomain() : $this->shopBaseInfo->getMyShopifyDomain();
 
