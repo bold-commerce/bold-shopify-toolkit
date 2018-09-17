@@ -3,6 +3,7 @@
 namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Models\RecurringApplicationCharge as ShopifyRecurringApplicationCharge;
+use Illuminate\Support\Collection;
 
 class RecurringApplicationCharge extends Base
 {
@@ -33,6 +34,19 @@ class RecurringApplicationCharge extends Base
     }
 
     /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getAll()
+    {
+        $raw = $this->client->get("/admin/recurring_application_charges.json");
+        $charges = array_map(function ($charge) {
+            return $this->unserializeModel($charge, ShopifyRecurringApplicationCharge::class);
+        }, $raw['recurring_application_charges']);
+
+        return new Collection($charges);
+    }
+
+    /**
      * @param ShopifyRecurringApplicationCharge $recurringApplicationCharge
      *
      * @return ShopifyRecurringApplicationCharge \ object
@@ -55,5 +69,14 @@ class RecurringApplicationCharge extends Base
     public function delete(ShopifyRecurringApplicationCharge $recurringApplicationCharge)
     {
         return $this->client->delete("admin/recurring_application_charges/{$recurringApplicationCharge->getId()}.json");
+    }
+
+    /**
+     * @param $array
+     * @return ShopifyRecurringApplicationCharge | object
+     */
+    public function createFromArray($array)
+    {
+        return $this->unserializeModel($array, ShopifyRecurringApplicationCharge::class);
     }
 }
