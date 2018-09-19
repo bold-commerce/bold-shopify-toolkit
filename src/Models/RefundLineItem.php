@@ -3,31 +3,32 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
+use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 
-class RefundLineItem
+class RefundLineItem implements Serializeable
 {
     use HasAttributesTrait;
 
     /** @var int */
-    public $id;
+    protected $id;
 
     /** @var int */
-    public $quantity;
+    protected $quantity;
 
     /** @var int */
-    public $lineItemId;
+    protected $lineItemId;
 
     /** @var float */
-    public $subtotal;
+    protected $subtotal;
 
     /** @var float */
-    public $totalTax;
+    protected $totalTax;
 
     /** @var string */
-    public $restockType;
+    protected $restockType;
 
     /** @var int */
-    public $locationId;
+    protected $locationId;
 
     /**
      * @return int
@@ -128,9 +129,9 @@ class RefundLineItem
     /**
      * @param string int
      */
-    public function setLocationId($id)
+    public function setLocationId($locationId)
     {
-        $this->locationId = $id;
+        $this->locationId = $locationId;
     }
 
     /**
