@@ -30,6 +30,8 @@ class RefundTest extends TestCase
 
         $refundLineItem = new RefundLineItem();
         $refundLineItem->lineItemId = 222333;
+        $refundLineItem->restockType = 'return';
+        $refundLineItem->locationId = 777777;
         $refundLineItem->quantity = 1;
 
         $transactionLineItem = new Transaction();
@@ -50,7 +52,12 @@ class RefundTest extends TestCase
                 'amount' => 25,
             ],
             'refund_line_items' => [
-                ['line_item_id' => 222333, 'quantity' => 1],
+                [
+                    'line_item_id' => 222333,
+                    'restock_type' => 'return',
+                    'quantity' => 1,
+                    'location_id' => 777777,
+                ],
             ],
             'transactions' => [
                 [
@@ -107,6 +114,7 @@ class RefundTest extends TestCase
                         "product_exists": true,
                         "fulfillable_quantity": 0,
                         "total_discount": "0.00",
+                        "restock_type": "cancel",
                         "fulfillment_status": null,
                         "tax_lines": [
                             {

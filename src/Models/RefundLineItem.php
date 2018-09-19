@@ -23,6 +23,12 @@ class RefundLineItem
     /** @var float */
     public $totalTax;
 
+    /** @var string */
+    public $restockType;
+
+    /** @var int */
+    public $locationId;
+
     /**
      * @return int
      */
@@ -101,5 +107,37 @@ class RefundLineItem
     public function setTotalTax($totalTax)
     {
         $this->totalTax = $totalTax;
+    }
+
+    /**
+     * @param string $restockType
+     */
+    public function setRestockType($restockType)
+    {
+        $this->restockType = $restockType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRestockType()
+    {
+        return $this->restockType;
+    }
+
+    /**
+     * @param string int
+     */
+    public function setLocationId($id)
+    {
+        $this->locationId = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLocationId()
+    {
+        return $this->locationId;
     }
 }
