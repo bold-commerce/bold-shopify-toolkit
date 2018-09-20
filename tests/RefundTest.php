@@ -16,7 +16,9 @@ class RefundTest extends TestCase
     protected function setUp()
     {
         $client = $this->createMock(\BoldApps\ShopifyToolkit\Services\Client::class);
-        $this->refundService = new RefundService($client);
+        $refundLineItemService = new \BoldApps\ShopifyToolkit\Services\RefundLineItem($client);
+        $transactionService = new \BoldApps\ShopifyToolkit\Services\Transaction($client);
+        $this->refundService = new RefundService($client,$refundLineItemService, $transactionService);
     }
 
     /**
@@ -29,15 +31,17 @@ class RefundTest extends TestCase
         $refundEntity->setShipping(25.00);
 
         $refundLineItem = new RefundLineItem();
-        $refundLineItem->lineItemId = 222333;
-        $refundLineItem->quantity = 1;
+        $refundLineItem->setLineItemId(222333);
+        $refundLineItem->setRestockType('cancel');
+        $refundLineItem->setLocationId(777777);
+        $refundLineItem->setQuantity(1);
 
         $transactionLineItem = new Transaction();
 
-        $transactionLineItem->parentId = 99999;
-        $transactionLineItem->amount = 126.70;
-        $transactionLineItem->kind = 'refund';
-        $transactionLineItem->gateway = 'bogus';
+        $transactionLineItem->setParentId(99999);
+        $transactionLineItem->setAmount(126.70);
+        $transactionLineItem->setKind('refund');
+        $transactionLineItem->setGateway('bogus');
 
         $refundEntity->setRefundLineItems(new Collection([$refundLineItem]));
         $refundEntity->setTransactions(new Collection([$transactionLineItem]));
@@ -50,7 +54,12 @@ class RefundTest extends TestCase
                 'amount' => 25,
             ],
             'refund_line_items' => [
-                ['line_item_id' => 222333, 'quantity' => 1],
+                [
+                    'line_item_id' => 222333,
+                    'restock_type' => 'cancel',
+                    'quantity' => 1,
+                    'location_id' => 777777,
+                ],
             ],
             'transactions' => [
                 [
@@ -86,6 +95,8 @@ class RefundTest extends TestCase
                     "line_item_id": 518995019,
                     "subtotal": 195.67,
                     "total_tax": 3.98,
+                    "restock_type": "cancel",
+                    "location_id": 1234,
                     "line_item": {
                         "id": 518995019,
                         "variant_id": 49148385,
@@ -162,31 +173,33 @@ class RefundTest extends TestCase
         $expected->setUserId(0);
 
         $expectedRefundLineItem1 = new RefundLineItem();
-        $expectedRefundLineItem1->id = 1058498311;
-        $expectedRefundLineItem1->quantity = 1;
-        $expectedRefundLineItem1->lineItemId = 518995019;
-        $expectedRefundLineItem1->subtotal = 195.67;
-        $expectedRefundLineItem1->totalTax = 3.98;
+        $expectedRefundLineItem1->setId(1058498311);
+        $expectedRefundLineItem1->setQuantity(1);
+        $expectedRefundLineItem1->setLineItemId(518995019);
+        $expectedRefundLineItem1->setSubtotal(195.67);
+        $expectedRefundLineItem1->setTotalTax(3.98);
+        $expectedRefundLineItem1->setRestockType("cancel");
+        $expectedRefundLineItem1->setLocationId(1234);
 
         $expectedTransactionLineItem1 = new Transaction();
-        $expectedTransactionLineItem1->id = 1068278485;
-        $expectedTransactionLineItem1->orderId = 450789469;
-        $expectedTransactionLineItem1->amount = '199.65';
-        $expectedTransactionLineItem1->kind = 'refund';
-        $expectedTransactionLineItem1->gateway = 'bogus';
-        $expectedTransactionLineItem1->status = 'success';
-        $expectedTransactionLineItem1->message = 'Bogus Gateway: Forced success';
-        $expectedTransactionLineItem1->createdAt = '2016-11-09T13:53:19-05:00';
-        $expectedTransactionLineItem1->test = true;
-        $expectedTransactionLineItem1->authorization = null;
-        $expectedTransactionLineItem1->currency = 'USD';
-        $expectedTransactionLineItem1->locationId = null;
-        $expectedTransactionLineItem1->userId = null;
-        $expectedTransactionLineItem1->parentId = 801038806;
-        $expectedTransactionLineItem1->deviceId = null;
-        $expectedTransactionLineItem1->receipt = [];
-        $expectedTransactionLineItem1->errorCode = null;
-        $expectedTransactionLineItem1->sourceName = '755357713';
+        $expectedTransactionLineItem1->setId(1068278485);
+        $expectedTransactionLineItem1->setOrderId(450789469);
+        $expectedTransactionLineItem1->setAmount('199.65');
+        $expectedTransactionLineItem1->setKind('refund');
+        $expectedTransactionLineItem1->setGateway('bogus');
+        $expectedTransactionLineItem1->setStatus('success');
+        $expectedTransactionLineItem1->setMessage('Bogus Gateway: Forced success');
+        $expectedTransactionLineItem1->setCreatedAt('2016-11-09T13:53:19-05:00');
+        $expectedTransactionLineItem1->setTest(true);
+        $expectedTransactionLineItem1->setAuthorization(null);
+        $expectedTransactionLineItem1->setCurrency('USD');
+        $expectedTransactionLineItem1->setLocationId(null);
+        $expectedTransactionLineItem1->setUserId(null);
+        $expectedTransactionLineItem1->setParentId(801038806);
+        $expectedTransactionLineItem1->setDeviceId(null);
+        $expectedTransactionLineItem1->setReceipt([]);
+        $expectedTransactionLineItem1->setErrorCode(null);
+        $expectedTransactionLineItem1->setSourceName('755357713');
 
         $expected->setRefundLineItems(new Collection([$expectedRefundLineItem1]));
         $expected->setTransactions(new Collection([$expectedTransactionLineItem1]));
