@@ -4,7 +4,7 @@ namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Models\OrderAdjustment;
 use BoldApps\ShopifyToolkit\Models\Refund as ShopifyRefund;
-use BoldApps\ShopifyToolkit\Models\RefundLineItem;
+use BoldApps\ShopifyToolkit\Models\RefundLineItem as RefundLineItemModel;
 use BoldApps\ShopifyToolkit\Models\Transaction as ShopifyTransaction;
 use BoldApps\ShopifyToolkit\Services\RefundLineItem as RefundLineItemService;
 use Illuminate\Support\Collection;
@@ -143,7 +143,7 @@ class Refund extends Base
         $refundLineItemService = $this->refundLineItemService;
 
         $refundLineItems = array_map(function ($option) use ($refundLineItemService) {
-            return $refundLineItemService->unserializeModel($option, RefundLineItem::class);
+            return $refundLineItemService->unserializeModel($option, RefundLineItemModel::class);
         }, $data);
 
         return new Collection($refundLineItems);
