@@ -58,6 +58,13 @@ app()->instance(BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo::class, $access
 $ vendor/bin/phpunit tests
 ```
 
+There is a dockerfile provided for running the tests the same way it
+will run on Circle
+
+```sh
+$ ./runtests.sh
+```
+
 ## Examples
 
 Create the service representing the API you would like to use:
