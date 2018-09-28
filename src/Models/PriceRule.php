@@ -24,6 +24,9 @@ class PriceRule implements Serializeable
     /** @var string */
     protected $allocationMethod;
 
+    /** @var int */
+    protected $allocationLimit;
+
     /** @var string */
     protected $valueType;
 
@@ -168,6 +171,22 @@ class PriceRule implements Serializeable
     public function setAllocationMethod($allocationMethod)
     {
         $this->allocationMethod = $allocationMethod;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAllocationLimit()
+    {
+        return $this->allocationLimit;
+    }
+
+    /**
+     * @param int $allocationLimit
+     */
+    public function setAllocationLimit($allocationLimit)
+    {
+        $this->allocationLimit = $allocationLimit;
     }
 
     /**
