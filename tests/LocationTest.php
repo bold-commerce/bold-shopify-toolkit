@@ -35,7 +35,7 @@ class LocationTest extends \PHPUnit\Framework\TestCase
     public function ShopifyLocationDeserializesProperly()
     {
         $locationJson = $this->getLocationJson();
-        $jsonArray = (array)json_decode($locationJson, true);
+        $jsonArray = (array) json_decode($locationJson, true);
 
         $expected = $this->locationService->createFromArray($this->getLocationArray());
         $actual = $this->locationService->unserializeModel($jsonArray, ShopifyLocation::class);
@@ -68,21 +68,21 @@ class LocationTest extends \PHPUnit\Framework\TestCase
     private function getLocationArray()
     {
         return [
-            "id" => 487838322,
-            "name" => "Fifth Avenue AppleStore",
-            "address1" => "767 5th Ave",
-            "city" => "New York",
-            "zip" => "10153",
-            "province" => "New York",
-            "country" => "US",
-            "phone" => "12123361440",
-            "created_at" => "2018-07-05T12:41:00-04:00",
-            "updated_at" => "2018-07-05T12:41:00-04:00",
-            "country_code" => "US",
-            "country_name" => "United States",
-            "province_code" => "NY",
-            "legacy" => false,
-            "admin_graphql_api_id" => "gid://shopify/Location/487838322",
+            'id' => 487838322,
+            'name' => 'Fifth Avenue AppleStore',
+            'address1' => '767 5th Ave',
+            'city' => 'New York',
+            'zip' => '10153',
+            'province' => 'New York',
+            'country' => 'US',
+            'phone' => '12123361440',
+            'created_at' => '2018-07-05T12:41:00-04:00',
+            'updated_at' => '2018-07-05T12:41:00-04:00',
+            'country_code' => 'US',
+            'country_name' => 'United States',
+            'province_code' => 'NY',
+            'legacy' => false,
+            'admin_graphql_api_id' => 'gid://shopify/Location/487838322',
         ];
     }
 }

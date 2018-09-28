@@ -11,7 +11,6 @@ use Illuminate\Support\Collection;
 
 class Refund extends Base
 {
-
     /**
      * @var \BoldApps\ShopifyToolkit\Services\RefundLineItem
      */
@@ -26,8 +25,7 @@ class Refund extends Base
         Client $client,
         RefundLineItemService $refundLineItemService,
         Transaction $transactionService
-    )
-    {
+    ) {
         $this->transactionService = $transactionService;
         $this->refundLineItemService = $refundLineItemService;
         parent::__construct($client);
@@ -169,7 +167,6 @@ class Refund extends Base
         }
 
         return $entities;
-
     }
 
     /**
@@ -194,6 +191,7 @@ class Refund extends Base
 
     /**
      * @param $entities
+     *
      * @return array|null
      */
     public function serializeOrderAdjustments($entities)
@@ -217,6 +215,7 @@ class Refund extends Base
 
     /**
      * @param $data
+     *
      * @return Collection|null
      */
     public function deserializeOrderAdjustments($data)

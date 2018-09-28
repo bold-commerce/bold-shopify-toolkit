@@ -56,9 +56,9 @@ class InventoryLevelTest extends \PHPUnit\Framework\TestCase
     private function getInventoryLevelArray()
     {
         return [
-            "inventory_item_id" => 9170708824106,
-            "location_id" => 11196792874,
-            "updated_at" => "2018-06-12T11:49:05-04:00",
+            'inventory_item_id' => 9170708824106,
+            'location_id' => 11196792874,
+            'updated_at' => '2018-06-12T11:49:05-04:00',
         ];
     }
 }
