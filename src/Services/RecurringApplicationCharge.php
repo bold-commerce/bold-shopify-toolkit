@@ -38,7 +38,7 @@ class RecurringApplicationCharge extends Base
      */
     public function getAll()
     {
-        $raw = $this->client->get("/admin/recurring_application_charges.json");
+        $raw = $this->client->get('/admin/recurring_application_charges.json');
         $charges = array_map(function ($charge) {
             return $this->unserializeModel($charge, ShopifyRecurringApplicationCharge::class);
         }, $raw['recurring_application_charges']);
@@ -73,6 +73,7 @@ class RecurringApplicationCharge extends Base
 
     /**
      * @param $array
+     *
      * @return ShopifyRecurringApplicationCharge | object
      */
     public function createFromArray($array)

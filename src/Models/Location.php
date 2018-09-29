@@ -5,7 +5,6 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-
 class Location implements Serializeable
 {
     use HasAttributesTrait;
@@ -313,6 +312,4 @@ class Location implements Serializeable
     {
         $this->zip = $zip;
     }
-
-
 }

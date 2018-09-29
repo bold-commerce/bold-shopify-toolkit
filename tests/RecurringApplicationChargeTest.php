@@ -76,21 +76,21 @@ class RecurringApplicationChargeTest extends \PHPUnit\Framework\TestCase
     private function getRecurringApplicationChargeArray()
     {
         return [
-            "id" => 455696195,
-            "name" => "Super Mega Plan",
-            "api_client_id" => 755357713,
-            "price" => "15.00",
-            "status" => "accepted",
-            "return_url" => "http://yourapp.com",
-            "billing_on" => "2018-07-05",
-            "created_at" => "2018-07-05T12:41:00-04:00",
-            "updated_at" => "2018-07-05T13:01:13-04:00",
-            "test" => true,
-            "activated_on" => "2018-07-05T13:01:13-04:00",
-            "trial_ends_on" => "2018-07-05T13:01:13-04:00",
-            "cancelled_on" => "2018-07-05T13:01:13-04:00",
-            "trial_days" => 0,
-            "decorated_return_url"=> "http://yourapp.com?charge_id=455696195",
+            'id' => 455696195,
+            'name' => 'Super Mega Plan',
+            'api_client_id' => 755357713,
+            'price' => '15.00',
+            'status' => 'accepted',
+            'return_url' => 'http://yourapp.com',
+            'billing_on' => '2018-07-05',
+            'created_at' => '2018-07-05T12:41:00-04:00',
+            'updated_at' => '2018-07-05T13:01:13-04:00',
+            'test' => true,
+            'activated_on' => '2018-07-05T13:01:13-04:00',
+            'trial_ends_on' => '2018-07-05T13:01:13-04:00',
+            'cancelled_on' => '2018-07-05T13:01:13-04:00',
+            'trial_days' => 0,
+            'decorated_return_url' => 'http://yourapp.com?charge_id=455696195',
         ];
     }
 }

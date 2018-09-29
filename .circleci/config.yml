@@ -40,5 +40,8 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-      # run tests!
+      # Run tests!
       - run: vendor/bin/phpunit tests
+
+      # Run linter
+      - run: PHP_CS_FIXER_FUTURE_MODE=1 php vendor/bin/php-cs-fixer --diff --dry-run -v fix
