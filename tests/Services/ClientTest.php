@@ -93,9 +93,9 @@ class ClientTest extends TestCase
 
     /**
      * @param null|string $expected
-     * @param int $responseCode
-     * @param array $responseHeader
-     * @param mixed $exceptionClass
+     * @param int         $responseCode
+     * @param array       $responseHeader
+     * @param mixed       $exceptionClass
      *
      * @dataProvider getRedirectLocationProvider
      */
@@ -125,28 +125,22 @@ class ClientTest extends TestCase
     public function testClientWillApplyPostHeadersProperly()
     {
         $expectedHeaders = [
-            'Content-Length' =>
-                [
+            'Content-Length' => [
                     0 => '4',
                 ],
-            'Host' =>
-                [
+            'Host' => [
                     0 => 'fight-club.myshopify.com',
                 ],
-            'X-Shopify-Access-Token' =>
-                [
+            'X-Shopify-Access-Token' => [
                     0 => '',
                 ],
-            'Content-Type' =>
-                [
+            'Content-Type' => [
                     0 => 'application/json',
                 ],
-            'charset' =>
-                [
+            'charset' => [
                     0 => 'utf-8',
                 ],
-            'X-Shopify-Api-Features' =>
-                [
+            'X-Shopify-Api-Features' => [
                     0 => 'creates-test-orders',
                 ],
         ];
@@ -240,5 +234,4 @@ class ClientTest extends TestCase
             ],
         ];
     }
-
 }

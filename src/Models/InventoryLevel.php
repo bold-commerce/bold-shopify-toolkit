@@ -5,7 +5,6 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-
 class InventoryLevel implements Serializeable
 {
     use HasAttributesTrait;
@@ -85,6 +84,4 @@ class InventoryLevel implements Serializeable
     {
         $this->updatedAt = $updatedAt;
     }
-
-
 }

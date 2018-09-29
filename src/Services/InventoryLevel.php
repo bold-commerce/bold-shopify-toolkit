@@ -2,7 +2,6 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-
 use BoldApps\ShopifyToolkit\Models\InventoryLevel as ShopifyInventoryLevel;
 use Illuminate\Support\Collection;
 
@@ -46,7 +45,7 @@ class InventoryLevel extends Base
         $raw = $this->client->post('admin/inventory_levels/adjust.json', [], [
             'location_id' => $locationId,
             'inventory_item_id' => $inventoryItemId,
-            'available_adjustment' => $availableAdjustment
+            'available_adjustment' => $availableAdjustment,
         ]);
 
         return $this->unserializeModel($raw['inventory_level'], ShopifyInventoryLevel::class);
@@ -66,7 +65,7 @@ class InventoryLevel extends Base
             'location_id' => $locationId,
             'inventory_item_id' => $inventoryItemId,
             'available' => $available,
-            'disconnect_if_necessary' => $disconnectIfNecessary
+            'disconnect_if_necessary' => $disconnectIfNecessary,
         ]);
 
         return $this->unserializeModel($raw['inventory_level'], ShopifyInventoryLevel::class);
@@ -84,7 +83,7 @@ class InventoryLevel extends Base
         $raw = $this->client->post('admin/inventory_levels/connect.json', [], [
             'location_id' => $locationId,
             'inventory_item_id' => $inventoryItemId,
-            'relocate_if_necessary' => $relocateIfNecessary
+            'relocate_if_necessary' => $relocateIfNecessary,
         ]);
 
         return $this->unserializeModel($raw['inventory_level'], ShopifyInventoryLevel::class);

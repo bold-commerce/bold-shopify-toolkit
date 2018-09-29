@@ -18,7 +18,7 @@ class RefundTest extends TestCase
         $client = $this->createMock(\BoldApps\ShopifyToolkit\Services\Client::class);
         $refundLineItemService = new \BoldApps\ShopifyToolkit\Services\RefundLineItem($client);
         $transactionService = new \BoldApps\ShopifyToolkit\Services\Transaction($client);
-        $this->refundService = new RefundService($client,$refundLineItemService, $transactionService);
+        $this->refundService = new RefundService($client, $refundLineItemService, $transactionService);
     }
 
     /**
@@ -178,7 +178,7 @@ class RefundTest extends TestCase
         $expectedRefundLineItem1->setLineItemId(518995019);
         $expectedRefundLineItem1->setSubtotal(195.67);
         $expectedRefundLineItem1->setTotalTax(3.98);
-        $expectedRefundLineItem1->setRestockType("cancel");
+        $expectedRefundLineItem1->setRestockType('cancel');
         $expectedRefundLineItem1->setLocationId(1234);
 
         $expectedTransactionLineItem1 = new Transaction();
