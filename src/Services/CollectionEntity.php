@@ -16,12 +16,12 @@ abstract class CollectionEntity extends Base
     public function iterator($func, $filter = [], $limit = 250, $pageNum = 1)
     {
         $continue = true;
-        while ($continue !== false
+        while (false !== $continue
             && ($products = $this->getByParams(array_merge(['page' => $pageNum++, 'limit' => $limit], $filter)))
             && $products->isNotEmpty()) {
             foreach ($products as $product) {
                 $continue = $func($product);
-                if ($continue === false) {
+                if (false === $continue) {
                     break;
                 }
             }

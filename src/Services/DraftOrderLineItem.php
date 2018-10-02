@@ -83,7 +83,7 @@ class DraftOrderLineItem extends Base
         foreach ($draftOrderLineItemProps as $draftOrderLineItemProp) {
             if (in_array($draftOrderLineItemProp, $cartItemProps)) {
                 $cartItemValue = $cartItem->{'get'.ucfirst($draftOrderLineItemProp)}();
-                if (strpos($draftOrderLineItemProp, 'price') !== false) {
+                if (false !== strpos($draftOrderLineItemProp, 'price')) {
                     $draftOrderLineItem->setPrice($cartItemValue / 100);
                 } else {
                     $draftOrderLineItem->{'set'.ucfirst($draftOrderLineItemProp)}($cartItemValue);

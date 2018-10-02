@@ -112,7 +112,7 @@ class Refund extends Base
      */
     public function serializeRefundLineItems($entities)
     {
-        if (null === $entities || !($entities instanceof Collection) || $entities->count() === 0) {
+        if (null === $entities || !($entities instanceof Collection) || 0 === $entities->count()) {
             return null;
         }
 
@@ -154,7 +154,7 @@ class Refund extends Base
      */
     public function serializeTransactions($entities)
     {
-        if (null === $entities || !($entities instanceof Collection) || $entities->count() === 0) {
+        if (null === $entities || !($entities instanceof Collection) || 0 === $entities->count()) {
             return null;
         }
 
@@ -196,7 +196,7 @@ class Refund extends Base
      */
     public function serializeOrderAdjustments($entities)
     {
-        if (null === $entities || !($entities instanceof Collection) || $entities->count() === 0) {
+        if (null === $entities || !($entities instanceof Collection) || 0 === $entities->count()) {
             return null;
         }
 

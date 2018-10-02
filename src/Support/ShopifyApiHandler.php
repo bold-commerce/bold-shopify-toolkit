@@ -57,7 +57,7 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
         $callsMade = $callLimitRatio[0];
         $callLimit = $callLimitRatio[1];
 
-        if ($callLimit == 0) {
+        if (0 == $callLimit) {
             return 100;
         }
 
@@ -69,7 +69,7 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
      */
     private function getCallLimitRatio()
     {
-        if ($this->response !== null) {
+        if (null !== $this->response) {
             $callLimitHeader = $this->response->getHeader('http_x_shopify_shop_api_call_limit');
 
             if (isset($callLimitHeader[0])) {
