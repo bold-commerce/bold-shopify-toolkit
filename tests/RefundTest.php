@@ -1,6 +1,6 @@
 <?php
 
-use \PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 use BoldApps\ShopifyToolkit\Models\Refund as ShopifyRefund;
 use BoldApps\ShopifyToolkit\Services\Refund as RefundService;
 use BoldApps\ShopifyToolkit\Models\Transaction;
