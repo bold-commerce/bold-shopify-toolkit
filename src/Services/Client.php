@@ -312,10 +312,10 @@ class Client
 
         $isValidURL = filter_var($location, FILTER_VALIDATE_URL);
 
-        if ($isValidURL !== false) {
+        if (false !== $isValidURL) {
             // Shopify sets the location header to the full URL
             $adminEndpoint = substr($location, strpos($location, 'admin'));
-            if ($adminEndpoint !== false) {
+            if (false !== $adminEndpoint) {
                 // Shopify gives us text/html content
                 $redirectLocation = preg_match('/\.json$/', $adminEndpoint) ? $adminEndpoint : "$adminEndpoint.json";
             }

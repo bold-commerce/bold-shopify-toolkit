@@ -1,6 +1,5 @@
 <?php
 
-
 class HasAttributesTraitTest extends \PHPUnit\Framework\TestCase
 {
     /** @var \BoldApps\ShopifyToolkit\Models\Customer */

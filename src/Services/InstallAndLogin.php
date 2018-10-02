@@ -48,7 +48,7 @@ class InstallAndLogin
     {
         $url = sprintf('https://%s/admin/oauth/authorize?client_id=%s&scope=%s',
             $this->shopBaseInfo->getMyShopifyDomain(), $this->applicationInfo->getApiKey(), urlencode($scope));
-        if ($redirect_url != '') {
+        if ('' != $redirect_url) {
             $url .= sprintf('&redirect_uri=%s', urlencode($redirect_url));
         }
 

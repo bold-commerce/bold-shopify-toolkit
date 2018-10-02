@@ -65,7 +65,7 @@ abstract class Base
         }
 
         return array_filter($arr, function ($a) {
-            return $a !== null;
+            return null !== $a;
         });
     }
 
