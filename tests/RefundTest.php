@@ -48,7 +48,6 @@ class RefundTest extends TestCase
 
         $expected = [
             'order_id' => 123456, //TODO: Remove this when ignored fields is implemented (Services\Base)
-            'restock' => true,
             'notify' => false,
             'shipping' => [
                 'amount' => 25,
@@ -86,7 +85,6 @@ class RefundTest extends TestCase
             "order_id": 450789469,
             "created_at": "2016-11-09T13:53:19-05:00",
             "note": "wrong size",
-            "restock": true,
             "user_id": 0,
             "refund_line_items": [
                 {
@@ -169,7 +167,6 @@ class RefundTest extends TestCase
         $expected->setOrderId(450789469);
         $expected->setCreatedAt('2016-11-09T13:53:19-05:00');
         $expected->setNote('wrong size');
-        $expected->setRestock(true);
         $expected->setUserId(0);
 
         $expectedRefundLineItem1 = new RefundLineItem();

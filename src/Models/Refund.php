@@ -29,9 +29,6 @@ class Refund implements Serializeable
     protected $shipping;
 
     /** @var bool */
-    protected $restock;
-
-    /** @var bool */
     protected $notify;
 
     /** @var Collection of Transaction */
@@ -48,7 +45,6 @@ class Refund implements Serializeable
 
     public function __construct()
     {
-        $this->restock = true;
         $this->notify = false;
         $this->transactions = new Collection([]);
         $this->refundLineItems = new Collection([]);
@@ -117,22 +113,6 @@ class Refund implements Serializeable
     public function setNote($note)
     {
         $this->note = $note;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getRestock()
-    {
-        return $this->restock;
-    }
-
-    /**
-     * @param bool $restock
-     */
-    public function setRestock($restock)
-    {
-        $this->restock = $restock;
     }
 
     public function getNotify()
