@@ -53,13 +53,13 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param $parms
+     * @param $params
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getByParams($parms)
+    public function getByParams($params)
     {
-        $raw = $this->client->get('admin/custom_collections.json', $parms);
+        $raw = $this->client->get('admin/custom_collections.json', $params);
 
         $collection = array_map(function ($product) {
             return $this->unserializeModel($product, ShopifyCustomCollection::class);
