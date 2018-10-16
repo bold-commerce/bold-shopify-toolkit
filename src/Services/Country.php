@@ -3,6 +3,7 @@
 namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Models\Country as ShopifyCountry;
+use Illuminate\Support\Collection;
 
 class Country extends Base
 {
@@ -45,13 +46,17 @@ class Country extends Base
     /**
      * @param array $filter
      *
-     * @return ShopifyCountry | object
+     * @return Collection
      */
     public function getAll($filter = [])
     {
         $raw = $this->client->get('admin/countries.json', $filter);
 
-        return $this->unserializeModel($raw['countries'], ShopifyCountry::class);
+        $countries = array_map(function ($country) {
+            return $this->unserializeModel($country, ShopifyCountry::class);
+        }, $raw['countries']);
+
+        return new Collection($countries);
     }
 
     /**
