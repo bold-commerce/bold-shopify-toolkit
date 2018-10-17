@@ -25,7 +25,7 @@ class Variant extends Base
     }
 
     /**
-     * @param $array
+     * @param array $array
      *
      * @return object
      */

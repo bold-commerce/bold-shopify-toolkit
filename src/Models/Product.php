@@ -22,6 +22,9 @@ class Product implements Serializeable
     /** @var string */
     protected $productType;
 
+    /** @var bool */
+    protected $manuallySorted;
+
     /** @var string */
     protected $publishedScope;
 
@@ -123,6 +126,22 @@ class Product implements Serializeable
     public function setProductType($productType)
     {
         $this->productType = $productType;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getManuallySorted()
+    {
+        return $this->manuallySorted;
+    }
+
+    /**
+     * @param bool $manuallySorted
+     */
+    public function setManuallySorted($manuallySorted)
+    {
+        $this->manuallySorted = $manuallySorted;
     }
 
     /**

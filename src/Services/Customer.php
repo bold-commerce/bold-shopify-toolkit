@@ -38,13 +38,13 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param array $parms
+     * @param array $params
      *
      * @return Collection
      */
-    public function getByParams($parms)
+    public function getByParams($params)
     {
-        $raw = $this->client->get('admin/customers.json', $parms);
+        $raw = $this->client->get('admin/customers.json', $params);
 
         $customers = array_map(function ($customer) {
             return $this->unserializeModel($customer, ShopifyCustomer::class);

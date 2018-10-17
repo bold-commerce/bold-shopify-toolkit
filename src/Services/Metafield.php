@@ -2,17 +2,17 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Models\Metafield as MetafieldModel;
+use BoldApps\ShopifyToolkit\Models\Metafield as ShopifyMetafield;
 
 class Metafield extends Base
 {
     /**
-     * @param $array
+     * @param array $array
      *
-     * @return MetafieldModel | object
+     * @return ShopifyMetafield | object
      */
     public function createFromArray($array)
     {
-        return $this->unserializeModel($array, MetafieldModel::class);
+        return $this->unserializeModel($array, ShopifyMetafield::class);
     }
 }
