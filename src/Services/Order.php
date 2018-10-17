@@ -73,13 +73,13 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param $parms
+     * @param $params
      *
      * @return Collection
      */
-    public function getByParams($parms)
+    public function getByParams($params)
     {
-        $raw = $this->client->get('admin/orders.json', $parms);
+        $raw = $this->client->get('admin/orders.json', $params);
 
         $orders = array_map(function ($order) {
             return $this->unserializeModel($order, ShopifyOrder::class);

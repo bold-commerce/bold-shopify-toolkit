@@ -2,17 +2,16 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Models\Image as ShopifyImage;
 use BoldApps\ShopifyToolkit\Models\Metafield as ShopifyMetafield;
+use BoldApps\ShopifyToolkit\Models\Option as ShopifyOption;
 use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
-use BoldApps\ShopifyToolkit\Models\Product as ProductModel;
-use BoldApps\ShopifyToolkit\Models\Variant as VariantModel;
-use BoldApps\ShopifyToolkit\Models\Option as OptionModel;
-use BoldApps\ShopifyToolkit\Models\Image as ImageModel;
+use BoldApps\ShopifyToolkit\Models\Variant as ShopifyVariant;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
-use BoldApps\ShopifyToolkit\Services\Variant as VariantService;
-use BoldApps\ShopifyToolkit\Services\Option as OptionService;
 use BoldApps\ShopifyToolkit\Services\Image as ImageService;
 use BoldApps\ShopifyToolkit\Services\Metafield as MetafieldService;
+use BoldApps\ShopifyToolkit\Services\Option as OptionService;
+use BoldApps\ShopifyToolkit\Services\Variant as VariantService;
 use Illuminate\Support\Collection;
 
 class Product extends CollectionEntity
@@ -86,10 +85,10 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $id
-     * @param $filter
+     * @param       $id
+     * @param array $filter
      *
-     * @return ShopifyProduct
+     * @return ShopifyProduct | object
      */
     public function getById($id, $filter = [])
     {
@@ -117,13 +116,13 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $parms
+     * @param array $params
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    public function getByParams($parms)
+    public function getByParams($params)
     {
-        $raw = $this->client->get('admin/products.json', $parms);
+        $raw = $this->client->get('admin/products.json', $params);
 
         $products = array_map(function ($product) {
             return $this->unserializeModel($product, ShopifyProduct::class);
@@ -133,7 +132,7 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $productIds
+     * @param array $productIds
      * @param array $filter
      *
      * @return Collection
@@ -182,7 +181,7 @@ class Product extends CollectionEntity
     /**
      * @param ShopifyProduct $product
      *
-     * @return object
+     * @return array | null
      */
     public function delete(ShopifyProduct $product)
     {
@@ -202,31 +201,20 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $filter
-     *
-     * @return int
-     */
-    public function countByParams($filter = [])
-    {
-        $raw = $this->client->get('admin/products/count.json', $filter);
-
-        return $raw['count'];
-    }
-
-    /**
-     * @param $array
+     * @param array $array
      *
      * @return object
      */
     public function createFromArray($array)
     {
-        return $this->unserializeModel($array, ProductModel::class);
+        return $this->unserializeModel($array, ShopifyProduct::class);
     }
 
     /**
-     * @param ShopifyProduct $product
+     * @param ShopifyProduct   $product
+     * @param ShopifyMetafield $metafield
      *
-     * @return Collection
+     * @return ShopifyMetafield | object
      */
     public function createOrUpdateMetafield(ShopifyProduct $product, ShopifyMetafield $metafield)
     {
@@ -239,7 +227,7 @@ class Product extends CollectionEntity
 
     /**
      * @param ShopifyProduct $product
-     * @param $filter
+     * @param array          $filter
      *
      * @return Collection
      */
@@ -255,9 +243,10 @@ class Product extends CollectionEntity
     }
 
     /**
+     * @param                $id
      * @param ShopifyProduct $product
      *
-     * @return Collection
+     * @return ShopifyMetafield | object
      */
     public function getMetafield(ShopifyProduct $product, $id)
     {
@@ -267,9 +256,10 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct $product
+     * @param ShopifyProduct   $product
+     * @param ShopifyMetafield $metafield
      *
-     * @return Collection
+     * @return array | null
      */
     public function deleteMetafield(ShopifyProduct $product, ShopifyMetafield $metafield)
     {
@@ -278,28 +268,28 @@ class Product extends CollectionEntity
 
     /**
      * @param int $metafieldId
+     *
+     * @return array | null
      */
     public function deleteMetafieldById($metafieldId)
     {
-        $this->client->delete("admin/metafields/{$metafieldId}.json");
+        return $this->client->delete("admin/metafields/{$metafieldId}.json");
     }
 
     /**
      * @param $entities
      *
-     * @return array|null
+     * @return array | null
      */
     protected function serializeVariants($entities)
     {
         if (null === $entities) {
-            return;
+            return null;
         }
 
-        $variantService = &$this->variantService;
-
         if ($entities instanceof Collection) {
-            return $entities->map(function ($entity) use ($variantService) {
-                return $variantService->serializeModel($entity);
+            return $entities->map(function ($entity) {
+                return $this->variantService->serializeModel($entity);
             })->toArray();
         }
 
@@ -309,18 +299,16 @@ class Product extends CollectionEntity
     /**
      * @param array $data
      *
-     * @return Collection
+     * @return Collection | null
      */
     protected function unserializeVariants($data)
     {
         if (null === $data) {
-            return;
+            return null;
         }
 
-        $variantService = &$this->variantService;
-
-        $variants = array_map(function ($variant) use ($variantService) {
-            return $variantService->unserializeModel($variant, VariantModel::class);
+        $variants = array_map(function ($variant) {
+            return $this->variantService->unserializeModel($variant, ShopifyVariant::class);
         }, $data);
 
         return new Collection($variants);
@@ -329,19 +317,17 @@ class Product extends CollectionEntity
     /**
      * @param $entities
      *
-     * @return array|null
+     * @return array | null
      */
     protected function serializeOptions($entities)
     {
         if (null === $entities) {
-            return;
+            return null;
         }
 
-        $optionService = &$this->optionService;
-
         if ($entities instanceof Collection) {
-            return $entities->map(function ($entity) use ($optionService) {
-                return $optionService->serializeModel($entity);
+            return $entities->map(function ($entity) {
+                return $this->optionService->serializeModel($entity);
             })->toArray();
         }
 
@@ -351,18 +337,16 @@ class Product extends CollectionEntity
     /**
      * @param array $data
      *
-     * @return Collection
+     * @return Collection | null
      */
     protected function unserializeOptions($data)
     {
         if (null === $data) {
-            return;
+            return null;
         }
 
-        $optionService = &$this->optionService;
-
-        $options = array_map(function ($option) use ($optionService) {
-            return $optionService->unserializeModel($option, OptionModel::class);
+        $options = array_map(function ($option) {
+            return $this->optionService->unserializeModel($option, ShopifyOption::class);
         }, $data);
 
         return new Collection($options);
@@ -371,47 +355,45 @@ class Product extends CollectionEntity
     /**
      * @param $entity
      *
-     * @return array|null
+     * @return array | null
      */
     protected function serializeImage($entity)
     {
         if (null === $entity) {
-            return;
+            return null;
         }
 
-        return $this->optionService->serializeModel($entity);
+        return $this->imageService->serializeModel($entity);
     }
 
     /**
      * @param array $data
      *
-     * @return object
+     * @return ShopifyImage | object
      */
     protected function unserializeImage($data)
     {
         if (null === $data) {
-            return;
+            return null;
         }
 
-        return $this->imageService->unserializeModel($data, ImageModel::class);
+        return $this->imageService->unserializeModel($data, ShopifyImage::class);
     }
 
     /**
      * @param $entities
      *
-     * @return array|null
+     * @return array | null
      */
     protected function serializeImages($entities)
     {
         if (null === $entities) {
-            return;
+            return null;
         }
 
-        $imageService = &$this->imageService;
-
         if ($entities instanceof Collection) {
-            return $entities->map(function ($entity) use ($imageService) {
-                return $imageService->serializeModel($entity);
+            return $entities->map(function ($entity) {
+                return $this->imageService->serializeModel($entity);
             })->toArray();
         }
 
@@ -421,18 +403,16 @@ class Product extends CollectionEntity
     /**
      * @param array $data
      *
-     * @return Collection
+     * @return Collection | null
      */
     protected function unserializeImages($data)
     {
         if (null === $data) {
-            return;
+            return null;
         }
 
-        $imageService = &$this->imageService;
-
-        $images = array_map(function ($image) use ($imageService) {
-            return $imageService->unserializeModel($image, ImageModel::class);
+        $images = array_map(function ($image) {
+            return $this->imageService->unserializeModel($image, ShopifyImage::class);
         }, $data);
 
         return new Collection($images);
@@ -440,11 +420,13 @@ class Product extends CollectionEntity
 
     /**
      * @param $entities
+     *
+     * @return array | null
      */
     protected function serializeMetafields($entities)
     {
         if (null === $entities) {
-            return;
+            return null;
         }
 
         if ($entities instanceof Collection) {
@@ -452,17 +434,19 @@ class Product extends CollectionEntity
                 return $this->metafieldService->serializeModel($entity);
             })->toArray();
         }
+
+        return $entities;
     }
 
     /**
      * @param $data
      *
-     * @return Collection|void
+     * @return Collection | null
      */
     protected function unserializeMetafields($data)
     {
         if (null === $data) {
-            return;
+            return null;
         }
 
         $metafields = array_map(function ($metafield) {

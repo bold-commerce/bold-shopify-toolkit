@@ -26,7 +26,7 @@ class Image extends Base
     /**
      * @param $array
      *
-     * @return object
+     * @return ShopifyImage | object
      */
     public function createFromArray($array)
     {

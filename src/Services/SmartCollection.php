@@ -6,6 +6,7 @@ use BoldApps\ShopifyToolkit\Models\SmartCollectionRule as ShopifySmartCollection
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use BoldApps\ShopifyToolkit\Models\SmartCollection as ShopifySmartCollection;
 use BoldApps\ShopifyToolkit\Services\SmartCollectionRule as SmartCollectionRuleService;
+use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
 use Illuminate\Support\Collection;
 
 class SmartCollection extends CollectionEntity
@@ -81,6 +82,23 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
+     * @param int   $id
+     * @param array $filter
+     *
+     * @return Collection
+     */
+    public function getProductsBySmartCollectionId($id, $filter = [])
+    {
+        $raw = $this->client->get("admin/smart_collections/$id/products.json", $filter);
+
+        $products = array_map(function ($product) {
+            return $this->unserializeModel($product, ShopifyProduct::class);
+        }, $raw['products']);
+
+        return new Collection($products);
+    }
+
+    /**
      * @param int   $page
      * @param int   $limit
      * @param array $filter
@@ -100,13 +118,13 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param $parms
+     * @param $params
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getByParams($parms)
+    public function getByParams($params)
     {
-        $raw = $this->client->get('admin/smart_collections.json', $parms);
+        $raw = $this->client->get('admin/smart_collections.json', $params);
 
         $collection = array_map(function ($product) {
             return $this->unserializeModel($product, ShopifySmartCollection::class);
