@@ -45,6 +45,9 @@ class Fulfillment implements Serializeable
     /** @var string */
     protected $variantInventoryManagement;
 
+    /** @var int */
+    protected $locationId;
+
     /**
      * @return int
      */
@@ -211,5 +214,21 @@ class Fulfillment implements Serializeable
     public function getVariantInventoryManagement()
     {
         return $this->variantInventoryManagement;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLocationId()
+    {
+        return $this->locationId;
+    }
+
+    /**
+     * @param $locationId
+     */
+    public function setLocationId($locationId)
+    {
+        $this->locationId = $locationId;
     }
 }
