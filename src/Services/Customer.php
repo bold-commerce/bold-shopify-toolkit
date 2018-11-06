@@ -5,9 +5,6 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Models\Customer as ShopifyCustomer;
 use Illuminate\Support\Collection;
 
-/**
- * Class Customer.
- */
 class Customer extends CollectionEntity
 {
     /**
@@ -41,13 +38,13 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param array $parms
+     * @param array $params
      *
      * @return Collection
      */
-    public function getByParams($parms)
+    public function getByParams($params)
     {
-        $raw = $this->client->get('admin/customers.json', $parms);
+        $raw = $this->client->get('admin/customers.json', $params);
 
         $customers = array_map(function ($customer) {
             return $this->unserializeModel($customer, ShopifyCustomer::class);
@@ -58,6 +55,7 @@ class Customer extends CollectionEntity
 
     /**
      * @param array $parms
+     *
      * @return Collection
      */
     public function searchByParams($parms)
@@ -93,6 +91,16 @@ class Customer extends CollectionEntity
         $raw = $this->client->get('admin/customers/count.json', $filter);
 
         return $raw['count'];
+    }
+
+    /**
+     * @param $array
+     *
+     * @return ShopifyCustomer | object
+     */
+    public function createFromArray($array)
+    {
+        return $this->unserializeModel($array, ShopifyCustomer::class);
     }
 
     /**
@@ -134,7 +142,7 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param int $shopifyCustomerId
+     * @param int   $shopifyCustomerId
      * @param array $params
      * @param array $body
      *

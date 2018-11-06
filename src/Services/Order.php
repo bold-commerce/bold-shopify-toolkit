@@ -10,33 +10,21 @@ use BoldApps\ShopifyToolkit\Services\OrderLineItem as OrderLineItemService;
 use Illuminate\Support\Collection;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 
-/**
- * Class Order.
- */
 class Order extends CollectionEntity
 {
-
-    /**
-     * @var TaxLineService
-     */
+    /** @var TaxLineService */
     protected $taxLineService;
 
-    /**
-     * @var OrderLineItem
-     */
+    /** @var OrderLineItem */
     protected $lineItemService;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $unserializationExceptions = [
         'tax_lines' => 'unserializeTaxLines',
         'line_items' => 'unserializeLineItems',
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $serializationExceptions = [
         'taxLines' => 'serializeTaxLines',
         'lineItems' => 'serializeLineItems',
@@ -44,7 +32,8 @@ class Order extends CollectionEntity
 
     /**
      * Order constructor.
-     * @param Client $client
+     *
+     * @param Client         $client
      * @param TaxLineService $taxLineService
      */
     public function __construct(ShopifyClient $client, TaxLineService $taxLineService, OrderLineItemService $lineItemService)
@@ -53,7 +42,6 @@ class Order extends CollectionEntity
         $this->lineItemService = $lineItemService;
         parent::__construct($client);
     }
-
 
     /**
      * @param $id
@@ -68,8 +56,8 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param int $page
-     * @param int $limit
+     * @param int   $page
+     * @param int   $limit
      * @param array $filter
      *
      * @return Collection
@@ -85,13 +73,13 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param $parms
+     * @param $params
      *
      * @return Collection
      */
-    public function getByParams($parms)
+    public function getByParams($params)
     {
-        $raw = $this->client->get('admin/orders.json', $parms);
+        $raw = $this->client->get('admin/orders.json', $params);
 
         $orders = array_map(function ($order) {
             return $this->unserializeModel($order, ShopifyOrder::class);
@@ -126,6 +114,7 @@ class Order extends CollectionEntity
 
     /**
      * @param ShopifyOrder $order
+     *
      * @return ShopifyOrder | object
      */
     public function update($order)
@@ -133,6 +122,36 @@ class Order extends CollectionEntity
         $serializedModel = ['order' => $this->serializeModel($order)];
 
         $raw = $this->client->put("admin/orders/{$order->getId()}.json", [], $serializedModel);
+
+        return $this->unserializeModel($raw['order'], ShopifyOrder::class);
+    }
+
+    /**
+     * @param ShopifyOrder $order
+     *
+     * @return ShopifyOrder | object
+     */
+    public function create($order)
+    {
+        $serializedModel = ['order' => $this->serializeModel($order)];
+
+        $raw = $this->client->post('admin/orders.json', [], $serializedModel);
+
+        return $this->unserializeModel($raw['order'], ShopifyOrder::class);
+    }
+
+    /**
+     * @param ShopifyOrder $order
+     *
+     * @return ShopifyOrder | object
+     */
+    public function createTest($order)
+    {
+        $order->setTest(true);
+
+        $serializedModel = ['order' => $this->serializeModel($order)];
+
+        $raw = $this->client->post('admin/orders.json', [], $serializedModel, [], null, false, ['X-Shopify-Api-Features' => 'creates-test-orders']);
 
         return $this->unserializeModel($raw['order'], ShopifyOrder::class);
     }
@@ -166,7 +185,6 @@ class Order extends CollectionEntity
      */
     protected function unserializeTaxLines($data)
     {
-
         if (null === $data) {
             return;
         }
@@ -208,7 +226,6 @@ class Order extends CollectionEntity
      */
     protected function unserializeLineItems($data)
     {
-
         if (null === $data) {
             return;
         }
@@ -220,6 +237,4 @@ class Order extends CollectionEntity
 
         return new Collection($collection);
     }
-
-
 }

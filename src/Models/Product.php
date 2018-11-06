@@ -3,56 +3,62 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
 
 class Product implements Serializeable
 {
-    /** @var  int */
+    use HasAttributesTrait;
+
+    /** @var int */
     protected $id;
 
-    /** @var  string */
+    /** @var string */
     protected $bodyHtml;
 
-    /** @var  string */
+    /** @var string */
     protected $handle;
 
-    /** @var  string */
+    /** @var string */
     protected $productType;
 
-    /** @var  string */
+    /** @var bool */
+    protected $manuallySorted;
+
+    /** @var string */
     protected $publishedScope;
 
-    /** @var  string */
+    /** @var string */
     protected $templateSuffix;
 
-    /** @var  string */
+    /** @var string */
     protected $title;
 
-    /** @var  string */
+    /** @var string */
     protected $vendor;
 
-    /** @var  string */
+    /** @var string */
     protected $tags;
 
-    /** @var  Collection */
+    /** @var Collection */
     protected $options;
 
-    /** @var  Collection */
+    /** @var Collection */
     protected $variants;
 
-    /** @var  Collection */
+    /** @var Collection */
     protected $images;
 
-    /** @var  string */
+    /** @var string */
     protected $createdAt;
 
-    /** @var  string */
+    /** @var string */
     protected $updatedAt;
 
-    /** @var  string */
+    /** @var string */
     protected $publishedAt;
 
-    /** @var  Image */
+    /** @var Image */
     protected $image;
 
     /** @var Collection */
@@ -120,6 +126,22 @@ class Product implements Serializeable
     public function setProductType($productType)
     {
         $this->productType = $productType;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getManuallySorted()
+    {
+        return $this->manuallySorted;
+    }
+
+    /**
+     * @param bool $manuallySorted
+     */
+    public function setManuallySorted($manuallySorted)
+    {
+        $this->manuallySorted = $manuallySorted;
     }
 
     /**

@@ -1,22 +1,21 @@
 <?php
 
-
 namespace BoldApps\ShopifyToolkit\Models;
 
+use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class SmartCollectionRule
- * @package BoldApps\ShopifyToolkit\Models
- */
-class SmartCollectionRule
+class SmartCollectionRule implements Serializeable
 {
-    /** @var  string */
+    use HasAttributesTrait;
+
+    /** @var string */
     protected $column;
 
-    /** @var  string */
+    /** @var string */
     protected $relation;
 
-    /** @var  string */
+    /** @var string */
     protected $condition;
 
     /**
@@ -43,6 +42,27 @@ class SmartCollectionRule
         return $this->condition;
     }
 
+    /**
+     * @param string $column
+     */
+    public function setColumn($column)
+    {
+        $this->column = $column;
+    }
 
+    /**
+     * @param string $relation
+     */
+    public function setRelation($relation)
+    {
+        $this->relation = $relation;
+    }
 
+    /**
+     * @param string $condition
+     */
+    public function setCondition($condition)
+    {
+        $this->condition = $condition;
+    }
 }

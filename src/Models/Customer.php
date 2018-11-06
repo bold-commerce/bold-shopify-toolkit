@@ -3,9 +3,12 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Customer implements Serializeable
 {
+    use HasAttributesTrait;
+
     /** @var int */
     protected $id;
 
@@ -81,6 +84,14 @@ class Customer implements Serializeable
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -360,7 +371,7 @@ class Customer implements Serializeable
      */
     public function getSendWelcomeEmail()
     {
-        $this->sendWelcomeEmail;
+        return $this->sendWelcomeEmail;
     }
 
     /**

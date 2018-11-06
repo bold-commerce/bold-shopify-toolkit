@@ -3,52 +3,37 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Province implements Serializeable
 {
-    /**
-     * @var int
-     */
+    use HasAttributesTrait;
+
+    /** @var int */
     protected $id;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $code;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $countryId;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $name;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $shippingZoneId;
 
-    /**
-     * @var float
-     */
+    /** @var float */
     protected $tax;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $taxName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $taxType;
 
-    /**
-     * @var float
-     */
+    /** @var float */
     protected $taxPercentage;
 
     /**
@@ -59,7 +44,6 @@ class Province implements Serializeable
         return $this->code;
     }
 
-
     /**
      * @return int
      */
@@ -67,7 +51,6 @@ class Province implements Serializeable
     {
         return $this->countryId;
     }
-
 
     /**
      * @return int
@@ -77,7 +60,6 @@ class Province implements Serializeable
         return $this->id;
     }
 
-
     /**
      * @return string
      */
@@ -85,7 +67,6 @@ class Province implements Serializeable
     {
         return $this->name;
     }
-
 
     /**
      * @return int
@@ -95,7 +76,6 @@ class Province implements Serializeable
         return $this->shippingZoneId;
     }
 
-
     /**
      * @return float
      */
@@ -103,7 +83,6 @@ class Province implements Serializeable
     {
         return $this->tax;
     }
-
 
     /**
      * @return string
@@ -113,7 +92,6 @@ class Province implements Serializeable
         return $this->taxName;
     }
 
-
     /**
      * @return string
      */
@@ -122,7 +100,6 @@ class Province implements Serializeable
         return $this->taxType;
     }
 
-
     /**
      * @return float
      */
@@ -130,5 +107,4 @@ class Province implements Serializeable
     {
         return $this->taxPercentage;
     }
-
 }

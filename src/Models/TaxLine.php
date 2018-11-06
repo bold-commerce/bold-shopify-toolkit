@@ -3,20 +3,19 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class TaxLine.
- */
 class TaxLine implements Serializeable
 {
+    use HasAttributesTrait;
 
-    /** @var  string */
+    /** @var string */
     protected $title;
 
-    /** @var  string */
+    /** @var string */
     protected $price;
 
-    /** @var  float */
+    /** @var float */
     protected $rate;
 
     /**
@@ -42,5 +41,4 @@ class TaxLine implements Serializeable
     {
         return $this->rate;
     }
-
 }

@@ -3,34 +3,29 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Country implements Serializeable
 {
-    /**
-     * @var int
-     */
+    use HasAttributesTrait;
+
+    /** @var int */
     protected $id;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $code;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $name;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $provinces;
 
-    /**
-     * @var float
-     */
+    /** @var float */
     protected $tax;
 
+    /** @var string */
+    protected $taxName;
 
     /**
      * @return int
@@ -40,6 +35,13 @@ class Country implements Serializeable
         return $this->id;
     }
 
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return string
@@ -49,6 +51,13 @@ class Country implements Serializeable
         return $this->code;
     }
 
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
 
     /**
      * @return string
@@ -58,6 +67,13 @@ class Country implements Serializeable
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * @return array
@@ -67,6 +83,13 @@ class Country implements Serializeable
         return $this->provinces;
     }
 
+    /**
+     * @param array $provinces
+     */
+    public function setProvinces($provinces)
+    {
+        $this->provinces = $provinces;
+    }
 
     /**
      * @return float
@@ -76,4 +99,27 @@ class Country implements Serializeable
         return $this->tax;
     }
 
+    /**
+     * @param float $tax
+     */
+    public function setTax($tax)
+    {
+        $this->tax = $tax;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTaxName()
+    {
+        return $this->taxName;
+    }
+
+    /**
+     * @param string $taxName
+     */
+    public function setTaxName($taxName)
+    {
+        $this->taxName = $taxName;
+    }
 }

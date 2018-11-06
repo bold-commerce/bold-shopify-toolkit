@@ -3,38 +3,44 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class Image.
- */
 class Image implements Serializeable
 {
-    /** @var  int */
+    use HasAttributesTrait;
+
+    /** @var int */
     protected $id;
 
-    /** @var  int */
+    /** @var int */
     protected $position;
 
-    /** @var  int */
+    /** @var int */
     protected $productId;
 
-    /** @var  string */
+    /** @var string */
     protected $src;
 
-    /** @var  array */
+    /** @var array */
     protected $variantIds;
 
-    /** @var  string */
+    /** @var string */
     protected $createdAt;
 
-    /** @var  string */
+    /** @var string */
     protected $updatedAt;
 
-    /** @var  int */
+    /** @var int */
     protected $width;
 
-    /** @var  int */
+    /** @var int */
     protected $height;
+
+    /** @var string */
+    protected $attachment;
+
+    /** @var string */
+    protected $alt;
 
     /**
      * @return int
@@ -146,6 +152,38 @@ class Image implements Serializeable
     public function setHeight($height)
     {
         $this->height = $height;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttachment()
+    {
+        return $this->attachment;
+    }
+
+    /**
+     * @param string $attachment
+     */
+    public function setAttachment($attachment)
+    {
+        $this->attachment = $attachment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+
+    /**
+     * @param string $alt
+     */
+    public function setAlt($alt)
+    {
+        $this->alt = $alt;
     }
 
     /**

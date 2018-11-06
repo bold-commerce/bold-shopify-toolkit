@@ -2,7 +2,6 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
 use BoldApps\ShopifyToolkit\Contracts\ApplicationInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
@@ -11,42 +10,32 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 
-/**
- * Class InstallAndLogin
- * @package BoldApps\ShopifyToolkit\Services
- */
 class InstallAndLogin
 {
-    /*** @var ApplicationInfo */
+    /** @var ApplicationInfo */
     protected $applicationInfo;
 
     /** @var HttpClient */
     protected $client;
 
-    /*** @var ShopBaseInfo */
+    /** @var ShopBaseInfo */
     protected $shopBaseInfo;
-
-    /** @var ApiSleeper */
-    protected $apiSleeper;
 
     /**
      * InstallAndLogin constructor.
-     * @param ApplicationInfo $applicationInfo
-     * @param ShopBaseInfo $shopBaseInfo
-     * @param ApiSleeper $sleeper
-     * @param HttpClient $client
      *
+     * @param ApplicationInfo $applicationInfo
+     * @param ShopBaseInfo    $shopBaseInfo
+     * @param HttpClient      $client
      */
     public function __construct(
         ApplicationInfo $applicationInfo,
         ShopBaseInfo $shopBaseInfo,
-        ApiSleeper $sleeper,
         HttpClient $client
     ) {
         $this->applicationInfo = $applicationInfo;
         $this->shopBaseInfo = $shopBaseInfo;
         $this->client = $client;
-        $this->apiSleeper = $sleeper;
     }
 
     /**
@@ -59,7 +48,7 @@ class InstallAndLogin
     {
         $url = sprintf('https://%s/admin/oauth/authorize?client_id=%s&scope=%s',
             $this->shopBaseInfo->getMyShopifyDomain(), $this->applicationInfo->getApiKey(), urlencode($scope));
-        if ($redirect_url != '') {
+        if ('' != $redirect_url) {
             $url .= sprintf('&redirect_uri=%s', urlencode($redirect_url));
         }
 
@@ -68,7 +57,9 @@ class InstallAndLogin
 
     /**
      * @param $code
+     *
      * @return string
+     *
      * @throws BadRequestException
      */
     public function getAccessToken($code)
@@ -78,7 +69,7 @@ class InstallAndLogin
         $body = [
             'client_id' => $this->applicationInfo->getApiKey(),
             'client_secret' => $this->applicationInfo->getApiSecret(),
-            'code' => $code
+            'code' => $code,
         ];
 
         $uri = new Uri(sprintf('https://%s/%s', $this->shopBaseInfo->getMyShopifyDomain(), $path));
@@ -96,7 +87,9 @@ class InstallAndLogin
                 $result = $responseObject['access_token'];
             }
         } catch (RequestException $e) {
-            $response = null;
+            if (!$e->hasResponse()) {
+                throw $e;
+            }
 
             switch ($e->getResponse()->getStatusCode()) {
                 case 400:
@@ -104,17 +97,16 @@ class InstallAndLogin
                 default:
                     throw $e;
             }
-        } finally {
-            $this->apiSleeper->sleep($response);
         }
 
         return $result;
     }
 
     /**
-     * This usually will be something the ParameterBag from a symphony request object toArrayed
+     * This usually will be something the ParameterBag from a symphony request object toArrayed.
      *
      * @param $query
+     *
      * @return bool
      */
     public function validateSignature($query)
@@ -134,7 +126,7 @@ class InstallAndLogin
             $key = str_replace('%', '%25', $key);
             $value = str_replace('&', '%26', $value);
             $value = str_replace('%', '%25', $value);
-            $dataString[] = $key . '=' . $value;
+            $dataString[] = $key.'='.$value;
         }
 
         sort($dataString);

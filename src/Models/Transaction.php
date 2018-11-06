@@ -2,11 +2,13 @@
 
 namespace BoldApps\ShopifyToolkit\Models;
 
-
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Transaction implements Serializeable
 {
+    use HasAttributesTrait;
+
     /** @var int */
     public $id;
 
@@ -49,10 +51,10 @@ class Transaction implements Serializeable
     /** @var int */
     public $parentId;
 
-    /** @var */
+    /** @var mixed */
     public $deviceId;
 
-    /** @var [] */
+    /** @var mixed */
     public $receipt;
 
     /** @var string */
@@ -198,7 +200,7 @@ class Transaction implements Serializeable
     }
 
     /**
-     * @param boolean $test
+     * @param bool $test
      */
     public function setTest($test)
     {
@@ -348,5 +350,4 @@ class Transaction implements Serializeable
     {
         $this->sourceName = $sourceName;
     }
-
 }

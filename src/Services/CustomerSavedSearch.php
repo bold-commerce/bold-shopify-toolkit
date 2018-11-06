@@ -2,14 +2,11 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Models\Customer as CustomerModel;
 use BoldApps\ShopifyToolkit\Models\CustomerSavedSearch as CustomerSavedSearchModel;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use Illuminate\Support\Collection;
 
-/**
- * Class CustomerSavedSearch
- * @package BoldApps\ShopifyToolkit\Services
- */
 class CustomerSavedSearch extends CollectionEntity
 {
     /**
@@ -82,6 +79,23 @@ class CustomerSavedSearch extends CollectionEntity
         $customers = array_map(function ($customer) {
             return $this->unserializeModel($customer, CustomerSavedSearchModel::class);
         }, $raw['customer_saved_searches']);
+
+        return new Collection($customers);
+    }
+
+    /**
+     * @param int   $customerSavedSearchId
+     * @param array $params
+     *
+     * @return Collection
+     */
+    public function getAllCustomersById($customerSavedSearchId, $params = [])
+    {
+        $raw = $this->client->get("admin/customer_saved_searches/$customerSavedSearchId/customers.json", $params);
+
+        $customers = array_map(function ($customer) {
+            return $this->unserializeModel($customer, CustomerModel::class);
+        }, $raw['customers']);
 
         return new Collection($customers);
     }

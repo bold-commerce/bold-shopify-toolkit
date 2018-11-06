@@ -2,9 +2,6 @@
 
 namespace BoldApps\ShopifyToolkit\Contracts;
 
-/**
- * Interface ShopClient.
- */
 interface ShopBaseInfo
 {
     /**

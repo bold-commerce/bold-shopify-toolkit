@@ -2,16 +2,13 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
 use BoldApps\ShopifyToolkit\Models\Asset as AssetModel;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use BoldApps\ShopifyToolkit\Services\Theme as ShopifyThemeService;
 use BoldApps\ShopifyToolkit\Models\Theme as ShopifyTheme;
 use Illuminate\Support\Collection;
-use GuzzleHttp\Exception\RequestException;
 
-/**
- * Class Asset.
- */
 class Asset extends Base
 {
     /**
@@ -72,14 +69,8 @@ class Asset extends Base
                 ],
             ]);
             $asset = $this->unserializeModel($raw['asset'], AssetModel::class);
-        } catch(RequestException $e) {
-            switch ($e->getResponse()->getStatusCode()) {
-                case 404:
-                    $asset = null;
-                    break;
-                default:
-                    throw $e;
-            }
+        } catch (NotFoundException $e) {
+            $asset = null;
         }
 
         return $asset;

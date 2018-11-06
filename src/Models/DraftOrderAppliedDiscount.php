@@ -3,25 +3,25 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class DraftOrderAppliedDiscount
- */
 class DraftOrderAppliedDiscount implements Serializeable
 {
-    /** @var  string */
+    use HasAttributesTrait;
+
+    /** @var string */
     protected $title;
 
-    /** @var  string */
+    /** @var string */
     protected $description;
 
-    /** @var  string */
+    /** @var string */
     protected $value;
 
-    /** @var  string */
+    /** @var string */
     protected $valueType;
 
-    /** @var  string */
+    /** @var string */
     protected $amount;
 
     /**

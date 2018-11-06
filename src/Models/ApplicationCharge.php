@@ -3,58 +3,44 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-/**
- * Class ApplicationCharge
- * @package BoldApps\ShopifyToolkit\Models
- */
 class ApplicationCharge implements Serializeable
 {
-    /**
-     * @var int
-     */
-    protected $id;
-    /**
-     * @var string
-     */
-    protected $confirmationUrl;
-    /**
-     * @var string
-     */
-    protected $createdAt;
-    /**
-     * @var string
-     */
-    protected $name;
-    /**
-     * @var float
-     */
-    protected $price;
-    /**
-     * @var string
-     */
-    protected $returnUrl;
-    /**
-     * @var string
-     */
-    protected $status;
-    /**
-     * @var boolean
-     */
-    protected $test;
-    /**
-     * @var string
-     */
-    protected $updatedAt;
-    /**
-     * @var int
-     */
-    protected $apiClientId;
-    /**
-     * @var string
-     */
-    protected $decoratedReturnUrl;
+    use HasAttributesTrait;
 
+    /** @var int */
+    protected $id;
+
+    /** @var string */
+    protected $confirmationUrl;
+
+    /** @var string */
+    protected $createdAt;
+
+    /** @var string */
+    protected $name;
+
+    /** @var float */
+    protected $price;
+
+    /** @var string */
+    protected $returnUrl;
+
+    /** @var string */
+    protected $status;
+
+    /** @var bool */
+    protected $test;
+
+    /** @var string */
+    protected $updatedAt;
+
+    /** @var int */
+    protected $apiClientId;
+
+    /** @var string */
+    protected $decoratedReturnUrl;
 
     /**
      * @return int
@@ -62,6 +48,14 @@ class ApplicationCharge implements Serializeable
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**

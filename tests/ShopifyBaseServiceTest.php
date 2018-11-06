@@ -70,8 +70,6 @@ class ShopifyBaseServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($dataModel == $newArray);
     }
 
-
-
     /** @test */
     public function unserializeSerializedModelWithExtraField()
     {
@@ -81,8 +79,7 @@ class ShopifyBaseServiceTest extends \PHPUnit_Framework_TestCase
 
         $base = new FakeBase($shopifyClientMock);
 
-
-        $expectedResult =[
+        $expectedResult = [
             'foo' => 'donkey',
             'bar' => 'kick',
         ];

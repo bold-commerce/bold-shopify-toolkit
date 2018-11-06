@@ -6,54 +6,34 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 
 class Cart implements Serializeable
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $note;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $token;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $attributes;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $originalTotalPrice;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $totalPrice;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $totalDiscount;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $totalWeight;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $itemCount;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $requiresShipping;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $items;
 
     /**
@@ -171,14 +151,16 @@ class Cart implements Serializeable
     /**
      * @return int
      */
-    public function getItemCount() {
+    public function getItemCount()
+    {
         return $this->itemCount;
     }
 
     /**
      * @param $value
      */
-    public function setItemCount($value) {
+    public function setItemCount($value)
+    {
         $this->itemCount = $value;
     }
 
@@ -198,7 +180,6 @@ class Cart implements Serializeable
         $this->requiresShipping = $value;
     }
 
-
     /**
      * @return array
      */
@@ -206,7 +187,6 @@ class Cart implements Serializeable
     {
         return $this->items;
     }
-
 
     /**
      * @param $values

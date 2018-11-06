@@ -3,42 +3,41 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
-
 
 class Refund implements Serializeable
 {
-    /** @var  int */
+    use HasAttributesTrait;
+
+    /** @var int */
     public $id;
 
-    /** @var  int */
+    /** @var int */
     public $orderId;
 
-    /** @var  string */
+    /** @var string */
     public $note;
 
-    /** @var  string */
+    /** @var string */
     public $createdAt;
 
-    /** @var  int */
+    /** @var int */
     public $userId;
 
     /** @var float */
     protected $shipping;
 
-    /** @var  bool */
-    protected $restock;
-
-    /** @var  bool */
+    /** @var bool */
     protected $notify;
 
-    /**  @var Collection of Transaction */
+    /** @var Collection of Transaction */
     protected $transactions;
 
     /** @var Collection of RefundLineItem */
     protected $refundLineItems;
 
-    /** @var  Collection */
+    /** @var Collection */
     public $orderAdjustments;
 
     /** @var string */
@@ -46,7 +45,6 @@ class Refund implements Serializeable
 
     public function __construct()
     {
-        $this->restock = true;
         $this->notify = false;
         $this->transactions = new Collection([]);
         $this->refundLineItems = new Collection([]);
@@ -115,22 +113,6 @@ class Refund implements Serializeable
     public function setNote($note)
     {
         $this->note = $note;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getRestock()
-    {
-        return $this->restock;
-    }
-
-    /**
-     * @param bool $restock
-     */
-    public function setRestock($restock)
-    {
-        $this->restock = $restock;
     }
 
     public function getNotify()

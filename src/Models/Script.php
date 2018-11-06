@@ -3,9 +3,12 @@
 namespace BoldApps\ShopifyToolkit\Models;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class Script implements Serializeable
 {
+    use HasAttributesTrait;
+
     /** @var int */
     protected $id;
 
@@ -23,7 +26,6 @@ class Script implements Serializeable
 
     /** @var string */
     protected $displayScope;
-
 
     /**
      * @return int

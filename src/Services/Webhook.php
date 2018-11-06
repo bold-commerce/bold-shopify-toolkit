@@ -5,9 +5,6 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Models\Webhook as ShopifyWebhook;
 use Illuminate\Support\Collection;
 
-/**
- * Class Variant.
- */
 class Webhook extends Base
 {
     /**
