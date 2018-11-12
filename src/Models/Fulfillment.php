@@ -28,6 +28,12 @@ class Fulfillment implements Serializeable
     protected $receipt;
 
     /** @var string */
+    protected $service;
+
+    /** @var string */
+    protected $shipmentStatus;
+
+    /** @var string */
     protected $status;
 
     /** @var string */
@@ -47,6 +53,9 @@ class Fulfillment implements Serializeable
 
     /** @var int */
     protected $locationId;
+
+    /** @var string */
+    protected $name;
 
     /**
      * @return int
@@ -155,6 +164,38 @@ class Fulfillment implements Serializeable
     /**
      * @return string
      */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * @param string $service
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipmentStatus()
+    {
+        return $this->shipmentStatus;
+    }
+
+    /**
+     * @param string $shipmentStatus
+     */
+    public function setShipmentStatus($shipmentStatus)
+    {
+        $this->shipmentStatus = $shipmentStatus;
+    }
+
+    /**
+     * @return string
+     */
     public function getStatus()
     {
         return $this->status;
@@ -230,5 +271,21 @@ class Fulfillment implements Serializeable
     public function setLocationId($locationId)
     {
         $this->locationId = $locationId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 }
