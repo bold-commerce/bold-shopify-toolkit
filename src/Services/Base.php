@@ -39,12 +39,16 @@ abstract class Base
     }
 
     /**
-     * @param Serializeable $entity
+     * @param Serializeable|null $entity
      *
      * @return array
      */
-    public function serializeModel(Serializeable $entity)
+    public function serializeModel(Serializeable $entity = null)
     {
+        if (null === $entity) {
+            return null;
+        }
+
         $arr = [];
         $class = new \ReflectionClass($entity);
 
@@ -70,13 +74,21 @@ abstract class Base
     }
 
     /**
-     * @param array $data
+     * @param array|null $data
      * @param $className
      *
      * @return object
      */
-    public function unserializeModel(array $data, $className)
+    public function unserializeModel($data, $className)
     {
+        if (null === $data) {
+            return null;
+        }
+
+        if (!is_array($data)) {
+            throw new \InvalidArgumentException('Invalid argument $data supplied for unserializeModel. Please pass array|null.');
+        }
+
         $class = new \ReflectionClass($className);
 
         $instance = $class->newInstance();

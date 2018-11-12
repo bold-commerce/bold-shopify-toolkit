@@ -93,4 +93,34 @@ class ShopifyBaseServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($expectedResult == $newArray);
     }
+
+    /** @test */
+    public function unserializeSerializedModelThatIsNull()
+    {
+        $shopifyClientMock = $this->getMockBuilder(Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $base = new FakeBase($shopifyClientMock);
+
+        $nullIn = $base->unserializeModel(null, FakeModel::class);
+        $nullOut = $base->serializeModel($nullIn);
+
+        $this->assertNull($nullIn);
+        $this->assertNull($nullOut);
+    }
+
+    /** @test */
+    public function unserializeModelThrowsExceptionOnInvalidData()
+    {
+        $shopifyClientMock = $this->getMockBuilder(Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $base = new FakeBase($shopifyClientMock);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $base->unserializeModel('this is supposed to be an array!', FakeModel::class);
+    }
 }
