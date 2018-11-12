@@ -19,4 +19,14 @@ class Fulfillment extends Base
 
         return $this->unserializeModel($raw['fulfillment'], ShopifyFulfillment::class);
     }
+
+    /**
+     * @param array $array
+     *
+     * @return object
+     */
+    public function createFromArray($array)
+    {
+        return $this->unserializeModel($array, ShopifyFulfillment::class);
+    }
 }
