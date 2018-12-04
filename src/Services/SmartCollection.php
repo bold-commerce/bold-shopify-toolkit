@@ -89,7 +89,7 @@ class SmartCollection extends CollectionEntity
      */
     public function getProductsBySmartCollectionId($id, $filter = [])
     {
-        $raw = $this->client->get("admin/smart_collections/$id/products.json", $filter);
+        $raw = $this->client->get("admin/smart_collection/$id/products.json", $filter);
 
         $products = array_map(function ($product) {
             return $this->unserializeModel($product, ShopifyProduct::class);
