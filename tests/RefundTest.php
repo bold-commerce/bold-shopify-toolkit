@@ -29,13 +29,13 @@ class RefundTest extends TestCase
         $refundEntity = new ShopifyRefund();
         $refundEntity->setOrderId(123456);
         $refundEntity->setShipping(25.00);
+        $refundEntity->setCurrency('USD');
 
         $refundLineItem = new RefundLineItem();
         $refundLineItem->setLineItemId(222333);
         $refundLineItem->setRestockType('cancel');
         $refundLineItem->setLocationId(777777);
         $refundLineItem->setQuantity(1);
-        $refundEntity->setCurrency('USD');
 
         $transactionLineItem = new Transaction();
 
