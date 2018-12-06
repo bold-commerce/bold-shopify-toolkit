@@ -145,7 +145,7 @@ class Refund implements Serializeable
     {
         return $this->processedAt;
     }
-    
+
     /**
      * @return string
      */
