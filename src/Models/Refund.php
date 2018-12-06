@@ -43,6 +43,9 @@ class Refund implements Serializeable
     /** @var string */
     protected $processedAt;
 
+    /** @var string */
+    protected $currency;
+
     public function __construct()
     {
         $this->notify = false;
@@ -149,6 +152,22 @@ class Refund implements Serializeable
     public function getShipping()
     {
         return $this->shipping;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
     }
 
     /**
