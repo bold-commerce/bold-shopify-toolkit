@@ -35,7 +35,7 @@ class RefundTest extends TestCase
         $refundLineItem->setRestockType('cancel');
         $refundLineItem->setLocationId(777777);
         $refundLineItem->setQuantity(1);
-        $refundEntity->setCurrency("USD");
+        $refundEntity->setCurrency('USD');
 
         $transactionLineItem = new Transaction();
 
