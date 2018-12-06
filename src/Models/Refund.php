@@ -145,15 +145,7 @@ class Refund implements Serializeable
     {
         return $this->processedAt;
     }
-
-    /**
-     * @return float
-     */
-    public function getShipping()
-    {
-        return $this->shipping;
-    }
-
+    
     /**
      * @return string
      */
@@ -168,6 +160,14 @@ class Refund implements Serializeable
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+    }
+
+    /**
+     * @return float
+     */
+    public function getShipping()
+    {
+        return $this->shipping;
     }
 
     /**
