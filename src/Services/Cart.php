@@ -90,6 +90,16 @@ class Cart extends Base
     }
 
     /**
+     * @param $cartToken
+     * @param $currency
+     * @param null $password
+     */
+    public function switchCartCurrency($cartToken, $currency, $password = null)
+    {
+        $this->client->get('cart', ['currency' => $currency], $this->getCartCookie($cartToken), $password, true);
+    }
+
+    /**
      * Builds the cookie needed for you to get a cart.
      *
      * @param $cartToken
