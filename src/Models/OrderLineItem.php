@@ -6,7 +6,7 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Database\Eloquent\Collection;
 
-class OrderLineItem implements Serializeable
+class OrderLineItem implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 

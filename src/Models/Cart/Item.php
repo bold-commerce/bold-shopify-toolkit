@@ -3,9 +3,12 @@
 namespace BoldApps\ShopifyToolkit\Models\Cart;
 
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-class Item implements Serializeable
+class Item implements Serializeable, \JsonSerializable
 {
+    use HasAttributesTrait;
+
     /** @var int */
     protected $id;
 

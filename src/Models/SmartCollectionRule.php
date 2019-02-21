@@ -5,7 +5,7 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-class SmartCollectionRule implements Serializeable
+class SmartCollectionRule implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 
