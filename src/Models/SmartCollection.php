@@ -6,7 +6,7 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
 
-class SmartCollection implements Serializeable
+class SmartCollection implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 

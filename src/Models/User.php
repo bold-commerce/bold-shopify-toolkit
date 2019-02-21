@@ -5,7 +5,7 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-class User implements Serializeable
+class User implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 

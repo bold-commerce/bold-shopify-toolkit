@@ -6,7 +6,7 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
 
-class Refund implements Serializeable
+class Refund implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 
