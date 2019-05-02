@@ -58,6 +58,9 @@ class Variant implements Serializeable, \JsonSerializable
     protected $taxable;
 
     /** @var string */
+    protected $taxCode;
+
+    /** @var string */
     protected $title;
 
     /** @var int */
@@ -344,6 +347,22 @@ class Variant implements Serializeable, \JsonSerializable
     public function setTaxable($taxable)
     {
         $this->taxable = $taxable;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTaxCode()
+    {
+        return $this->taxCode;
+    }
+
+    /**
+     * @param string $taxCode
+     */
+    public function setTaxCode($taxCode)
+    {
+        $this->taxCode = $taxCode;
     }
 
     /**
