@@ -21,6 +21,22 @@ class Fulfillment extends Base
     }
 
     /**
+     * @param string $orderId
+     *
+     * @return ShopifyFulfillment | collection
+     */
+    public function get($orderId)
+    {
+        $raw = $this->client->get("admin/orders/{$orderID}/fulfillments.json", []);
+	$results = collect();
+        foreach($raw['fulfillments'] as $fulfillment) {
+           $results->push($this->unserializeModel($fulfillment,ShopifyFulfillment::class));
+        }
+
+        return $results;
+    }
+
+    /**
      * @param array $array
      *
      * @return object
