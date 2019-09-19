@@ -378,4 +378,12 @@ class Customer implements Serializeable
     {
         $this->tags = $tags;
     }
+
+    /**
+     * @param $addresses
+     */
+    public function setAddresses($addresses)
+    {
+        $this->addresses = $addresses;
+    }
 }
