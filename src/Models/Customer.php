@@ -381,4 +381,12 @@ class Customer implements Serializeable, \JsonSerializable
     {
         $this->tags = $tags;
     }
+
+    /**
+     * @param $addresses
+     */
+    public function setAddresses($addresses)
+    {
+        $this->addresses = $addresses;
+    }
 }
