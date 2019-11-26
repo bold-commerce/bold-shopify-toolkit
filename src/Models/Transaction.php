@@ -63,6 +63,9 @@ class Transaction implements Serializeable, \JsonSerializable
     /** @var string */
     public $sourceName;
 
+    /** @var float */
+    public $maximumRefundable;
+
     /**
      * @return int
      */
@@ -349,5 +352,21 @@ class Transaction implements Serializeable, \JsonSerializable
     public function setSourceName($sourceName)
     {
         $this->sourceName = $sourceName;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMaximumRefundable()
+    {
+        return $this->maximumRefundable;
+    }
+
+    /**
+     * @param float $maximumRefundable
+     */
+    public function setMaximumRefundable($maximumRefundable)
+    {
+        $this->maximumRefundable = $maximumRefundable;
     }
 }

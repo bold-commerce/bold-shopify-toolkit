@@ -30,6 +30,18 @@ class RefundLineItem implements Serializeable, \JsonSerializable
     /** @var int */
     protected $locationId;
 
+    /** @var float */
+    protected $price;
+
+    /** @var float */
+    protected $discountedPrice;
+
+    /** @var float */
+    protected $discountedTotalPrice;
+
+    /** @var float */
+    protected $totalCartDiscountAmount;
+
     /**
      * @return int
      */
@@ -140,5 +152,69 @@ class RefundLineItem implements Serializeable, \JsonSerializable
     public function getLocationId()
     {
         return $this->locationId;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountedPrice()
+    {
+        return $this->discountedPrice;
+    }
+
+    /**
+     * @param float $discountedPrice
+     */
+    public function setDiscountedPrice($discountedPrice)
+    {
+        $this->discountedPrice = $discountedPrice;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountedTotalPrice()
+    {
+        return $this->discountedTotalPrice;
+    }
+
+    /**
+     * @param float $discountedTotalPrice
+     */
+    public function setDiscountedTotalPrice($discountedTotalPrice)
+    {
+        $this->discountedTotalPrice = $discountedTotalPrice;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalCartDiscountAmount()
+    {
+        return $this->totalCartDiscountAmount;
+    }
+
+    /**
+     * @param float $totalCartDiscountAmount
+     */
+    public function setTotalCartDiscountAmount($totalCartDiscountAmount)
+    {
+        $this->totalCartDiscountAmount = $totalCartDiscountAmount;
     }
 }
