@@ -36,6 +36,12 @@ class RefundTest extends TestCase
         $refundLineItem->setRestockType('cancel');
         $refundLineItem->setLocationId(777777);
         $refundLineItem->setQuantity(1);
+        $refundLineItem->setPrice(126.70);
+        $refundLineItem->setDiscountedPrice(126.70);
+        $refundLineItem->setDiscountedTotalPrice(126.70);
+        $refundLineItem->setTotalCartDiscountAmount(0.00);
+        $refundLineItem->setTotalTax(6.70);
+        $refundLineItem->setSubtotal(126.70);
 
         $transactionLineItem = new Transaction();
 
@@ -43,6 +49,9 @@ class RefundTest extends TestCase
         $transactionLineItem->setAmount(126.70);
         $transactionLineItem->setKind('refund');
         $transactionLineItem->setGateway('bogus');
+        $transactionLineItem->setOrderId(123456);
+        $transactionLineItem->setCurrency('USD');
+        $transactionLineItem->setMaximumRefundable(126.70);
 
         $refundEntity->setRefundLineItems(new Collection([$refundLineItem]));
         $refundEntity->setTransactions(new Collection([$transactionLineItem]));
@@ -60,6 +69,12 @@ class RefundTest extends TestCase
                     'restock_type' => 'cancel',
                     'quantity' => 1,
                     'location_id' => 777777,
+                    'price' => 126.70,
+                    'discounted_price' => 126.70,
+                    'discounted_total_price' => 126.70,
+                    'total_cart_discount_amount' => 0.00,
+                    'subtotal' => 126.70,
+                    'total_tax' => 6.70,
                 ],
             ],
             'transactions' => [
@@ -68,6 +83,9 @@ class RefundTest extends TestCase
                     'amount' => 126.70,
                     'kind' => 'refund',
                     'gateway' => 'bogus',
+                    'order_id' => 123456,
+                    'currency' => 'USD',
+                    'maximum_refundable' => 126.70,
                 ],
             ],
         ];
@@ -97,6 +115,10 @@ class RefundTest extends TestCase
                     "total_tax": 3.98,
                     "restock_type": "cancel",
                     "location_id": 1234,
+                    "price": "195.67",
+                    "discounted_price": "195.67",
+                    "discounted_total_price": "195.67",
+                    "total_cart_discount_amount": "0.00",
                     "line_item": {
                         "id": 518995019,
                         "variant_id": 49148385,
@@ -148,7 +170,8 @@ class RefundTest extends TestCase
                     "device_id": null,
                     "receipt": {},
                     "error_code": null,
-                    "source_name": "755357713"
+                    "source_name": "755357713",
+                    "maximum_refundable": "199.65"
                 }
             ],
             "order_adjustments": [
@@ -179,6 +202,10 @@ class RefundTest extends TestCase
         $expectedRefundLineItem1->setTotalTax(3.98);
         $expectedRefundLineItem1->setRestockType('cancel');
         $expectedRefundLineItem1->setLocationId(1234);
+        $expectedRefundLineItem1->setTotalCartDiscountAmount(0.00);
+        $expectedRefundLineItem1->setDiscountedTotalPrice(195.67);
+        $expectedRefundLineItem1->setDiscountedPrice(195.67);
+        $expectedRefundLineItem1->setPrice(195.67);
 
         $expectedTransactionLineItem1 = new Transaction();
         $expectedTransactionLineItem1->setId(1068278485);
@@ -199,6 +226,7 @@ class RefundTest extends TestCase
         $expectedTransactionLineItem1->setReceipt([]);
         $expectedTransactionLineItem1->setErrorCode(null);
         $expectedTransactionLineItem1->setSourceName('755357713');
+        $expectedTransactionLineItem1->setMaximumRefundable(199.65);
 
         $expected->setRefundLineItems(new Collection([$expectedRefundLineItem1]));
         $expected->setTransactions(new Collection([$expectedTransactionLineItem1]));
