@@ -15,6 +15,7 @@ use GuzzleHttp\Cookie\SetCookie;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\parse_header;
 
 class Client
 {
@@ -58,13 +59,14 @@ class Client
      * @param array  $cookies
      * @param string $password
      * @param bool   $frontendApi
+     * @param bool   $fullResponse
      *
      * If password is set it will auth to /password before it does anything. Useful for frontend calls.
      * Cookies is an array of SetCookie objects. See the Cart service for an example.
      *
      * @return array
      */
-    public function get($path, $params = [], array $cookies = [], $password = null, $frontendApi = false)
+    public function get($path, $params = [], array $cookies = [], $password = null, $frontendApi = false, $fullResponse = false)
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken()];
 
@@ -74,7 +76,7 @@ class Client
         $uri = $uri->withQuery(http_build_query($params));
         $request = new Request('GET', $uri, $headers);
 
-        return $this->sendRequestToShopify($request, $cookies, $password);
+        return $this->sendRequestToShopify($request, $cookies, $password, $fullResponse);
     }
 
     /**
@@ -100,13 +102,14 @@ class Client
      * @param array  $cookies
      * @param string $password
      * @param bool   $frontendApi
+     * @param bool   $fullResponse
      *
      * If password is set it will auth to /password before it does anything. Useful for frontend calls.
      * Cookies is an array of SetCookie objects. See the Cart service for an example.
      *
      * @return array
      */
-    public function post($path, $params, $body, array $cookies = [], $password = null, $frontendApi = false, $extraHeaders = [])
+    public function post($path, $params, $body, array $cookies = [], $password = null, $frontendApi = false, $extraHeaders = [], $fullResponse = false)
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
         $headers = array_merge($headers, $extraHeaders);
@@ -120,17 +123,18 @@ class Client
 
         $request = new Request('POST', $uri, $headers, $json);
 
-        return $this->sendRequestToShopify($request, $cookies, $password);
+        return $this->sendRequestToShopify($request, $cookies, $password, $fullResponse);
     }
 
     /**
-     * @param $path
+     * @param       $path
      * @param array $params
-     * @param $body
+     * @param       $body
+     * @param bool  $fullResponse
      *
      * @return array
      */
-    public function put($path, $params, $body)
+    public function put($path, $params, $body, $fullResponse = false)
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
         $uri = new Uri(sprintf('https://%s/%s', $this->shopBaseInfo->getMyShopifyDomain(), $path));
@@ -140,16 +144,17 @@ class Client
 
         $request = new Request('PUT', $uri, $headers, $json);
 
-        return $this->sendRequestToShopify($request);
+        return $this->sendRequestToShopify($request, [], null, $fullResponse);
     }
 
     /**
      * @param $path
      * @param array $params
+     * @param bool  $fullResponse
      *
      * @return array
      */
-    public function delete($path, $params = [])
+    public function delete($path, $params = [], $fullResponse = false)
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'charset' => 'utf-8'];
         $uri = new Uri(sprintf('https://%s/%s', $this->shopBaseInfo->getMyShopifyDomain(), $path));
@@ -157,16 +162,19 @@ class Client
 
         $request = new Request('DELETE', $uri, $headers);
 
-        return $this->sendRequestToShopify($request);
+        return $this->sendRequestToShopify($request, [], null, $fullResponse);
     }
 
     /**
      * @param Request       $request
      * @param array         $cookies
      * @param string | null $password
+     * @param bool          $fullResponse
      *
      * $cookies is an array of SetCookie objects. see the Cart service for examples.
      * If password is set it will attempt to authenticate with the frontend /password route first.
+     * $fullResponse if true function will return an object that contains the parsed response body
+     * as well as the repsonse itself.
      *
      * @return array|null
      *
@@ -176,7 +184,7 @@ class Client
      * @throws UnprocessableEntityException
      * @throws TooManyRequestsException
      */
-    private function sendRequestToShopify(Request $request, array $cookies = [], $password = null)
+    private function sendRequestToShopify(Request $request, array $cookies = [], $password = null, $fullResponse = false)
     {
         $result = null;
 
@@ -234,7 +242,31 @@ class Client
             $this->requestHookInterface->afterRequest($response);
         }
 
-        return $result;
+        // Parsing pagination header if provided
+        $next = $nextParams = null;
+        $prev = $prevParams = null;
+        if ($fullResponse && $response && $linkHeader = $response->getHeader('Link')) {
+            $links = parse_header($linkHeader);
+            foreach ($links as $link) {
+                $rel = isset($link['rel']) ? $link['rel'] : null;
+                if ('previous' == $rel) {
+                    $prev = trim($link[0], '<>');
+                    parse_str(parse_url($prev, PHP_URL_QUERY), $prevParams);
+                } elseif ('next' == $rel) {
+                    $next = trim($link[0], '<>');
+                    parse_str(parse_url($next, PHP_URL_QUERY), $nextParams);
+                }
+            }
+        }
+
+        return !$fullResponse ? $result : [
+            'data' => $result,
+            'response' => $response,
+            'next' => $next,
+            'nextParams' => $nextParams,
+            'previous' => $prev,
+            'previousParams' => $prevParams,
+        ];
     }
 
     /**

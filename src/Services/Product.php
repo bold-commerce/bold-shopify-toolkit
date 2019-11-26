@@ -102,10 +102,13 @@ class Product extends CollectionEntity
      * @param int   $limit
      * @param array $filter
      *
+     * @deprecated Use `getByParams` instead
+     *
      * @return Collection
      */
     public function getAll($page = 1, $limit = 50, $filter = [])
     {
+        trigger_error('Method getAll is deprecated', E_USER_DEPRECATED);
         $raw = $this->client->get('admin/products.json', array_merge(['page' => $page, 'limit' => $limit], $filter));
 
         $products = array_map(function ($product) {
@@ -116,19 +119,32 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param array $params
+     * @param array       $params
+     * @param string|null $version
+     * @param bool        $fullResponse
      *
-     * @return Collection
+     * @return Collection|array
      */
-    public function getByParams($params)
+    public function getByParams($params, $version = null, $fullResponse = false)
     {
-        $raw = $this->client->get('admin/products.json', $params);
+        if (isset($params['page'])) {
+            trigger_error('Use of page param for getByParams is deprecated.', E_USER_DEPRECATED);
+        }
+
+        $endpoint = 'admin/products.json';
+        if (null != $version) {
+            $endpoint = "admin/api/{$version}/products.json";
+        }
+
+        $raw = $this->client->get($endpoint, $params, [], null, false, $fullResponse);
 
         $products = array_map(function ($product) {
             return $this->unserializeModel($product, ShopifyProduct::class);
-        }, $raw['products']);
+        }, !$fullResponse ? $raw['products'] : $raw['data']['products']);
 
-        return new Collection($products);
+        return !$fullResponse ? new Collection($products) : array_merge($raw, [
+            'products' => new Collection($products),
+        ]);
     }
 
     /**
@@ -228,18 +244,31 @@ class Product extends CollectionEntity
     /**
      * @param ShopifyProduct $product
      * @param array          $filter
+     * @param string|null    $version
+     * @param bool           $fullResponse
      *
-     * @return Collection
+     * @return Collection|array
      */
-    public function getMetafields(ShopifyProduct $product, $filter = [])
+    public function getMetafields(ShopifyProduct $product, $filter = [], $version = null, $fullResponse = false)
     {
-        $raw = $this->client->get("admin/products/{$product->getId()}/metafields.json", $filter);
+        if (isset($filter['page'])) {
+            trigger_error('Use of page param for getMetafields is deprecated.', E_USER_DEPRECATED);
+        }
+
+        $endpoint = "admin/products/{$product->getId()}/metafields.json";
+        if (null != $version) {
+            $endpoint = "admin/api/{$version}/products/{$product->getId()}/metafields.json";
+        }
+
+        $raw = $this->client->get($endpoint, $filter, [], null, false, $fullResponse);
 
         $metafields = array_map(function ($metafield) {
             return $this->unserializeModel($metafield, ShopifyMetafield::class);
-        }, $raw['metafields']);
+        }, !$fullResponse ? $raw['metafields'] : $raw['data']['metafields']);
 
-        return new Collection($metafields);
+        return !$fullResponse ? new Collection($metafields) : array_merge($raw, [
+            'metafields' => new Collection($metafields),
+        ]);
     }
 
     /**
