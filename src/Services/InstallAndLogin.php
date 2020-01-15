@@ -118,7 +118,7 @@ class InstallAndLogin
         $dataString = array();
 
         foreach ($query as $key => $value) {
-            if (!in_array($key, array('shop', 'timestamp', 'code', 'protocol', 'locale'))) {
+            if ($key == 'hmac') {
                 continue;
             }
             $key = str_replace('=', '%3D', $key);
