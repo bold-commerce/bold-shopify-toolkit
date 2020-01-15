@@ -66,6 +66,20 @@ class Refund extends Base
     }
 
     /**
+     * @param ShopifyRefund $refund
+     *
+     * @return ShopifyRefund | object
+     */
+    public function calculate(ShopifyRefund $refund)
+    {
+        $serializedModel = ['refund' => $this->serializeModel($refund)];
+
+        $raw = $this->client->post("admin/orders/{$refund->getOrderId()}/refunds/calculate.json", [], $serializedModel);
+
+        return $this->unserializeModel($raw['refund'], ShopifyRefund::class);
+    }
+
+    /**
      * @param $array
      *
      * @return ShopifyRefund | object

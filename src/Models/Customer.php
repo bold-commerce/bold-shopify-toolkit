@@ -5,7 +5,7 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-class Customer implements Serializeable
+class Customer implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 
@@ -380,5 +380,13 @@ class Customer implements Serializeable
     public function setTags($tags)
     {
         $this->tags = $tags;
+    }
+
+    /**
+     * @param $addresses
+     */
+    public function setAddresses($addresses)
+    {
+        $this->addresses = $addresses;
     }
 }

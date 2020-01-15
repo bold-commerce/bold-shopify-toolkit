@@ -2,9 +2,10 @@
 
 namespace BoldApps\ShopifyToolkit\Models;
 
+use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-class CustomCollection
+class CustomCollection implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 

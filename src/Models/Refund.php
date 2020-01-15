@@ -6,7 +6,7 @@ use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use Illuminate\Support\Collection;
 
-class Refund implements Serializeable
+class Refund implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 
@@ -42,6 +42,9 @@ class Refund implements Serializeable
 
     /** @var string */
     protected $processedAt;
+
+    /** @var string */
+    protected $currency;
 
     public function __construct()
     {
@@ -141,6 +144,22 @@ class Refund implements Serializeable
     public function getProcessedAt()
     {
         return $this->processedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
     }
 
     /**

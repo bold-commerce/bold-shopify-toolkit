@@ -5,7 +5,7 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-class Variant implements Serializeable
+class Variant implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 
@@ -56,6 +56,9 @@ class Variant implements Serializeable
 
     /** @var bool */
     protected $taxable;
+
+    /** @var string */
+    protected $taxCode;
 
     /** @var string */
     protected $title;
@@ -344,6 +347,22 @@ class Variant implements Serializeable
     public function setTaxable($taxable)
     {
         $this->taxable = $taxable;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTaxCode()
+    {
+        return $this->taxCode;
+    }
+
+    /**
+     * @param string $taxCode
+     */
+    public function setTaxCode($taxCode)
+    {
+        $this->taxCode = $taxCode;
     }
 
     /**

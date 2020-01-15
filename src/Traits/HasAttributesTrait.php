@@ -30,4 +30,20 @@ trait HasAttributesTrait
 
         return method_exists($this, 'get'.Str::studly($name));
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return get_object_vars($this);
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
 }

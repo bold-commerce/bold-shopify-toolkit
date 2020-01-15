@@ -5,7 +5,7 @@ namespace BoldApps\ShopifyToolkit\Models;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
 use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
-class Transaction implements Serializeable
+class Transaction implements Serializeable, \JsonSerializable
 {
     use HasAttributesTrait;
 
@@ -62,6 +62,9 @@ class Transaction implements Serializeable
 
     /** @var string */
     public $sourceName;
+
+    /** @var float */
+    public $maximumRefundable;
 
     /**
      * @return int
@@ -349,5 +352,21 @@ class Transaction implements Serializeable
     public function setSourceName($sourceName)
     {
         $this->sourceName = $sourceName;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMaximumRefundable()
+    {
+        return $this->maximumRefundable;
+    }
+
+    /**
+     * @param float $maximumRefundable
+     */
+    public function setMaximumRefundable($maximumRefundable)
+    {
+        $this->maximumRefundable = $maximumRefundable;
     }
 }

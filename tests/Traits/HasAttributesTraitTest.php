@@ -7,6 +7,8 @@ class HasAttributesTraitTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
+        $client = $this->createMock(Client::class);
+        $this->cartService = new CartService($client);
         $this->customerObject = new \BoldApps\ShopifyToolkit\Models\Customer();
     }
 
@@ -48,5 +50,34 @@ class HasAttributesTraitTest extends \PHPUnit\Framework\TestCase
     public function testIssetFails()
     {
         $this->assertFalse(isset($this->customerObject->first_name));
+    }
+
+    public function testToArray()
+    {
+        $cart = new Cart();
+        $cart->setToken('cheesewhiz');
+
+        $arrayCart = $cart->toArray();
+        $reModeledCart = $this->cartService->unserializeModel($arrayCart, Cart::class);
+
+        $this->assertEquals('cheesewhiz', $reModeledCart->getToken());
+    }
+
+    public function testJsonSerialize()
+    {
+        $cart = new Cart();
+        $cart->setToken('cheesewhizard');
+        $cartItem = new CartItem();
+        $cartItem->setPrice(500);
+        $cart->setItems([$cartItem]);
+
+        $jsonCart = json_encode($cart);
+        $arrayCart = json_decode($jsonCart, true);
+
+        $reModeledCart = $this->cartService->unserializeModel($arrayCart, Cart::class);
+        $reModeledCartItem = $reModeledCart->getItems()[0];
+
+        $this->assertEquals(500, $reModeledCartItem->getPrice());
+        $this->assertEquals('cheesewhizard', $reModeledCart->getToken());
     }
 }
