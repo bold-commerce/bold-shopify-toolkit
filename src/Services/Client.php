@@ -5,6 +5,7 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
 use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
+use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
 use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
 use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
@@ -175,6 +176,7 @@ class Client
      * @throws NotAcceptableException
      * @throws UnprocessableEntityException
      * @throws TooManyRequestsException
+     * @throws BadRequestException
      */
     private function sendRequestToShopify(Request $request, array $cookies = [], $password = null)
     {
@@ -215,6 +217,8 @@ class Client
             }
 
             switch ($response->getStatusCode()) {
+                case 400:
+                    throw new BadRequestException($e->getMessage());
                 case 401:
                     throw new UnauthorizedException($e->getMessage());
                 case 404:
@@ -248,6 +252,7 @@ class Client
      * @throws UnauthorizedException
      * @throws UnprocessableEntityException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws BadRequestException
      */
     private function getRedirectResponseFromShopify(Request $request)
     {
@@ -279,6 +284,8 @@ class Client
             }
 
             switch ($response->getStatusCode()) {
+                case 400:
+                    throw new BadRequestException($e->getMessage());
                 case 401:
                     throw new UnauthorizedException($e->getMessage());
                 case 404:

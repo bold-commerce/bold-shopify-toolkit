@@ -79,7 +79,7 @@ class Product extends CollectionEntity
     {
         $serializedModel = ['product' => array_merge($this->serializeModel($product), ['published' => $publish])];
 
-        $raw = $this->client->post('admin/products.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/products.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['product'], ShopifyProduct::class);
     }
@@ -92,12 +92,15 @@ class Product extends CollectionEntity
      */
     public function getById($id, $filter = [])
     {
-        $raw = $this->client->get("admin/products/$id.json", $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/products/$id.json", $filter);
 
         return $this->unserializeModel($raw['product'], ShopifyProduct::class);
     }
 
     /**
+     * @deprecated Use getByParams()
+     * @see getByParams()
+     *
      * @param int   $page
      * @param int   $limit
      * @param array $filter
@@ -122,7 +125,7 @@ class Product extends CollectionEntity
      */
     public function getByParams($params)
     {
-        $raw = $this->client->get('admin/products.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/products.json", $params);
 
         $products = array_map(function ($product) {
             return $this->unserializeModel($product, ShopifyProduct::class);
@@ -173,7 +176,7 @@ class Product extends CollectionEntity
     {
         $serializedModel = ['product' => $this->serializeModel($product)];
 
-        $raw = $this->client->put("admin/products/{$product->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/products/{$product->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['product'], ShopifyProduct::class);
     }
@@ -185,7 +188,7 @@ class Product extends CollectionEntity
      */
     public function delete(ShopifyProduct $product)
     {
-        return $this->client->delete("admin/products/{$product->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/products/{$product->getId()}.json");
     }
 
     /**
@@ -195,7 +198,7 @@ class Product extends CollectionEntity
      */
     public function count($filter = [])
     {
-        $raw = $this->client->get('admin/products/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/products/count.json", $filter);
 
         return $raw['count'];
     }
@@ -220,7 +223,7 @@ class Product extends CollectionEntity
     {
         $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
 
-        $raw = $this->client->post("admin/products/{$product->getId()}/metafields.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/products/{$product->getId()}/metafields.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
@@ -233,7 +236,7 @@ class Product extends CollectionEntity
      */
     public function getMetafields(ShopifyProduct $product, $filter = [])
     {
-        $raw = $this->client->get("admin/products/{$product->getId()}/metafields.json", $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/products/{$product->getId()}/metafields.json", $filter);
 
         $metafields = array_map(function ($metafield) {
             return $this->unserializeModel($metafield, ShopifyMetafield::class);
@@ -250,7 +253,7 @@ class Product extends CollectionEntity
      */
     public function getMetafield(ShopifyProduct $product, $id)
     {
-        $raw = $this->client->get("admin/products/{$product->getId()}/metafields/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/products/{$product->getId()}/metafields/$id.json");
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
@@ -263,7 +266,7 @@ class Product extends CollectionEntity
      */
     public function deleteMetafield(ShopifyProduct $product, ShopifyMetafield $metafield)
     {
-        return $this->client->delete("admin/products/{$product->getId()}/metafields/{$metafield->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/products/{$product->getId()}/metafields/{$metafield->getId()}.json");
     }
 
     /**
@@ -273,7 +276,7 @@ class Product extends CollectionEntity
      */
     public function deleteMetafieldById($metafieldId)
     {
-        return $this->client->delete("admin/metafields/{$metafieldId}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/metafields/{$metafieldId}.json");
     }
 
     /**
