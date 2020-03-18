@@ -16,7 +16,7 @@ class Theme extends Base
     {
         $serializedModel = ['theme' => $this->serializeModel($shopifyTheme)];
 
-        $raw = $this->client->post('admin/themes.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/themes.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['theme'], ShopifyTheme::class);
     }
@@ -31,7 +31,7 @@ class Theme extends Base
         $id = $shopifyTheme->getId();
         $serializedModel = ['theme' => $this->serializeModel($shopifyTheme)];
 
-        $raw = $this->client->put("admin/themes/$id.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/themes/$id.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['theme'], ShopifyTheme::class);
     }
@@ -43,7 +43,7 @@ class Theme extends Base
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/themes/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/themes/$id.json");
 
         return $this->unserializeModel($raw['theme'], ShopifyTheme::class);
     }
@@ -55,12 +55,15 @@ class Theme extends Base
     {
         $filter = ['role' => 'main'];
 
-        $raw = $this->client->get('admin/themes.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/themes.json", $filter);
 
         return $this->unserializeModel($raw['themes'][0], ShopifyTheme::class);
     }
 
     /**
+     * @deprecated Use getByParams()
+     * @see getByParams()
+     *
      * @param array $filter
      *
      * @return Collection
@@ -68,6 +71,22 @@ class Theme extends Base
     public function getAll($filter = [])
     {
         $raw = $this->client->get('admin/themes.json', $filter);
+
+        $themes = array_map(function ($theme) {
+            return $this->unserializeModel($theme, ShopifyTheme::class);
+        }, $raw['themes']);
+
+        return new Collection($themes);
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return Collection
+     */
+    public function getByParams($params = [])
+    {
+        $raw = $this->client->get("{$this->getApiBasePath()}/themes.json", $params);
 
         $themes = array_map(function ($theme) {
             return $this->unserializeModel($theme, ShopifyTheme::class);

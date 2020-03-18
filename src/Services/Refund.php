@@ -60,7 +60,7 @@ class Refund extends Base
     {
         $serializedModel = ['refund' => $this->serializeModel($refund)];
 
-        $raw = $this->client->post("admin/orders/{$refund->getOrderId()}/refunds.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/orders/{$refund->getOrderId()}/refunds.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['refund'], ShopifyRefund::class);
     }
@@ -74,7 +74,7 @@ class Refund extends Base
     {
         $serializedModel = ['refund' => $this->serializeModel($refund)];
 
-        $raw = $this->client->post("admin/orders/{$refund->getOrderId()}/refunds/calculate.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/orders/{$refund->getOrderId()}/refunds/calculate.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['refund'], ShopifyRefund::class);
     }

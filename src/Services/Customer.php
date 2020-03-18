@@ -14,12 +14,15 @@ class Customer extends CollectionEntity
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/customers/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/customers/$id.json");
 
         return $this->unserializeModel($raw['customer'], ShopifyCustomer::class);
     }
 
     /**
+     * @deprecated Use getByParams()
+     * @see getByParams()
+     *
      * @param int   $page
      * @param int   $limit
      * @param array $filter
@@ -44,7 +47,7 @@ class Customer extends CollectionEntity
      */
     public function getByParams($params)
     {
-        $raw = $this->client->get('admin/customers.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/customers.json", $params);
 
         $customers = array_map(function ($customer) {
             return $this->unserializeModel($customer, ShopifyCustomer::class);
@@ -60,7 +63,7 @@ class Customer extends CollectionEntity
      */
     public function searchByParams($parms)
     {
-        $raw = $this->client->get('admin/customers/search.json', $parms);
+        $raw = $this->client->get("{$this->getApiBasePath()}/customers/search.json", $parms);
 
         $customers = array_map(function ($customer) {
             return $this->unserializeModel($customer, ShopifyCustomer::class);
@@ -76,7 +79,7 @@ class Customer extends CollectionEntity
      */
     public function count($filter = [])
     {
-        $raw = $this->client->get('admin/customers/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/customers/count.json", $filter);
 
         return $raw['count'];
     }
@@ -88,7 +91,7 @@ class Customer extends CollectionEntity
      */
     public function countByParams($filter = [])
     {
-        $raw = $this->client->get('admin/customers/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/customers/count.json", $filter);
 
         return $raw['count'];
     }
@@ -112,7 +115,7 @@ class Customer extends CollectionEntity
     {
         $serializedModel = ['customer' => array_merge($this->serializeModel($customer))];
 
-        $raw = $this->client->post('admin/customers.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/customers.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['customer'], ShopifyCustomer::class);
     }
@@ -126,7 +129,7 @@ class Customer extends CollectionEntity
     {
         $serializedModel = ['customer' => $this->serializeModel($customer)];
 
-        $raw = $this->client->put("admin/customers/{$customer->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/customers/{$customer->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['customer'], ShopifyCustomer::class);
     }
@@ -138,7 +141,7 @@ class Customer extends CollectionEntity
      */
     public function delete(ShopifyCustomer $customer)
     {
-        return $this->client->delete("admin/customers/{$customer->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/customers/{$customer->getId()}.json");
     }
 
     /**
@@ -150,6 +153,6 @@ class Customer extends CollectionEntity
      */
     public function sendAccountCreationInvite($shopifyCustomerId, $params = [], $body = [])
     {
-        return $this->client->post("admin/customers/{$shopifyCustomerId}/send_invite.json", $params, $body);
+        return $this->client->post("{$this->getApiBasePath()}/customers/{$shopifyCustomerId}/send_invite.json", $params, $body);
     }
 }

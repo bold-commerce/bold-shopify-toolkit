@@ -69,7 +69,7 @@ class DraftOrder extends Base
     public function create($shopifyDraftOrder)
     {
         $serializedModel = ['draft_order' => $this->serializeModel($shopifyDraftOrder)];
-        $raw = $this->client->post('admin/draft_orders.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/draft_orders.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['draft_order'], ShopifyDraftOrder::class);
     }
@@ -81,7 +81,7 @@ class DraftOrder extends Base
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/draft_orders/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/draft_orders/$id.json");
 
         $result = $this->unserializeModel($raw['draft_order'], ShopifyDraftOrder::class);
 
@@ -130,7 +130,7 @@ class DraftOrder extends Base
      */
     public function delete($id)
     {
-        return $this->client->delete("admin/draft_orders/$id.json");
+        return $this->client->delete("{$this->getApiBasePath()}/draft_orders/$id.json");
     }
 
     /**

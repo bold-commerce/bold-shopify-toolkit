@@ -21,6 +21,6 @@ class Application extends Base
      */
     public function uninstall()
     {
-        return $this->client->delete('admin/api_permissions/current.json');
+        return $this->client->delete("{$this->getApiBasePath()}/api_permissions/current.json");
     }
 }

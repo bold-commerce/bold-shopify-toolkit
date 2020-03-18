@@ -15,7 +15,7 @@ class ApplicationCharge extends Base
     {
         $serializedModel = ['application_charge' => $this->serializeModel($applicationCharge)];
 
-        $raw = $this->client->post('admin/application_charges.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/application_charges.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['application_charge'], ShopifyApplicationCharge::class);
     }
@@ -27,7 +27,7 @@ class ApplicationCharge extends Base
      */
     public function getById($id)
     {
-        $charge = $this->client->get("admin/application_charges/$id.json");
+        $charge = $this->client->get("{$this->getApiBasePath()}/application_charges/$id.json");
 
         return $this->unserializeModel($charge['application_charge'], ShopifyApplicationCharge::class);
     }
@@ -42,7 +42,7 @@ class ApplicationCharge extends Base
         $id = $applicationCharge->getId();
         $serializedModel = ['application_charge' => $this->serializeModel($applicationCharge)];
 
-        $raw = $this->client->post("admin/application_charges/$id/activate.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/application_charges/$id/activate.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['application_charge'], ShopifyApplicationCharge::class);
     }
@@ -54,6 +54,6 @@ class ApplicationCharge extends Base
      */
     public function delete(ShopifyApplicationCharge $applicationCharge)
     {
-        return $this->client->delete("admin/application_charges/{$applicationCharge->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/application_charges/{$applicationCharge->getId()}.json");
     }
 }

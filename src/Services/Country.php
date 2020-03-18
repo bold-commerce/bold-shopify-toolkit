@@ -16,7 +16,7 @@ class Country extends Base
     {
         $serializedModel = ['country' => $this->serializeModel($country)];
 
-        $raw = $this->client->post('admin/countries.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/countries.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['country'], ShopifyCountry::class);
     }
@@ -38,12 +38,15 @@ class Country extends Base
      */
     public function count($filter = [])
     {
-        $raw = $this->client->get('admin/countries/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/countries/count.json", $filter);
 
         return $raw['count'];
     }
 
     /**
+     * @deprecated Use getByParams()
+     * @see getByParams()
+     *
      * @param array $filter
      *
      * @return Collection
@@ -60,6 +63,22 @@ class Country extends Base
     }
 
     /**
+     * @param array $params
+     *
+     * @return Collection
+     */
+    public function getByParams($params = [])
+    {
+        $raw = $this->client->get("{$this->getApiBasePath()}/countries.json", $params);
+
+        $countries = array_map(function ($country) {
+            return $this->unserializeModel($country, ShopifyCountry::class);
+        }, $raw['countries']);
+
+        return new Collection($countries);
+    }
+
+    /**
      * @param int   $countryId
      * @param array $filter
      *
@@ -67,7 +86,7 @@ class Country extends Base
      */
     public function getById($countryId, $filter = [])
     {
-        $raw = $this->client->get("admin/countries/$countryId.json", $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/countries/$countryId.json", $filter);
 
         return $this->unserializeModel($raw['country'], ShopifyCountry::class);
     }
@@ -80,7 +99,7 @@ class Country extends Base
     public function update(ShopifyCountry $country)
     {
         $serializedModel = ['country' => $this->serializeModel($country)];
-        $raw = $this->client->put("admin/countries/{$country->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/countries/{$country->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['country'], ShopifyCountry::class);
     }
@@ -92,6 +111,6 @@ class Country extends Base
      */
     public function delete(ShopifyCountry $country)
     {
-        return $this->client->delete("admin/countries/{$country->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/countries/{$country->getId()}.json");
     }
 }

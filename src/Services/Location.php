@@ -23,7 +23,7 @@ class Location extends Base
      */
     public function getAll()
     {
-        $raw = $this->client->get('admin/locations.json');
+        $raw = $this->client->get("{$this->getApiBasePath()}/locations.json");
 
         $locations = array_map(function ($location) {
             return $this->unserializeModel($location, ShopifyLocation::class);
@@ -39,7 +39,7 @@ class Location extends Base
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/locations/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/locations/$id.json");
 
         return $this->unserializeModel($raw['location'], ShopifyLocation::class);
     }
@@ -49,7 +49,7 @@ class Location extends Base
      */
     public function count()
     {
-        $raw = $this->client->get('admin/locations/count.json');
+        $raw = $this->client->get("{$this->getApiBasePath()}/locations/count.json");
 
         return $raw['count'];
     }
@@ -61,7 +61,7 @@ class Location extends Base
      */
     public function getLocationInventoryLevels($id)
     {
-        $raw = $this->client->get("admin/locations/$id/inventory_levels.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/locations/$id/inventory_levels.json");
 
         $inventoryLevels = array_map(function ($inventoryLevel) {
             return $this->unserializeModel($inventoryLevel, ShopifyInventoryLevel::class);

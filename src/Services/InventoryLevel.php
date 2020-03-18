@@ -24,7 +24,7 @@ class InventoryLevel extends Base
      */
     public function getByParams($params)
     {
-        $raw = $this->client->get('admin/inventory_levels.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/inventory_levels.json", $params);
 
         $inventoryLevels = array_map(function ($priceRule) {
             return $this->unserializeModel($priceRule, ShopifyInventoryLevel::class);
@@ -42,7 +42,7 @@ class InventoryLevel extends Base
      */
     public function adjust($locationId, $inventoryItemId, $availableAdjustment)
     {
-        $raw = $this->client->post('admin/inventory_levels/adjust.json', [], [
+        $raw = $this->client->post("{$this->getApiBasePath()}/inventory_levels/adjust.json", [], [
             'location_id' => $locationId,
             'inventory_item_id' => $inventoryItemId,
             'available_adjustment' => $availableAdjustment,
@@ -61,7 +61,7 @@ class InventoryLevel extends Base
      */
     public function set($locationId, $inventoryItemId, $available, $disconnectIfNecessary = false)
     {
-        $raw = $this->client->post('admin/inventory_levels/set.json', [], [
+        $raw = $this->client->post("{$this->getApiBasePath()}/inventory_levels/set.json", [], [
             'location_id' => $locationId,
             'inventory_item_id' => $inventoryItemId,
             'available' => $available,
@@ -80,7 +80,7 @@ class InventoryLevel extends Base
      */
     public function connect($locationId, $inventoryItemId, $relocateIfNecessary = false)
     {
-        $raw = $this->client->post('admin/inventory_levels/connect.json', [], [
+        $raw = $this->client->post("{$this->getApiBasePath()}/inventory_levels/connect.json", [], [
             'location_id' => $locationId,
             'inventory_item_id' => $inventoryItemId,
             'relocate_if_necessary' => $relocateIfNecessary,
@@ -96,7 +96,7 @@ class InventoryLevel extends Base
      */
     public function delete(ShopifyInventoryLevel $inventoryLevel)
     {
-        return $this->client->delete('admin/inventory_levels.json', [
+        return $this->client->delete("{$this->getApiBasePath()}/inventory_levels.json", [
             'inventory_item_id' => $inventoryLevel->getInventoryItemId(),
             'location_id' => $inventoryLevel->getLocationId(),
         ]);

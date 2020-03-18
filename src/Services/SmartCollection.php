@@ -54,7 +54,7 @@ class SmartCollection extends CollectionEntity
             'smart_collection' => array_merge($this->serializeModel($collection), ['published' => $publish]),
         ];
 
-        $raw = $this->client->post('admin/smart_collections.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/smart_collections.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['smart_collection'], ShopifySmartCollection::class);
     }
@@ -76,7 +76,7 @@ class SmartCollection extends CollectionEntity
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/smart_collections/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/smart_collections/$id.json");
 
         return $this->unserializeModel($raw['smart_collection'], ShopifySmartCollection::class);
     }
@@ -89,7 +89,7 @@ class SmartCollection extends CollectionEntity
      */
     public function getProductsBySmartCollectionId($id, $filter = [])
     {
-        $raw = $this->client->get("admin/smart_collections/$id/products.json", $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/smart_collections/$id/products.json", $filter);
 
         $products = array_map(function ($product) {
             return $this->unserializeModel($product, ShopifyProduct::class);
@@ -99,6 +99,9 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
+     * @deprecated Use getByParams()
+     * @see getByParams()
+     *
      * @param int   $page
      * @param int   $limit
      * @param array $filter
@@ -124,7 +127,7 @@ class SmartCollection extends CollectionEntity
      */
     public function getByParams($params)
     {
-        $raw = $this->client->get('admin/smart_collections.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/smart_collections.json", $params);
 
         $collection = array_map(function ($product) {
             return $this->unserializeModel($product, ShopifySmartCollection::class);
@@ -142,7 +145,7 @@ class SmartCollection extends CollectionEntity
     {
         $serializedModel = ['smart_collection' => $this->serializeModel($collection)];
 
-        $raw = $this->client->put("admin/smart_collections/{$collection->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/smart_collections/{$collection->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['smart_collection'], ShopifySmartCollection::class);
     }
@@ -154,7 +157,7 @@ class SmartCollection extends CollectionEntity
      */
     public function delete(ShopifySmartCollection $collection)
     {
-        return $this->client->delete("admin/smart_collections/{$collection->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/smart_collections/{$collection->getId()}.json");
     }
 
     /**
@@ -164,7 +167,7 @@ class SmartCollection extends CollectionEntity
      */
     public function count($filter = [])
     {
-        $raw = $this->client->get('admin/smart_collections/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/smart_collections/count.json", $filter);
 
         return $raw['count'];
     }
@@ -176,7 +179,7 @@ class SmartCollection extends CollectionEntity
      */
     public function countByParams($filter = [])
     {
-        $raw = $this->client->get('admin/smart_collections/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/smart_collections/count.json", $filter);
 
         return $raw['count'];
     }

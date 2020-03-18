@@ -16,7 +16,7 @@ class UsageCharge extends Base
     {
         $serializedModel = ['usage_charge' => $this->serializeModel($usageCharge)];
 
-        $raw = $this->client->post("admin/recurring_application_charges/$recurringChargeId/usage_charges.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/recurring_application_charges/$recurringChargeId/usage_charges.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['usage_charge'], ShopifyUsageCharge::class);
     }

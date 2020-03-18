@@ -17,7 +17,7 @@ class CustomCollection extends CollectionEntity
     {
         $serializedModel = ['custom_collection' => array_merge($this->serializeModel($collection), ['published' => $publish])];
 
-        $raw = $this->client->post('admin/custom_collections.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/custom_collections.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['custom_collection'], ShopifyCustomCollection::class);
     }
@@ -29,12 +29,15 @@ class CustomCollection extends CollectionEntity
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/custom_collections/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/custom_collections/$id.json");
 
         return $this->unserializeModel($raw['custom_collection'], ShopifyCustomCollection::class);
     }
 
     /**
+     * @deprecated Use getByParams()
+     * @see getByParams()
+     *
      * @param int   $page
      * @param int   $limit
      * @param array $filter
@@ -59,7 +62,7 @@ class CustomCollection extends CollectionEntity
      */
     public function getByParams($params)
     {
-        $raw = $this->client->get('admin/custom_collections.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/custom_collections.json", $params);
 
         $collection = array_map(function ($product) {
             return $this->unserializeModel($product, ShopifyCustomCollection::class);
@@ -77,7 +80,7 @@ class CustomCollection extends CollectionEntity
     {
         $serializedModel = ['custom_collection' => $this->serializeModel($collection)];
 
-        $raw = $this->client->put("admin/custom_collections/{$collection->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/custom_collections/{$collection->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['custom_collection'], ShopifyCustomCollection::class);
     }
@@ -89,7 +92,7 @@ class CustomCollection extends CollectionEntity
      */
     public function delete(ShopifyCustomCollection $collection)
     {
-        return $this->client->delete("admin/custom_collections/{$collection->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/custom_collections/{$collection->getId()}.json");
     }
 
     /**
@@ -99,7 +102,7 @@ class CustomCollection extends CollectionEntity
      */
     public function count($filter = [])
     {
-        $raw = $this->client->get('admin/custom_collections/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/custom_collections/count.json", $filter);
 
         return $raw['count'];
     }
@@ -111,7 +114,7 @@ class CustomCollection extends CollectionEntity
      */
     public function countByParams($filter = [])
     {
-        $raw = $this->client->get('admin/custom_collections/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/custom_collections/count.json", $filter);
 
         return $raw['count'];
     }

@@ -21,7 +21,7 @@ class Shop extends Base
      */
     public function asArray()
     {
-        $raw = $this->client->get('admin/shop.json');
+        $raw = $this->client->get("{$this->getApiBasePath()}/shop.json");
 
         return $raw['shop'];
     }
@@ -36,7 +36,7 @@ class Shop extends Base
     {
         $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
 
-        $raw = $this->client->post('admin/metafields.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/metafields.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
@@ -48,7 +48,7 @@ class Shop extends Base
      */
     public function getMetafield(ShopifyMetafield $metafield)
     {
-        $raw = $this->client->get("admin/metafields/{$metafield->getId()}.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/metafields/{$metafield->getId()}.json");
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
@@ -60,7 +60,7 @@ class Shop extends Base
      */
     public function getMetafields(array $params = [])
     {
-        $raw = $this->client->get('admin/metafields.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/metafields.json", $params);
 
         $metafields = array_map(function ($metafield) {
             return $this->unserializeModel($metafield, ShopifyMetafield::class);
@@ -76,6 +76,6 @@ class Shop extends Base
      */
     public function deleteMetafield(ShopifyMetafield $metafield)
     {
-        return $this->client->delete("admin/metafields/{$metafield->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/metafields/{$metafield->getId()}.json");
     }
 }

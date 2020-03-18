@@ -27,7 +27,7 @@ class Collect extends Base
     {
         $serializedModel = ['collect' => array_merge($this->serializeModel($collect))];
 
-        $raw = $this->client->post('admin/collects.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/collects.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['collect'], ShopifyCollect::class);
     }
@@ -39,7 +39,7 @@ class Collect extends Base
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/collects/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/collects/$id.json");
 
         return $this->unserializeModel($raw['collect'], ShopifyCollect::class);
     }
@@ -51,7 +51,7 @@ class Collect extends Base
      */
     public function getByParams($params = [])
     {
-        $raw = $this->client->get('admin/collects.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/collects.json", $params);
 
         $priceRules = array_map(function ($collect) {
             return $this->unserializeModel($collect, ShopifyCollect::class);
@@ -67,7 +67,7 @@ class Collect extends Base
      */
     public function count($params = [])
     {
-        $raw = $this->client->get('admin/collects/count.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/collects/count.json", $params);
 
         return $raw['count'];
     }
@@ -79,7 +79,7 @@ class Collect extends Base
      */
     public function delete(ShopifyCollect $collect)
     {
-        return $this->client->delete("admin/collects/{$collect->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/collects/{$collect->getId()}.json");
     }
 
     /**

@@ -17,12 +17,15 @@ class CustomerAddress extends Base
     public function getById($customer, $id)
     {
         $customerId = $customer->getId();
-        $raw = $this->client->get("admin/customers/$customerId/addresses/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/customers/$customerId/addresses/$id.json");
 
         return $this->unserializeModel($raw['customer_address'], ShopifyCustomerAddress::class);
     }
 
     /**
+     * @deprecated Use getByParams()
+     * @see getByParams()
+     *
      * @param ShopifyCustomer $customer
      * @param int             $page
      * @param int             $limit
@@ -43,6 +46,24 @@ class CustomerAddress extends Base
     }
 
     /**
+     * @param ShopifyCustomer $customer
+     * @param array           $params
+     *
+     * @return Collection
+     */
+    public function getByParams($customer, $params = [])
+    {
+        $customerId = $customer->getId();
+        $raw = $this->client->get("{$this->getApiBasePath()}/customers/$customerId/addresses.json", $params);
+
+        $customers = array_map(function ($product) {
+            return $this->unserializeModel($product, ShopifyCustomerAddress::class);
+        }, $raw['addresses']);
+
+        return new Collection($customers);
+    }
+
+    /**
      * @param ShopifyCustomer        $customer
      * @param ShopifyCustomerAddress $address
      *
@@ -53,7 +74,7 @@ class CustomerAddress extends Base
         $customerId = $customer->getId();
         $serializedModel = ['address' => array_merge($this->serializeModel($address))];
 
-        $raw = $this->client->post("admin/customers/$customerId/addresses.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/customers/$customerId/addresses.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['customer_address'], ShopifyCustomerAddress::class);
     }
