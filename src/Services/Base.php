@@ -7,6 +7,13 @@ use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 
 abstract class Base
 {
+    const BASE_API_PATH = 'admin/api/%s';
+
+    const DEFAULT_API_VERSION = '2020-04';
+
+    /** @var string */
+    protected $shopifyApiVersion = self::DEFAULT_API_VERSION;
+
     /*
      * TODO: Implement an ignoredFields property
      *       We should be able to ignore a specific field on the serialization process (IE: Refund.OrderId)
@@ -138,5 +145,29 @@ abstract class Base
         }
 
         return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $property))));
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiBasePath()
+    {
+        return sprintf(self::BASE_API_PATH, $this->getShopifyApiVersion());
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopifyApiVersion()
+    {
+        return $this->shopifyApiVersion;
+    }
+
+    /**
+     * @param string $shopifyApiVersion
+     */
+    public function setShopifyApiVersion(string $shopifyApiVersion)
+    {
+        $this->shopifyApiVersion = $shopifyApiVersion;
     }
 }
