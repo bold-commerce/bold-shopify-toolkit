@@ -16,7 +16,7 @@ class RecurringApplicationCharge extends Base
     {
         $serializedModel = ['recurring_application_charge' => $this->serializeModel($recurringApplicationCharge)];
 
-        $raw = $this->client->post('admin/recurring_application_charges.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/recurring_application_charges.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['recurring_application_charge'], ShopifyRecurringApplicationCharge::class);
     }
@@ -28,7 +28,7 @@ class RecurringApplicationCharge extends Base
      */
     public function getById($id)
     {
-        $charge = $this->client->get("admin/recurring_application_charges/$id.json");
+        $charge = $this->client->get("{$this->getApiBasePath()}/recurring_application_charges/$id.json");
 
         return $this->unserializeModel($charge['recurring_application_charge'], ShopifyRecurringApplicationCharge::class);
     }
@@ -38,7 +38,7 @@ class RecurringApplicationCharge extends Base
      */
     public function getAll()
     {
-        $raw = $this->client->get('/admin/recurring_application_charges.json');
+        $raw = $this->client->get("{$this->getApiBasePath()}/recurring_application_charges.json");
         $charges = array_map(function ($charge) {
             return $this->unserializeModel($charge, ShopifyRecurringApplicationCharge::class);
         }, $raw['recurring_application_charges']);
@@ -56,7 +56,7 @@ class RecurringApplicationCharge extends Base
         $id = $recurringApplicationCharge->getId();
         $serializedModel = ['recurring_application_charge' => $this->serializeModel($recurringApplicationCharge)];
 
-        $raw = $this->client->post("admin/recurring_application_charges/$id/activate.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/recurring_application_charges/$id/activate.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['recurring_application_charge'], ShopifyRecurringApplicationCharge::class);
     }
@@ -68,7 +68,7 @@ class RecurringApplicationCharge extends Base
      */
     public function delete(ShopifyRecurringApplicationCharge $recurringApplicationCharge)
     {
-        return $this->client->delete("admin/recurring_application_charges/{$recurringApplicationCharge->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/recurring_application_charges/{$recurringApplicationCharge->getId()}.json");
     }
 
     /**

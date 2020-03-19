@@ -19,7 +19,7 @@ class Variant extends Base
     {
         $serializedModel = ['variant' => $this->serializeModel($variant)];
 
-        $raw = $this->client->post("admin/products/{$product->getId()}/variants.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/products/{$product->getId()}/variants.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['variant'], ShopifyVariant::class);
     }
@@ -41,7 +41,7 @@ class Variant extends Base
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/variants/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/variants/$id.json");
 
         return $this->unserializeModel($raw['variant'], ShopifyVariant::class);
     }
@@ -54,7 +54,7 @@ class Variant extends Base
      */
     public function getAllByProductId($productId, $filter = [])
     {
-        $raw = $this->client->get("admin/products/$productId/variants.json", $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/products/$productId/variants.json", $filter);
 
         $variants = array_map(function ($variant) {
             return $this->unserializeModel($variant, ShopifyVariant::class);
@@ -72,7 +72,7 @@ class Variant extends Base
     {
         $serializedModel = ['variant' => $this->serializeModel($variant)];
 
-        $raw = $this->client->put("admin/variants/{$variant->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/variants/{$variant->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['variant'], ShopifyVariant::class);
     }
@@ -85,7 +85,7 @@ class Variant extends Base
      */
     public function delete(ShopifyProduct $product, ShopifyVariant $variant)
     {
-        return $this->client->delete("admin/products/{$product->getId()}/variants/{$variant->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/products/{$product->getId()}/variants/{$variant->getId()}.json");
     }
 
     /**
@@ -98,7 +98,7 @@ class Variant extends Base
     {
         $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
 
-        $raw = $this->client->post("admin/variants/{$variant->getId()}/metafields.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/variants/{$variant->getId()}/metafields.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
@@ -113,7 +113,7 @@ class Variant extends Base
     {
         $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
 
-        $raw = $this->client->put("admin/variants/{$variant->getId()}/metafields/{$metafield->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/variants/{$variant->getId()}/metafields/{$metafield->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['metafield'], ShopifyMetafield::class);
     }
@@ -126,7 +126,7 @@ class Variant extends Base
      */
     public function getMetafields(ShopifyVariant $variant, $params = [])
     {
-        $raw = $this->client->get("admin/variants/{$variant->getId()}/metafields.json", $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/variants/{$variant->getId()}/metafields.json", $params);
 
         $metafields = array_map(function ($metafield) {
             return $this->unserializeModel($metafield, ShopifyMetafield::class);
@@ -143,7 +143,7 @@ class Variant extends Base
      */
     public function deleteMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
     {
-        return $this->client->delete("admin/variants/{$variant->getId()}/metafields/{$metafield->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/variants/{$variant->getId()}/metafields/{$metafield->getId()}.json");
     }
 
     /**
@@ -153,6 +153,6 @@ class Variant extends Base
      */
     public function deleteMetafieldById(ShopifyMetafield $metafield)
     {
-        return $this->client->delete("admin/metafields/{$metafield->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/metafields/{$metafield->getId()}.json");
     }
 }

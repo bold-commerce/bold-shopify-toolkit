@@ -18,7 +18,7 @@ class Image extends Base
     {
         $serializedModel = ['image' => $this->serializeModel($image)];
 
-        $raw = $this->client->post("admin/products/{$product->getId()}/images.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/products/{$product->getId()}/images.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['image'], ShopifyImage::class);
     }
@@ -41,7 +41,7 @@ class Image extends Base
      */
     public function getAllProductImages(ShopifyProduct $product, $params = [])
     {
-        $raw = $this->client->get("admin/products/{$product->getId()}/images.json", $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/products/{$product->getId()}/images.json", $params);
 
         $images = array_map(function ($image) {
             return $this->unserializeModel($image, ShopifyImage::class);
@@ -58,7 +58,7 @@ class Image extends Base
      */
     public function getProductImageById(ShopifyProduct $product, $id)
     {
-        $raw = $this->client->get("admin/products/{$product->getId()}/images/{$id}.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/products/{$product->getId()}/images/{$id}.json");
 
         return $this->unserializeModel($raw['image'], ShopifyImage::class);
     }
@@ -71,6 +71,6 @@ class Image extends Base
      */
     public function deleteProductImage(ShopifyProduct $product, ShopifyImage $image)
     {
-        return $this->client->delete("admin/products/{$product->getId()}/images/{$image->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/products/{$product->getId()}/images/{$image->getId()}.json");
     }
 }

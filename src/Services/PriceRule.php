@@ -14,12 +14,15 @@ class PriceRule extends CollectionEntity
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/price_rules/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/price_rules/$id.json");
 
         return $this->unserializeModel($raw['price_rule'], ShopifyPriceRule::class);
     }
 
     /**
+     * @deprecated Use getByParams()
+     * @see getByParams()
+     *
      * @param int   $page
      * @param int   $limit
      * @param array $filter
@@ -44,7 +47,7 @@ class PriceRule extends CollectionEntity
      */
     public function getByParams($params)
     {
-        $raw = $this->client->get('admin/price_rules.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/price_rules.json", $params);
 
         $priceRules = array_map(function ($priceRule) {
             return $this->unserializeModel($priceRule, ShopifyPriceRule::class);
@@ -62,7 +65,7 @@ class PriceRule extends CollectionEntity
     {
         $serializedModel = ['price_rule' => array_merge($this->serializeModel($priceRule))];
 
-        $raw = $this->client->post('admin/price_rules.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/price_rules.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['price_rule'], ShopifyPriceRule::class);
     }
@@ -86,7 +89,7 @@ class PriceRule extends CollectionEntity
     {
         $serializedModel = ['price_rule' => $this->serializeModel($priceRule)];
 
-        $raw = $this->client->put("admin/price_rules/{$priceRule->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/price_rules/{$priceRule->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['price_rule'], ShopifyPriceRule::class);
     }
@@ -98,6 +101,6 @@ class PriceRule extends CollectionEntity
      */
     public function delete(ShopifyPriceRule $priceRule)
     {
-        return $this->client->delete("admin/price_rules/{$priceRule->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/price_rules/{$priceRule->getId()}.json");
     }
 }

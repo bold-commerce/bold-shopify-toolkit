@@ -50,12 +50,15 @@ class Order extends CollectionEntity
      */
     public function getById($id)
     {
-        $raw = $this->client->get("admin/orders/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/orders/$id.json");
 
         return $this->unserializeModel($raw['order'], ShopifyOrder::class);
     }
 
     /**
+     * @deprecated Use getByParams()
+     * @see getByParams()
+     *
      * @param int   $page
      * @param int   $limit
      * @param array $filter
@@ -79,7 +82,7 @@ class Order extends CollectionEntity
      */
     public function getByParams($params)
     {
-        $raw = $this->client->get('admin/orders.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/orders.json", $params);
 
         $orders = array_map(function ($order) {
             return $this->unserializeModel($order, ShopifyOrder::class);
@@ -95,7 +98,7 @@ class Order extends CollectionEntity
      */
     public function count($filter = [])
     {
-        $raw = $this->client->get('admin/orders/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/orders/count.json", $filter);
 
         return $raw['count'];
     }
@@ -107,7 +110,7 @@ class Order extends CollectionEntity
      */
     public function countByParams($filter = [])
     {
-        $raw = $this->client->get('admin/orders/count.json', $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/orders/count.json", $filter);
 
         return $raw['count'];
     }
@@ -121,7 +124,7 @@ class Order extends CollectionEntity
     {
         $serializedModel = ['order' => $this->serializeModel($order)];
 
-        $raw = $this->client->put("admin/orders/{$order->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/orders/{$order->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['order'], ShopifyOrder::class);
     }
@@ -135,7 +138,7 @@ class Order extends CollectionEntity
     {
         $serializedModel = ['order' => $this->serializeModel($order)];
 
-        $raw = $this->client->post('admin/orders.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/orders.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['order'], ShopifyOrder::class);
     }
@@ -151,7 +154,7 @@ class Order extends CollectionEntity
 
         $serializedModel = ['order' => $this->serializeModel($order)];
 
-        $raw = $this->client->post('admin/orders.json', [], $serializedModel, [], null, false, ['X-Shopify-Api-Features' => 'creates-test-orders']);
+        $raw = $this->client->post("{$this->getApiBasePath()}/orders.json", [], $serializedModel, [], null, false, ['X-Shopify-Api-Features' => 'creates-test-orders']);
 
         return $this->unserializeModel($raw['order'], ShopifyOrder::class);
     }

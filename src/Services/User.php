@@ -22,7 +22,7 @@ class User extends Base
      */
     public function getAll()
     {
-        $raw = $this->client->get('admin/users.json');
+        $raw = $this->client->get("{$this->getApiBasePath()}/users.json");
         $users = array_map(function ($user) {
             return $this->unserializeModel($user, ShopifyUser::class);
         }, $raw['users']);
@@ -35,7 +35,7 @@ class User extends Base
      */
     public function get($id)
     {
-        $raw = $this->client->get("admin/users/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/users/$id.json");
 
         return $this->unserializeModel($raw['user'], ShopifyUser::class);
     }
@@ -45,7 +45,7 @@ class User extends Base
      */
     public function current()
     {
-        $raw = $this->client->get('admin/users/current.json');
+        $raw = $this->client->get("{$this->getApiBasePath()}/users/current.json");
 
         return $this->unserializeModel($raw['user'], ShopifyUser::class);
     }

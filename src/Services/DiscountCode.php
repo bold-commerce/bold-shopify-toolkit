@@ -16,7 +16,7 @@ class DiscountCode extends Base
     {
         $serializedModel = ['discount_code' => $this->serializeModel($discountCode)];
         $priceRuleId = $discountCode->getPriceRuleId();
-        $raw = $this->client->post("admin/price_rules/$priceRuleId/discount_codes.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/price_rules/$priceRuleId/discount_codes.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['discount_code'], ShopifyDiscountCode::class);
     }
@@ -39,7 +39,7 @@ class DiscountCode extends Base
      */
     public function getAllByPriceRuleId($priceRuleId, $filter = [])
     {
-        $raw = $this->client->get("admin/price_rules/$priceRuleId/discount_codes.json", $filter);
+        $raw = $this->client->get("{$this->getApiBasePath()}/price_rules/$priceRuleId/discount_codes.json", $filter);
 
         $discountCodes = array_map(function ($discountCode) {
             return $this->unserializeModel($discountCode, ShopifyDiscountCode::class);
@@ -56,7 +56,7 @@ class DiscountCode extends Base
      */
     public function getByDiscountCodeId($priceRuleId, $discountCodeId)
     {
-        $raw = $this->client->get("admin/price_rules/$priceRuleId/discount_codes/$discountCodeId.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/price_rules/$priceRuleId/discount_codes/$discountCodeId.json");
 
         return $this->unserializeModel($raw['discount_code'], ShopifyDiscountCode::class);
     }
@@ -69,7 +69,7 @@ class DiscountCode extends Base
     public function lookup($discountCode)
     {
         $result = null;
-        $redirectLocation = $this->client->getRedirectLocation('admin/discount_codes/lookup.json', ['code' => $discountCode]);
+        $redirectLocation = $this->client->getRedirectLocation("{$this->getApiBasePath()}/discount_codes/lookup.json", ['code' => $discountCode]);
 
         if (!empty($redirectLocation)) {
             $raw = $this->client->get($redirectLocation);
@@ -88,7 +88,7 @@ class DiscountCode extends Base
     {
         $serializedModel = ['price_rule' => $this->serializeModel($discountCode)];
         $priceRuleId = $discountCode->getPriceRuleId();
-        $raw = $this->client->put("admin/price_rules/$priceRuleId/{$discountCode->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/price_rules/$priceRuleId/{$discountCode->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['price_rule'], ShopifyDiscountCode::class);
     }
@@ -102,6 +102,6 @@ class DiscountCode extends Base
     {
         $priceRuleId = $discountCode->getPriceRuleId();
 
-        return $this->client->delete("admin/price_rules/$priceRuleId/discount_codes/{$discountCode->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/price_rules/$priceRuleId/discount_codes/{$discountCode->getId()}.json");
     }
 }

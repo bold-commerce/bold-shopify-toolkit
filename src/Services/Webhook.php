@@ -16,7 +16,7 @@ class Webhook extends Base
     {
         $serializedModel = ['webhook' => $this->serializeModel($webhook)];
 
-        $raw = $this->client->post('admin/webhooks.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/webhooks.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['webhook'], ShopifyWebhook::class);
     }
@@ -26,7 +26,7 @@ class Webhook extends Base
      */
     public function get()
     {
-        $raw = $this->client->get('admin/webhooks.json');
+        $raw = $this->client->get("{$this->getApiBasePath()}/webhooks.json");
 
         $webhooks = array_map(function ($webhook) {
             return $this->unserializeModel($webhook, ShopifyWebhook::class);
@@ -44,7 +44,7 @@ class Webhook extends Base
     {
         $serializedModel = ['webhook' => $this->serializeModel($webhook)];
 
-        $raw = $this->client->put("admin/webhooks/{$webhook->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/webhooks/{$webhook->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['webhook'], ShopifyWebhook::class);
     }
@@ -56,6 +56,6 @@ class Webhook extends Base
      */
     public function delete(ShopifyWebhook $webhook)
     {
-        return $this->client->delete("admin/webhooks/{$webhook->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/webhooks/{$webhook->getId()}.json");
     }
 }

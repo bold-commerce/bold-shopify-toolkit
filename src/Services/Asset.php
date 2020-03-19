@@ -63,7 +63,7 @@ class Asset extends Base
         $themeId = $this->currentTheme->getId();
 
         try {
-            $raw = $this->client->get("admin/themes/$themeId/assets.json", [
+            $raw = $this->client->get("{$this->getApiBasePath()}/themes/$themeId/assets.json", [
                 'asset' => [
                     'key' => $key,
                 ],
@@ -87,7 +87,7 @@ class Asset extends Base
 
         $themeId = $this->currentTheme->getId();
 
-        $raw = $this->client->get("admin/themes/$themeId/assets.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/themes/$themeId/assets.json");
 
         $assets = array_map(function ($asset) {
             return $this->unserializeModel($asset, AssetModel::class);
@@ -127,7 +127,7 @@ class Asset extends Base
 
         $serializedModel = ['asset' => $this->serializeModel($asset)];
 
-        $raw = $this->client->put("admin/themes/$themeId/assets.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/themes/$themeId/assets.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['asset'], AssetModel::class);
     }
@@ -155,7 +155,7 @@ class Asset extends Base
 
         $themeId = $this->currentTheme->getId();
 
-        return $this->client->delete("admin/themes/$themeId/assets.json", [
+        return $this->client->delete("{$this->getApiBasePath()}/themes/$themeId/assets.json", [
             'asset' => [
                 'key' => $key,
             ],

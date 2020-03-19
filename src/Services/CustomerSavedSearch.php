@@ -38,7 +38,7 @@ class CustomerSavedSearch extends CollectionEntity
     {
         $serializedModel = ['customer_saved_search' => array_merge($this->serializeModel($customerSavedSearch))];
 
-        $raw = $this->client->post('admin/customer_saved_searches.json', [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/customer_saved_searches.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['customer_saved_search'], CustomerSavedSearchModel::class);
     }
@@ -52,7 +52,7 @@ class CustomerSavedSearch extends CollectionEntity
     {
         $serializedModel = ['customer_saved_search' => array_merge($this->serializeModel($customerSavedSearch))];
 
-        $raw = $this->client->put("admin/customer_saved_searches/{$customerSavedSearch->getId()}.json", [], $serializedModel);
+        $raw = $this->client->put("{$this->getApiBasePath()}/customer_saved_searches/{$customerSavedSearch->getId()}.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['customer_saved_search'], CustomerSavedSearchModel::class);
     }
@@ -64,7 +64,7 @@ class CustomerSavedSearch extends CollectionEntity
      */
     public function delete(CustomerSavedSearchModel $customerSavedSearch)
     {
-        return $this->client->delete("admin/customer_saved_searches/{$customerSavedSearch->getId()}.json");
+        return $this->client->delete("{$this->getApiBasePath()}/customer_saved_searches/{$customerSavedSearch->getId()}.json");
     }
 
     /**
@@ -74,7 +74,7 @@ class CustomerSavedSearch extends CollectionEntity
      */
     public function getByParams($params)
     {
-        $raw = $this->client->get('admin/customer_saved_searches.json', $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/customer_saved_searches.json", $params);
 
         $customers = array_map(function ($customer) {
             return $this->unserializeModel($customer, CustomerSavedSearchModel::class);
@@ -91,7 +91,7 @@ class CustomerSavedSearch extends CollectionEntity
      */
     public function getAllCustomersById($customerSavedSearchId, $params = [])
     {
-        $raw = $this->client->get("admin/customer_saved_searches/$customerSavedSearchId/customers.json", $params);
+        $raw = $this->client->get("{$this->getApiBasePath()}/customer_saved_searches/$customerSavedSearchId/customers.json", $params);
 
         $customers = array_map(function ($customer) {
             return $this->unserializeModel($customer, CustomerModel::class);

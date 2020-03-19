@@ -15,7 +15,7 @@ class Fulfillment extends Base
     {
         $serializedModel = ['fulfillment' => $this->serializeModel($fulfillment)];
 
-        $raw = $this->client->post("admin/orders/{$fulfillment->getOrderId()}/fulfillments.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/orders/{$fulfillment->getOrderId()}/fulfillments.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['fulfillment'], ShopifyFulfillment::class);
     }
@@ -27,7 +27,7 @@ class Fulfillment extends Base
      */
     public function get($orderId)
     {
-        $raw = $this->client->get("admin/orders/{$orderId}/fulfillments.json", []);
+        $raw = $this->client->get("{$this->getApiBasePath()}/orders/{$orderId}/fulfillments.json", []);
         $results = collect();
         foreach ($raw['fulfillments'] as $fulfillment) {
             $results->push($this->unserializeModel($fulfillment, ShopifyFulfillment::class));
