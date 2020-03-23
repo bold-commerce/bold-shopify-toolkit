@@ -11,11 +11,13 @@ use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
 use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
+use BoldApps\ShopifyToolkit\Models\PageInfo;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\SetCookie;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\parse_header;
 
 class Client
 {
@@ -36,6 +38,9 @@ class Client
 
     /** @var RateLimitKeyGenerator */
     protected $rateLimitKeyGenerator;
+
+    /** @var PageInfo */
+    protected $pageInfo;
 
     /**
      * Client constructor.
@@ -209,6 +214,13 @@ class Client
             $response = $this->client->send($request, $options);
 
             $result = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+
+            $linkHeader = $response->getHeader('Link');
+            if ($linkHeader) {
+                $this->parsePageInfo($linkHeader);
+            } else {
+                $this->clearPageInfo();
+            }
         } catch (RequestException $e) {
             $response = $e->getResponse();
 
@@ -276,6 +288,13 @@ class Client
                     $result = $this->validateRedirectLocation($headers[$locationIndex][0]);
                 }
             }
+
+            $linkHeader = $response->getHeader('Link');
+            if ($linkHeader) {
+                $this->parsePageInfo($linkHeader);
+            } else {
+                $this->clearPageInfo();
+            }
         } catch (RequestException $e) {
             $response = $e->getResponse();
 
@@ -329,5 +348,78 @@ class Client
         }
 
         return $redirectLocation;
+    }
+
+    /**
+     * @return object
+     */
+    public function getPageInfo()
+    {
+        return $this->pageInfo;
+    }
+
+    /**
+     * Parses the links out of the link header and returns them as an array.
+     *
+     * @param string $linkHeader
+     *
+     * @return array
+     */
+    private function parseHeader($linkHeader)
+    {
+        $next = null;
+        $prev = null;
+
+        $links = parse_header($linkHeader);
+        foreach ($links as $link) {
+            $rel = isset($link['rel']) ? $link['rel'] : null;
+            if ('previous' == $rel) {
+                $prev = trim($link[0], '<>');
+            } elseif ('next' == $rel) {
+                $next = trim($link[0], '<>');
+            }
+        }
+
+        return [
+            'prev' => $prev,
+            'next' => $next,
+        ];
+    }
+
+    /**
+     * Parses the next and previous page info from the links and sets the pageInfo of the client.
+     *
+     * @param $linkHeader
+     */
+    private function parsePageInfo($linkHeader)
+    {
+        $headerLinks = $this->parseHeader($linkHeader);
+        $nextPageInfo = '';
+        $previousPageInfo = '';
+        if (isset($headerLinks['next'])) {
+            $nextUrlComponents = parse_url($headerLinks['next']);
+            parse_str($nextUrlComponents['query'], $nextParams);
+            $nextPageInfo = $nextParams['page_info'] ? $nextParams['page_info'] : '';
+        }
+        if (isset($headerLinks['prev'])) {
+            $prevUrlComponents = parse_url($headerLinks['prev']);
+            parse_str($prevUrlComponents['query'], $prevParams);
+            $previousPageInfo = $prevParams['page_info'] ? $prevParams['page_info'] : '';
+        }
+
+        $pageInfo = new PageInfo();
+        $pageInfo->setNext($nextPageInfo);
+        $pageInfo->setPrev($previousPageInfo);
+
+        $this->pageInfo = $pageInfo;
+    }
+
+    /**
+     * Clears the next and previous page info for the Client.
+     */
+    private function clearPageInfo()
+    {
+        $pageInfo = new PageInfo();
+        $this->pageInfo = $pageInfo;
     }
 }

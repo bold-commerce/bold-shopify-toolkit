@@ -94,6 +94,8 @@ class Product extends CollectionEntity
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/products/$id.json", $filter);
 
+        $product = $this->unserializeModel($raw['product'], ShopifyProduct::class);
+
         return $this->unserializeModel($raw['product'], ShopifyProduct::class);
     }
 

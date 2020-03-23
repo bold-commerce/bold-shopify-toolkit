@@ -6,7 +6,7 @@ use BoldApps\ShopifyToolkit\Models\Collect as ShopifyCollect;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use Illuminate\Support\Collection;
 
-class Collect extends Base
+class Collect extends CollectionEntity
 {
     /**
      * Collect constructor.

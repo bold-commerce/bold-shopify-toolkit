@@ -5,7 +5,7 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Models\InventoryLevel as ShopifyInventoryLevel;
 use Illuminate\Support\Collection;
 
-class InventoryLevel extends Base
+class InventoryLevel extends CollectionEntity
 {
     /**
      * @param $array
