@@ -404,7 +404,7 @@ class ClientTest extends TestCase
             [
                 'expected' => null,
                 'responseCode' => 303,
-                'responseHeader' => ['Location' => []],
+                'responseHeader' => ['Location' => ['']],
                 'exceptionClass' => null,
             ],
             [
