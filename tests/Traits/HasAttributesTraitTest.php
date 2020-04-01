@@ -1,5 +1,10 @@
 <?php
 
+use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItem;
+use BoldApps\ShopifyToolkit\Models\Cart\Cart;
+use BoldApps\ShopifyToolkit\Services\Cart as CartService;
+use BoldApps\ShopifyToolkit\Services\Client;
+
 class HasAttributesTraitTest extends \PHPUnit\Framework\TestCase
 {
     /** @var \BoldApps\ShopifyToolkit\Models\Customer */
