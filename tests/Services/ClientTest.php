@@ -16,6 +16,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockBuilder as Mock;
+use ReflectionClass;
 
 class ClientTest extends TestCase
 {
@@ -180,6 +181,126 @@ class ClientTest extends TestCase
         unset($sentHeaders['User-Agent']);
 
         $this->assertEquals($expectedHeaders, $sentHeaders);
+    }
+
+    /**
+     * @param array $data
+     *
+     * @dataProvider getLinkHeaderProvider
+     */
+    public function testClientParsePageInfo($data)
+    {
+        $expectedNextPageInfo = $data['next'];
+        $expectedPrevPageInfo = $data['prev'];
+        $linkHeader = $data['link_header'];
+
+        // mock http client
+        $mock = new MockHandler([new Response(200)]);
+        $handler = HandlerStack::create($mock);
+        $mockHttpClient = new \GuzzleHttp\Client(['handler' => $handler]);
+
+        $this->mockShopBaseInfo->expects($this->any())
+            ->method('getMyShopifyDomain')
+            ->will($this->returnValue($this->myShopifyDomain));
+
+        $this->client = new Client(
+            $this->mockShopBaseInfo, $this->mockShopAccessInfo, $mockHttpClient,
+            $this->mockRequestHookInterface
+        );
+
+        $this->callMethod($this->client, 'parsePageInfo', array($linkHeader));
+
+        $pageInfo = $this->client->getPageInfo();
+
+        $parsedNextPageInfo = $pageInfo->getNext();
+        $parsedPrevPageInfo = $pageInfo->getPrev();
+
+        $this->assertEquals($expectedNextPageInfo, $parsedNextPageInfo);
+        $this->assertEquals($expectedPrevPageInfo, $parsedPrevPageInfo);
+    }
+
+    /**
+     * @param array $data
+     *
+     * @dataProvider getLinkHeaderProvider
+     */
+    public function testClientParseHeader($data)
+    {
+        $expectedHeaderLinks = [
+            'next' => $data['next_link'],
+            'prev' => $data['prev_link'],
+        ];
+
+        $linkHeader = $data['link_header'];
+
+        // mock http client
+        $mock = new MockHandler([new Response(200)]);
+        $handler = HandlerStack::create($mock);
+        $mockHttpClient = new \GuzzleHttp\Client(['handler' => $handler]);
+
+        $this->mockShopBaseInfo->expects($this->any())
+            ->method('getMyShopifyDomain')
+            ->will($this->returnValue($this->myShopifyDomain));
+
+        $this->client = new Client(
+            $this->mockShopBaseInfo, $this->mockShopAccessInfo, $mockHttpClient,
+            $this->mockRequestHookInterface
+        );
+
+        $parsedLinks = $this->callMethod($this->client, 'parseHeader', array($linkHeader));
+
+        $this->assertEquals($expectedHeaderLinks, $parsedLinks);
+    }
+
+    /**
+     * @param object $obj
+     * @param string $name
+     * @param array  $args
+     *
+     * @return mixed
+     *
+     * @throws \ReflectionException
+     */
+    private static function callMethod($obj, $name, array $args)
+    {
+        $class = new ReflectionClass($obj);
+        $method = $class->getMethod($name);
+        $method->setAccessible(true);
+
+        return $method->invokeArgs($obj, $args);
+    }
+
+    public static function getLinkHeaderProvider()
+    {
+        return [
+            'previous_and_next' => [
+                'data' => [
+                'link_header' => '<https://fight-club.myshopify.com/admin/api/2020-01/products.json?limit=5&page_info=eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDU3Mzk0ODk2OTEwMCwibGFzdF92YWx1ZSI6IipOU1lOQyBULVNoaXJ0In0>; rel="previous", <https://fight-club.myshopify.com/admin/api/2020-01/products.json?limit=5&page_info=eyJkaXJlY3Rpb24iOiJuZXh0IiwibGFzdF9pZCI6NDU3MjI5OTkxOTUwMCwibGFzdF92YWx1ZSI6IjIgU3R1cGlkIERvZ3MgVC1TaGlydCJ9>; rel="next"',
+                'next_link' => 'https://fight-club.myshopify.com/admin/api/2020-01/products.json?limit=5&page_info=eyJkaXJlY3Rpb24iOiJuZXh0IiwibGFzdF9pZCI6NDU3MjI5OTkxOTUwMCwibGFzdF92YWx1ZSI6IjIgU3R1cGlkIERvZ3MgVC1TaGlydCJ9',
+                'prev_link' => 'https://fight-club.myshopify.com/admin/api/2020-01/products.json?limit=5&page_info=eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDU3Mzk0ODk2OTEwMCwibGFzdF92YWx1ZSI6IipOU1lOQyBULVNoaXJ0In0',
+                'next' => 'eyJkaXJlY3Rpb24iOiJuZXh0IiwibGFzdF9pZCI6NDU3MjI5OTkxOTUwMCwibGFzdF92YWx1ZSI6IjIgU3R1cGlkIERvZ3MgVC1TaGlydCJ9',
+                'prev' => 'eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDU3Mzk0ODk2OTEwMCwibGFzdF92YWx1ZSI6IipOU1lOQyBULVNoaXJ0In0',
+                ],
+            ],
+            'no_previous' => [
+                'data' => [
+                    'link_header' => '<https://fight-club.myshopify.com/admin/api/2020-01/products.json?limit=5&page_info=eyJkaXJlY3Rpb24iOiJuZXh0IiwibGFzdF9pZCI6NDU3MjI5OTkxOTUwMCwibGFzdF92YWx1ZSI6IjIgU3R1cGlkIERvZ3MgVC1TaGlydCJ9>; rel="next"',
+                    'next_link' => 'https://fight-club.myshopify.com/admin/api/2020-01/products.json?limit=5&page_info=eyJkaXJlY3Rpb24iOiJuZXh0IiwibGFzdF9pZCI6NDU3MjI5OTkxOTUwMCwibGFzdF92YWx1ZSI6IjIgU3R1cGlkIERvZ3MgVC1TaGlydCJ9',
+                    'prev_link' => '',
+                    'next' => 'eyJkaXJlY3Rpb24iOiJuZXh0IiwibGFzdF9pZCI6NDU3MjI5OTkxOTUwMCwibGFzdF92YWx1ZSI6IjIgU3R1cGlkIERvZ3MgVC1TaGlydCJ9',
+                    'prev' => '',
+                ],
+            ],
+            'no_next' => [
+                'data' => [
+                    'link_header' => '<https://fight-club.myshopify.com/admin/api/2020-01/products.json?limit=5&page_info=eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDU3Mzk0ODk2OTEwMCwibGFzdF92YWx1ZSI6IipOU1lOQyBULVNoaXJ0In0>; rel="previous"',
+                    'next_link' => '',
+                    'prev_link' => 'https://fight-club.myshopify.com/admin/api/2020-01/products.json?limit=5&page_info=eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDU3Mzk0ODk2OTEwMCwibGFzdF92YWx1ZSI6IipOU1lOQyBULVNoaXJ0In0',
+                    'next' => '',
+                    'prev' => 'eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDU3Mzk0ODk2OTEwMCwibGFzdF92YWx1ZSI6IipOU1lOQyBULVNoaXJ0In0',
+                ],
+            ],
+        ];
     }
 
     public static function getRedirectLocationProvider()
