@@ -12,7 +12,7 @@ abstract class CollectionEntity extends Base
     abstract public function getByParams($params);
 
     /**
-     * @return mixed
+     * @return PageInfo
      */
     public function getPageInfo()
     {
@@ -20,8 +20,8 @@ abstract class CollectionEntity extends Base
     }
 
     /**
-     * @param $pageInfo
-     * @param $limit
+     * @param string $pageInfo
+     * @param int    $limit
      *
      * @return \Illuminate\Support\Collection
      */
