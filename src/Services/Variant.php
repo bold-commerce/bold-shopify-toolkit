@@ -17,7 +17,7 @@ class Variant extends Base
      */
     public function create(ShopifyProduct $product, ShopifyVariant $variant)
     {
-        $serializedModel = ['variant' => $this->serializeModel($variant)];
+        $serializedModel = $this->serializeVariantCreateUpdate($variant);
 
         $raw = $this->client->post("{$this->getApiBasePath()}/products/{$product->getId()}/variants.json", [], $serializedModel);
 
@@ -70,7 +70,7 @@ class Variant extends Base
      */
     public function update(ShopifyVariant $variant)
     {
-        $serializedModel = ['variant' => $this->serializeModel($variant)];
+        $serializedModel = $this->serializeVariantCreateUpdate($variant);
 
         $raw = $this->client->put("{$this->getApiBasePath()}/variants/{$variant->getId()}.json", [], $serializedModel);
 
@@ -154,5 +154,21 @@ class Variant extends Base
     public function deleteMetafieldById(ShopifyMetafield $metafield)
     {
         return $this->client->delete("{$this->getApiBasePath()}/metafields/{$metafield->getId()}.json");
+    }
+
+    /**
+     * @param ShopifyVariant $variant
+     *
+     * @return array
+     */
+    public function serializeVariantCreateUpdate($variant)
+    {
+        $serializedModel = $this->serializeModel($variant);
+
+        unset($serializedModel['inventory_quantity']);
+        unset($serializedModel['old_inventory_quantity']);
+        unset($serializedModel['inventory_quantity_adjustment']);
+
+        return ['variant' => $serializedModel];
     }
 }

@@ -43,6 +43,19 @@ class VariantTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @test
+     */
+    public function ShopifyVariantWithoutInventorySerializesProperly()
+    {
+        $variantEntity = $this->createVariantEntity();
+
+        $expected = ['variant' => $this->getVariantArrayWithoutInventory()];
+        $actual = $this->variantService->serializeVariantCreateUpdate($variantEntity);
+
+        $this->assertEquals($expected, $actual);
+    }
+
     private function createVariantEntity()
     {
         /** @var ShopifyVariant $variantEntity */
@@ -106,6 +119,31 @@ class VariantTest extends \PHPUnit\Framework\TestCase
             'weight' => '3',
             'weight_unit' => 'kg',
             'old_inventory_quantity' => 0,
+            'requires_shipping' => true,
+        ];
+    }
+
+    private function getVariantArrayWithoutInventory()
+    {
+        return [
+            'id' => 5303296294944,
+            'product_id' => 440883118112,
+            'title' => 'Spooky',
+            'price' => 45.0,
+            'sku' => '',
+            'position' => 1,
+            'inventory_policy' => 'deny',
+            'fulfillment_service' => 'manual',
+            'option1' => 'Spooky',
+            'created_at' => '2017-12-08T13:35:42-05:00',
+            'updated_at' => '2017-12-21T09:49:41-05:00',
+            'taxable' => true,
+            'tax_code' => 'P000000',
+            'barcode' => '',
+            'grams' => 3000,
+            'inventory_item_id' => 5292496748576,
+            'weight' => '3',
+            'weight_unit' => 'kg',
             'requires_shipping' => true,
         ];
     }
