@@ -76,7 +76,7 @@ class SmartCollection extends CollectionEntity
      */
     public function getById($id)
     {
-        $raw = $this->client->get("{$this->getApiBasePath()}/smart_collections/$id.json");
+        $raw = $this->client->get("{$this->getApiBasePath()}/collections/$id.json");
 
         return $this->unserializeModel($raw['smart_collection'], ShopifySmartCollection::class);
     }
