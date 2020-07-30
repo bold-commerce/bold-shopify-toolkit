@@ -2,9 +2,10 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Models\CancelOrder;
 use BoldApps\ShopifyToolkit\Models\Order as ShopifyOrder;
 use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
-use BoldApps\ShopifyToolkit\Models\OrderLineItem;
+use BoldApps\ShopifyToolkit\Models\OrderLineItem as OrderLineItemModel;
 use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
 use BoldApps\ShopifyToolkit\Services\OrderLineItem as OrderLineItemService;
 use Illuminate\Support\Collection;
@@ -15,7 +16,7 @@ class Order extends CollectionEntity
     /** @var TaxLineService */
     protected $taxLineService;
 
-    /** @var OrderLineItem */
+    /** @var OrderLineItemModel */
     protected $lineItemService;
 
     /** @var array */
@@ -160,6 +161,20 @@ class Order extends CollectionEntity
     }
 
     /**
+     * @param int                $id
+     * @param CancelOrder | null $cancelOrder
+     *
+     * @return ShopifyOrder | object
+     */
+    public function cancel($id, $cancelOrder = null)
+    {
+        $serializedModel = $this->serializeModel($cancelOrder);
+        $raw = $this->client->post("{$this->getApiBasePath()}/orders/{$id}/cancel.json", [], $serializedModel);
+
+        return $this->unserializeModel($raw['order'], ShopifyOrder::class);
+    }
+
+    /**
      * @param $entities
      *
      * @return array|null
@@ -235,7 +250,7 @@ class Order extends CollectionEntity
 
         $lineItemService = &$this->lineItemService;
         $collection = array_map(function ($taxLine) use ($lineItemService) {
-            return $lineItemService->unserializeModel($taxLine, OrderLineItem::class);
+            return $lineItemService->unserializeModel($taxLine, OrderLineItemModel::class);
         }, $data);
 
         return new Collection($collection);
