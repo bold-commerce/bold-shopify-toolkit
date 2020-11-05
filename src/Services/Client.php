@@ -198,9 +198,13 @@ class Client
 
             if ($password) {
                 $uri = new Uri(sprintf('https://%s/password', $domain));
-                $uri = $uri->withQuery(http_build_query(['password' => $password]));
-                $authRequest = new Request('GET', $uri);
-                $this->client->send($authRequest, $options);
+                $authResponse = $this->client->post(
+                    $uri,
+                    [
+                        'form_params' => ['password' => $password],
+                        'cookies' => $cookieJar,
+                    ]
+                );
             }
 
             foreach ($cookies as $cookie) {
@@ -210,7 +214,6 @@ class Client
             }
 
             $this->requestHookInterface->beforeRequest($request);
-
             $response = $this->client->send($request, $options);
 
             $result = \GuzzleHttp\json_decode((string) $response->getBody(), true);

@@ -127,23 +127,23 @@ class ClientTest extends TestCase
     {
         $expectedHeaders = [
             'Content-Length' => [
-                    0 => '4',
-                ],
+                0 => '4',
+            ],
             'Host' => [
-                    0 => 'fight-club.myshopify.com',
-                ],
+                0 => 'fight-club.myshopify.com',
+            ],
             'X-Shopify-Access-Token' => [
-                    0 => '',
-                ],
+                0 => '',
+            ],
             'Content-Type' => [
-                    0 => 'application/json',
-                ],
+                0 => 'application/json',
+            ],
             'charset' => [
-                    0 => 'utf-8',
-                ],
+                0 => 'utf-8',
+            ],
             'X-Shopify-Api-Features' => [
-                    0 => 'creates-test-orders',
-                ],
+                0 => 'creates-test-orders',
+            ],
         ];
 
         // mock http client
@@ -170,6 +170,53 @@ class ClientTest extends TestCase
             '{}',
             [],
             null,
+            false,
+            ['X-Shopify-Api-Features' => 'creates-test-orders']
+        );
+
+        /* @var Request $sentRequest */
+        $sentRequest = $container[0]['request'];
+        $sentHeaders = $sentRequest->getHeaders();
+        //User agent varies per system.
+        unset($sentHeaders['User-Agent']);
+
+        $this->assertEquals($expectedHeaders, $sentHeaders);
+    }
+
+    public function testPostWithPasswordSendsPasswordAuthenticationRequest()
+    {
+        $expectedHeaders = [
+            'Content-Length' => [0 => '17'],
+            'Host' => [0 => 'fight-club.myshopify.com'],
+            'Content-Type' => [0 => 'application/x-www-form-urlencoded'],
+        ];
+
+        // mock http client
+        $mock = new MockHandler([new Response(200)]);
+        $container = [];
+        $history = Middleware::history($container);
+        $handlerStack = HandlerStack::create($mock);
+        // Add the history middleware to the handler stack.
+        $handlerStack->push($history);
+        $mockHttpClient = new \GuzzleHttp\Client(['handler' => $handlerStack]);
+
+        $this->mockShopBaseInfo->expects($this->any())
+            ->method('getMyShopifyDomain')
+            ->will($this->returnValue($this->myShopifyDomain));
+
+        $this->client = new Client(
+            $this->mockShopBaseInfo,
+            $this->mockShopAccessInfo,
+            $mockHttpClient,
+            $this->mockRequestHookInterface
+        );
+
+        $raw = $this->client->post(
+            'admin/orders.json',
+            [],
+            '{}',
+            [],
+            'password',
             false,
             ['X-Shopify-Api-Features' => 'creates-test-orders']
         );

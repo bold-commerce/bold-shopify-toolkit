@@ -2,6 +2,7 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItemModel;
 use BoldApps\ShopifyToolkit\Models\Cart\Cart as CartModel;
 use BoldApps\ShopifyToolkit\Models\Option as OptionModel;
@@ -43,6 +44,11 @@ class Cart extends Base
         $cookies = $this->getCartCookie($cartToken);
 
         $raw = $this->client->post('cart/clear.json', [], [], $cookies, $password, true);
+
+        if (empty($raw)) {
+            // The request to clear cart has failed, we are unable to take any further action on the cart
+            throw new ShopifyException('Received empty result while trying to clear cart');
+        }
 
         /** @var CartModel */
         $cart = $this->unserializeModel($raw, CartModel::class);
