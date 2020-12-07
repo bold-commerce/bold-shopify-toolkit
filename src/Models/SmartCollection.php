@@ -46,6 +46,9 @@ class SmartCollection implements Serializeable, \JsonSerializable
     /** @var array */
     protected $image;
 
+    /** @var int|null */
+    protected $productsCount;
+
     /**
      * @return int
      */
@@ -103,7 +106,7 @@ class SmartCollection implements Serializeable, \JsonSerializable
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTemplateSuffix()
     {
@@ -111,7 +114,7 @@ class SmartCollection implements Serializeable, \JsonSerializable
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getPublishedScope()
     {
@@ -140,6 +143,14 @@ class SmartCollection implements Serializeable, \JsonSerializable
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getProductsCount()
+    {
+        return $this->productsCount;
     }
 
     /**
@@ -236,5 +247,13 @@ class SmartCollection implements Serializeable, \JsonSerializable
     public function setImage($image)
     {
         $this->image = $image;
+    }
+
+    /**
+     * @param int|null productsCount
+     */
+    public function setProductsCount($productsCount)
+    {
+        $this->productsCount = $productsCount;
     }
 }
