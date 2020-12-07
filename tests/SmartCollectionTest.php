@@ -1,7 +1,7 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\SmartCollection as ShopifySmartCollection;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\SmartCollection as SmartCollectionService;
 use BoldApps\ShopifyToolkit\Services\SmartCollectionRule as SmartCollectionRuleService;
 
@@ -67,6 +67,7 @@ class SmartCollectionTest extends \PHPUnit\Framework\TestCase
             "published_at": "2018-01-08T10:56:11-06:00",
             "sort_order": "best-selling",
             "template_suffix": null,
+            "products_count": 2,
             "disjunctive": false,
             "rules": [
                 {
@@ -108,6 +109,7 @@ class SmartCollectionTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             'published_scope' => 'web',
+            'products_count' => 2,
         ];
     }
 }
