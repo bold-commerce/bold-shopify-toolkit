@@ -233,17 +233,17 @@ class Client
 
             switch ($response->getStatusCode()) {
                 case 400:
-                    throw new BadRequestException($e->getMessage());
+                    throw (new BadRequestException($e->getMessage()))->setResponse($response);
                 case 401:
-                    throw new UnauthorizedException($e->getMessage());
+                    throw (new UnauthorizedException($e->getMessage()))->setResponse($response);
                 case 404:
-                    throw new NotFoundException($e->getMessage());
+                    throw (new NotFoundException($e->getMessage()))->setResponse($response);
                 case 406:
-                    throw new NotAcceptableException($e->getMessage());
+                    throw (new NotAcceptableException($e->getMessage()))->setResponse($response);
                 case 422:
-                    throw new UnprocessableEntityException($e->getMessage());
+                    throw (new UnprocessableEntityException($e->getMessage()))->setResponse($response);
                 case 429:
-                    throw new TooManyRequestsException($e->getMessage());
+                    throw (new TooManyRequestsException($e->getMessage()))->setResponse($response);
                 default:
                     throw $e;
             }
