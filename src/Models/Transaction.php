@@ -63,6 +63,9 @@ class Transaction implements Serializeable, \JsonSerializable
     /** @var string */
     public $sourceName;
 
+    /** @var string */
+    public $source;
+
     /** @var float */
     public $maximumRefundable;
 
@@ -352,6 +355,22 @@ class Transaction implements Serializeable, \JsonSerializable
     public function setSourceName($sourceName)
     {
         $this->sourceName = $sourceName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param string $source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
     }
 
     /**
