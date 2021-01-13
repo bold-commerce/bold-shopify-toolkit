@@ -63,6 +63,9 @@ class RecurringApplicationCharge implements Serializeable, \JsonSerializable
     /** @var string */
     protected $decoratedReturnUrl;
 
+    /** @var float */
+    protected $balanceRemaining;
+
     /**
      * @return int
      */
@@ -117,6 +120,22 @@ class RecurringApplicationCharge implements Serializeable, \JsonSerializable
     public function setCappedAmount($cappedAmount)
     {
         $this->cappedAmount = $cappedAmount;
+    }
+
+    /**
+     * @return float
+     */
+    public function getBalanceRemaining()
+    {
+        return $this->balanceRemaining;
+    }
+
+    /**
+     * @param $balanceRemaining
+     */
+    public function seBalanceRemaining($balanceRemaining)
+    {
+        $this->balanceRemaining = $balanceRemaining;
     }
 
     /**

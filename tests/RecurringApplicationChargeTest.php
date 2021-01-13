@@ -68,6 +68,7 @@ class RecurringApplicationChargeTest extends \PHPUnit\Framework\TestCase
             "activated_on": "2018-07-05T13:01:13-04:00",
             "trial_ends_on": "2018-07-05T13:01:13-04:00",
             "cancelled_on": "2018-07-05T13:01:13-04:00",
+            "balance_remaining": "1000.00",
             "trial_days": 0,
             "decorated_return_url": "http://yourapp.com?charge_id=455696195"
         }';
@@ -89,6 +90,7 @@ class RecurringApplicationChargeTest extends \PHPUnit\Framework\TestCase
             'activated_on' => '2018-07-05T13:01:13-04:00',
             'trial_ends_on' => '2018-07-05T13:01:13-04:00',
             'cancelled_on' => '2018-07-05T13:01:13-04:00',
+            'balance_remaining' => '1000.00',
             'trial_days' => 0,
             'decorated_return_url' => 'http://yourapp.com?charge_id=455696195',
         ];
