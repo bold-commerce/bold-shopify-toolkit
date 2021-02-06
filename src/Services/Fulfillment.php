@@ -23,7 +23,7 @@ class Fulfillment extends Base
     /**
      * @param int $orderId
      *
-     * @return ShopifyFulfillment | Collection
+     * @return ShopifyFulfillment | \Illuminate\Support\Collection
      */
     public function get($orderId)
     {

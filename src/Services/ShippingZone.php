@@ -5,6 +5,7 @@ namespace BoldApps\ShopifyToolkit\Services;
 use BoldApps\ShopifyToolkit\Models\Country;
 use BoldApps\ShopifyToolkit\Models\Province;
 use BoldApps\ShopifyToolkit\Models\ShippingZone as ShippingZoneModel;
+use Illuminate\Support\Collection;
 
 class ShippingZone extends Base
 {
