@@ -35,7 +35,7 @@ class ClientTest extends TestCase
     /** @var string */
     protected $myShopifyDomain;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->myShopifyDomain = 'fight-club.myshopify.com';
 
@@ -93,7 +93,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @param null|string $expected
+     * @param string|null $expected
      * @param int         $responseCode
      * @param array       $responseHeader
      * @param mixed       $exceptionClass
@@ -255,7 +255,7 @@ class ClientTest extends TestCase
             $this->mockRequestHookInterface
         );
 
-        $this->callMethod($this->client, 'parsePageInfo', array($linkHeader));
+        $this->callMethod($this->client, 'parsePageInfo', [$linkHeader]);
 
         $pageInfo = $this->client->getPageInfo();
 
@@ -294,7 +294,7 @@ class ClientTest extends TestCase
             $this->mockRequestHookInterface
         );
 
-        $parsedLinks = $this->callMethod($this->client, 'parseHeader', array($linkHeader));
+        $parsedLinks = $this->callMethod($this->client, 'parseHeader', [$linkHeader]);
 
         $this->assertEquals($expectedHeaderLinks, $parsedLinks);
     }
@@ -302,7 +302,6 @@ class ClientTest extends TestCase
     /**
      * @param object $obj
      * @param string $name
-     * @param array  $args
      *
      * @return mixed
      *
@@ -373,7 +372,7 @@ class ClientTest extends TestCase
             [
                 'expected' => null,
                 'responseCode' => 303,
-                'responseHeader' => ['Location' => []],
+                'responseHeader' => ['Location' => null],
                 'exceptionClass' => null,
             ],
             [

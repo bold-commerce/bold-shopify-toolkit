@@ -1,15 +1,16 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\RecurringApplicationCharge;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\RecurringApplicationCharge as RecurringApplicationChargeService;
+use PHPUnit\Framework\TestCase;
 
-class RecurringApplicationChargeTest extends \PHPUnit\Framework\TestCase
+class RecurringApplicationChargeTest extends TestCase
 {
     /** @var RecurringApplicationChargeService */
     private $recurringApplicationChargeService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
@@ -19,7 +20,7 @@ class RecurringApplicationChargeTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyRecurringApplicationChargeSerializesProperly()
+    public function shopifyRecurringApplicationChargeSerializesProperly()
     {
         $recurringApplicationChargeEntity = $this->createRecurringApplicationChargeEntity();
 
@@ -33,7 +34,7 @@ class RecurringApplicationChargeTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyRecurringApplicationChargeDeserializesProperly()
+    public function shopifyRecurringApplicationChargeDeserializesProperly()
     {
         $recurringApplicationChargeJson = $this->getRecurringApplicationChargeJson();
         $jsonArray = (array) json_decode($recurringApplicationChargeJson, true);

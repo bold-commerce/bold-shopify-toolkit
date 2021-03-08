@@ -2,8 +2,10 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Models\Location as ShopifyLocation;
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\InventoryLevel as ShopifyInventoryLevel;
+use BoldApps\ShopifyToolkit\Models\Location as ShopifyLocation;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Location extends Base
@@ -20,6 +22,9 @@ class Location extends Base
 
     /**
      * @return Collection
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function getAll()
     {
@@ -36,6 +41,9 @@ class Location extends Base
      * @param $id
      *
      * @return ShopifyLocation
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getById($id)
     {
@@ -45,9 +53,10 @@ class Location extends Base
     }
 
     /**
-     * @return int
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function count()
+    public function count(): int
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/locations/count.json");
 
@@ -57,9 +66,10 @@ class Location extends Base
     /**
      * @param $id
      *
-     * @return Collection
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getLocationInventoryLevels($id)
+    public function getLocationInventoryLevels($id): Collection
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/locations/$id/inventory_levels.json");
 

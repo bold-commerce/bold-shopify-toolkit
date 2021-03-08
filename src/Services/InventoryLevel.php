@@ -2,7 +2,9 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\InventoryLevel as ShopifyInventoryLevel;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class InventoryLevel extends CollectionEntity
@@ -18,11 +20,10 @@ class InventoryLevel extends CollectionEntity
     }
 
     /**
-     * @param array $params
-     *
-     * @return Collection
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
-    public function getByParams($params)
+    public function getByParams(array $params): Collection
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/inventory_levels.json", $params);
 
@@ -34,13 +35,12 @@ class InventoryLevel extends CollectionEntity
     }
 
     /**
-     * @param int $locationId
-     * @param int $inventoryItemId
-     * @param int $availableAdjustment
-     *
      * @return ShopifyInventoryLevel | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function adjust($locationId, $inventoryItemId, $availableAdjustment)
+    public function adjust(int $locationId, int $inventoryItemId, int $availableAdjustment)
     {
         $raw = $this->client->post("{$this->getApiBasePath()}/inventory_levels/adjust.json", [], [
             'location_id' => $locationId,
@@ -52,14 +52,12 @@ class InventoryLevel extends CollectionEntity
     }
 
     /**
-     * @param int  $locationId
-     * @param int  $inventoryItemId
-     * @param int  $available
-     * @param bool $disconnectIfNecessary
-     *
      * @return ShopifyInventoryLevel | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function set($locationId, $inventoryItemId, $available, $disconnectIfNecessary = false)
+    public function set(int $locationId, int $inventoryItemId, int $available, bool $disconnectIfNecessary = false)
     {
         $raw = $this->client->post("{$this->getApiBasePath()}/inventory_levels/set.json", [], [
             'location_id' => $locationId,
@@ -72,13 +70,14 @@ class InventoryLevel extends CollectionEntity
     }
 
     /**
-     * @param int  $locationId
-     * @param int  $inventoryItemId
      * @param bool $relocateIfNecessary
      *
      * @return ShopifyInventoryLevel | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function connect($locationId, $inventoryItemId, $relocateIfNecessary = false)
+    public function connect(int $locationId, int $inventoryItemId, $relocateIfNecessary = false)
     {
         $raw = $this->client->post("{$this->getApiBasePath()}/inventory_levels/connect.json", [], [
             'location_id' => $locationId,
@@ -90,11 +89,10 @@ class InventoryLevel extends CollectionEntity
     }
 
     /**
-     * @param ShopifyInventoryLevel $inventoryLevel
-     *
-     * @return ShopifyInventoryLevel | object
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function delete(ShopifyInventoryLevel $inventoryLevel)
+    public function delete(ShopifyInventoryLevel $inventoryLevel): array
     {
         return $this->client->delete("{$this->getApiBasePath()}/inventory_levels.json", [
             'inventory_item_id' => $inventoryLevel->getInventoryItemId(),

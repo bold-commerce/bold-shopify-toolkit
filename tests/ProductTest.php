@@ -7,8 +7,9 @@ use BoldApps\ShopifyToolkit\Services\Metafield as MetafieldService;
 use BoldApps\ShopifyToolkit\Services\Option as OptionService;
 use BoldApps\ShopifyToolkit\Services\Product as ProductService;
 use BoldApps\ShopifyToolkit\Services\Variant as VariantService;
+use PHPUnit\Framework\TestCase;
 
-class ProductTest extends \PHPUnit\Framework\TestCase
+class ProductTest extends TestCase
 {
     /** @var ProductService */
     private $productService;
@@ -25,7 +26,7 @@ class ProductTest extends \PHPUnit\Framework\TestCase
     /** @var MetafieldService */
     private $metafieldService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
@@ -47,7 +48,7 @@ class ProductTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyProductSerializesProperly()
+    public function shopifyProductSerializesProperly()
     {
         /** @var ShopifyProduct $productEntity */
         $productEntity = $this->productService->createFromArray($this->getProductArray());
@@ -61,7 +62,7 @@ class ProductTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyProductDeserializesProperly()
+    public function shopifyProductDeserializesProperly()
     {
         $productJson = $this->getProductJson();
         $jsonArray = (array) json_decode($productJson, true);

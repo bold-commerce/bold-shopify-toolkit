@@ -1,15 +1,16 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Customer as ShopifyCustomer;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\Customer as CustomerService;
+use PHPUnit\Framework\TestCase;
 
-class CustomerTest extends \PHPUnit\Framework\TestCase
+class CustomerTest extends TestCase
 {
     /** @var CustomerService */
     private $customerService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
@@ -19,7 +20,7 @@ class CustomerTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyCustomerSerializesProperly()
+    public function shopifyCustomerSerializesProperly()
     {
         $customerEntity = $this->createCustomerEntity();
 
@@ -32,7 +33,7 @@ class CustomerTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyCustomerDeserializesProperly()
+    public function shopifyCustomerDeserializesProperly()
     {
         $customerJson = $this->getCustomerJson();
         $jsonArray = (array) json_decode($customerJson, true);

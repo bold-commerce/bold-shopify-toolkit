@@ -2,15 +2,18 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use Illuminate\Support\Collection;
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Theme as ShopifyTheme;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Collection;
 
 class Theme extends Base
 {
     /**
-     * @param ShopifyTheme $shopifyTheme
-     *
      * @return ShopifyTheme
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(ShopifyTheme $shopifyTheme)
     {
@@ -22,9 +25,10 @@ class Theme extends Base
     }
 
     /**
-     * @param ShopifyTheme $shopifyTheme
-     *
      * @return ShopifyTheme
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyTheme $shopifyTheme)
     {
@@ -40,6 +44,9 @@ class Theme extends Base
      * @param $id
      *
      * @return ShopifyTheme
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getById($id)
     {
@@ -50,6 +57,9 @@ class Theme extends Base
 
     /**
      * @return ShopifyTheme
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getMain()
     {
@@ -61,14 +71,15 @@ class Theme extends Base
     }
 
     /**
+     * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     *
      * @deprecated Use getByParams()
      * @see getByParams()
-     *
-     * @param array $filter
-     *
-     * @return Collection
      */
-    public function getAll($filter = [])
+    public function getAll(array $filter = [])
     {
         $raw = $this->client->get('admin/themes.json', $filter);
 
@@ -80,11 +91,12 @@ class Theme extends Base
     }
 
     /**
-     * @param array $params
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getByParams($params = [])
+    public function getByParams(array $params = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/themes.json", $params);
 

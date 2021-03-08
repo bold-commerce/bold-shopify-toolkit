@@ -2,14 +2,16 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\CancelOrder;
 use BoldApps\ShopifyToolkit\Models\Order as ShopifyOrder;
-use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
 use BoldApps\ShopifyToolkit\Models\OrderLineItem as OrderLineItemModel;
-use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
-use BoldApps\ShopifyToolkit\Services\OrderLineItem as OrderLineItemService;
-use Illuminate\Support\Collection;
+use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
+use BoldApps\ShopifyToolkit\Services\OrderLineItem as OrderLineItemService;
+use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Collection;
 
 class Order extends CollectionEntity
 {
@@ -31,12 +33,6 @@ class Order extends CollectionEntity
         'lineItems' => 'serializeLineItems',
     ];
 
-    /**
-     * Order constructor.
-     *
-     * @param Client         $client
-     * @param TaxLineService $taxLineService
-     */
     public function __construct(ShopifyClient $client, TaxLineService $taxLineService, OrderLineItemService $lineItemService)
     {
         $this->taxLineService = $taxLineService;
@@ -48,6 +44,9 @@ class Order extends CollectionEntity
      * @param $id
      *
      * @return ShopifyOrder|object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function getById($id)
     {
@@ -57,16 +56,15 @@ class Order extends CollectionEntity
     }
 
     /**
+     * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     *
      * @deprecated Use getByParams()
      * @see getByParams()
-     *
-     * @param int   $page
-     * @param int   $limit
-     * @param array $filter
-     *
-     * @return Collection
      */
-    public function getAll($page = 1, $limit = 50, $filter = [])
+    public function getAll(int $page = 1, int $limit = 50, array $filter = [])
     {
         $raw = $this->client->get('admin/orders.json', array_merge(['page' => $page, 'limit' => $limit], $filter));
         $orders = array_map(function ($order) {
@@ -77,11 +75,10 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param $params
-     *
-     * @return Collection
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getByParams($params)
+    public function getByParams(array $params): Collection
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/orders.json", $params);
 
@@ -93,11 +90,10 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param array $filter
-     *
-     * @return int
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function count($filter = [])
+    public function count(array $filter = []): int
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/orders/count.json", $filter);
 
@@ -105,11 +101,10 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param $filter
-     *
-     * @return int
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function countByParams($filter = [])
+    public function countByParams(array $filter = []): int
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/orders/count.json", $filter);
 
@@ -117,11 +112,12 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param ShopifyOrder $order
-     *
      * @return ShopifyOrder | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function update($order)
+    public function update(ShopifyOrder $order)
     {
         $serializedModel = ['order' => $this->serializeModel($order)];
 
@@ -131,11 +127,12 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param ShopifyOrder $order
-     *
      * @return ShopifyOrder | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function create($order)
+    public function create(ShopifyOrder $order)
     {
         $serializedModel = ['order' => $this->serializeModel($order)];
 
@@ -145,11 +142,12 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param ShopifyOrder $order
-     *
      * @return ShopifyOrder | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function createTest($order)
+    public function createTest(ShopifyOrder $order)
     {
         $order->setTest(true);
 
@@ -161,12 +159,14 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param int                $id
      * @param CancelOrder | null $cancelOrder
      *
      * @return ShopifyOrder | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function cancel($id, $cancelOrder = null)
+    public function cancel(int $id, CancelOrder $cancelOrder = null)
     {
         $serializedModel = $this->serializeModel($cancelOrder);
         $raw = $this->client->post("{$this->getApiBasePath()}/orders/{$id}/cancel.json", [], $serializedModel);
@@ -196,15 +196,10 @@ class Order extends CollectionEntity
         return $entities;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return Collection
-     */
-    protected function unserializeTaxLines($data)
+    protected function unserializeTaxLines(array $data): ?Collection
     {
         if (null === $data) {
-            return;
+            return null;
         }
 
         $taxLineService = &$this->taxLineService;
@@ -223,7 +218,7 @@ class Order extends CollectionEntity
     protected function serializeLineItems($entities)
     {
         if (null === $entities) {
-            return;
+            return null;
         }
 
         $service = &$this->lineItemService;
@@ -237,15 +232,10 @@ class Order extends CollectionEntity
         return $entities;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return Collection
-     */
-    protected function unserializeLineItems($data)
+    protected function unserializeLineItems(array $data): Collection
     {
         if (null === $data) {
-            return;
+            return null;
         }
 
         $lineItemService = &$this->lineItemService;

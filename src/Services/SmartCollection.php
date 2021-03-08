@@ -2,11 +2,13 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
+use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
+use BoldApps\ShopifyToolkit\Models\SmartCollection as ShopifySmartCollection;
 use BoldApps\ShopifyToolkit\Models\SmartCollectionRule as ShopifySmartCollectionRule;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
-use BoldApps\ShopifyToolkit\Models\SmartCollection as ShopifySmartCollection;
 use BoldApps\ShopifyToolkit\Services\SmartCollectionRule as SmartCollectionRuleService;
-use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class SmartCollection extends CollectionEntity
@@ -14,12 +16,6 @@ class SmartCollection extends CollectionEntity
     /** @var SmartCollectionRuleService */
     protected $ruleService;
 
-    /**
-     * SmartCollection constructor.
-     *
-     * @param Client                     $client
-     * @param SmartCollectionRuleService $ruleService
-     */
     public function __construct(
         ShopifyClient $client,
         SmartCollectionRuleService $ruleService
@@ -43,12 +39,12 @@ class SmartCollection extends CollectionEntity
     ];
 
     /**
-     * @param ShopifySmartCollection $collection
-     * @param bool                   $publish
-     *
      * @return object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
-    public function create(ShopifySmartCollection $collection, $publish = true)
+    public function create(ShopifySmartCollection $collection, bool $publish = true)
     {
         $serializedModel = [
             'smart_collection' => array_merge($this->serializeModel($collection), ['published' => $publish]),
@@ -64,7 +60,7 @@ class SmartCollection extends CollectionEntity
      *
      * @return ShopifySmartCollection | object
      */
-    public function createFromArray($array)
+    public function createFromArray(array $array)
     {
         return $this->unserializeModel($array, ShopifySmartCollection::class);
     }
@@ -73,6 +69,9 @@ class SmartCollection extends CollectionEntity
      * @param $id
      *
      * @return ShopifySmartCollection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getById($id)
     {
@@ -82,12 +81,12 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param int   $id
-     * @param array $filter
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getProductsBySmartCollectionId($id, $filter = [])
+    public function getProductsBySmartCollectionId(int $id, array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/collections/$id/products.json", $filter);
 
@@ -99,16 +98,15 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
+     * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     *
      * @deprecated Use getByParams()
      * @see getByParams()
-     *
-     * @param int   $page
-     * @param int   $limit
-     * @param array $filter
-     *
-     * @return Collection
      */
-    public function getAll($page = 1, $limit = 50, $filter = [])
+    public function getAll(int $page = 1, int $limit = 50, array $filter = [])
     {
         $raw = $this->client->get('admin/smart_collections.json',
             array_merge(['page' => $page, 'limit' => $limit], $filter));
@@ -123,9 +121,9 @@ class SmartCollection extends CollectionEntity
     /**
      * @param $params
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    public function getByParams($params)
+    public function getByParams(array $params)
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/smart_collections.json", $params);
 
@@ -137,9 +135,10 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param ShopifySmartCollection $collection
-     *
      * @return object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifySmartCollection $collection)
     {
@@ -151,9 +150,10 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param ShopifySmartCollection $collection
-     *
      * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifySmartCollection $collection)
     {
@@ -161,11 +161,12 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param array $filter
-     *
      * @return int
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function count($filter = [])
+    public function count(array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/smart_collections/count.json", $filter);
 
@@ -173,11 +174,12 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param $filter
-     *
      * @return int
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function countByParams($filter = [])
+    public function countByParams(array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/smart_collections/count.json", $filter);
 
@@ -207,11 +209,9 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param array $data
-     *
      * @return Collection
      */
-    protected function unserializeRules($data)
+    protected function unserializeRules(array $data)
     {
         if (null === $data) {
             return;

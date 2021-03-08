@@ -5,11 +5,9 @@ namespace BoldApps\ShopifyToolkit\Services;
 abstract class CollectionEntity extends Base
 {
     /**
-     * @param $params
-     *
      * @return \Illuminate\Support\Collection
      */
-    abstract public function getByParams($params);
+    abstract public function getByParams(array $params);
 
     /**
      * @return PageInfo
@@ -20,12 +18,9 @@ abstract class CollectionEntity extends Base
     }
 
     /**
-     * @param string $pageInfo
-     * @param int    $limit
-     *
      * @return \Illuminate\Support\Collection
      */
-    public function getByPageInfo($pageInfo, $limit = 5)
+    public function getByPageInfo(string $pageInfo, int $limit = 5)
     {
         return $this->getByParams([
             'page_info' => $pageInfo,

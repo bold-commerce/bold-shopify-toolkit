@@ -1,15 +1,16 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Image as ShopifyImage;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\Image as ImageService;
+use PHPUnit\Framework\TestCase;
 
-class ImageTest extends \PHPUnit\Framework\TestCase
+class ImageTest extends TestCase
 {
     /** @var ImageService */
     private $imageService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
@@ -19,7 +20,7 @@ class ImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyImageSerializesProperly()
+    public function shopifyImageSerializesProperly()
     {
         $imageEntity = $this->imageService->createFromArray($this->getImageArray());
 
@@ -32,7 +33,7 @@ class ImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyImageDeserializesProperly()
+    public function shopifyImageDeserializesProperly()
     {
         $imageJson = $this->getImageJson();
         $jsonArray = (array) json_decode($imageJson, true);

@@ -2,7 +2,9 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\PriceRule as ShopifyPriceRule;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class PriceRule extends CollectionEntity
@@ -11,6 +13,9 @@ class PriceRule extends CollectionEntity
      * @param $id
      *
      * @return ShopifyPriceRule | object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function getById($id)
     {
@@ -20,16 +25,15 @@ class PriceRule extends CollectionEntity
     }
 
     /**
+     * @return Collection
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
+     *
      * @deprecated Use getByParams()
      * @see getByParams()
-     *
-     * @param int   $page
-     * @param int   $limit
-     * @param array $filter
-     *
-     * @return Collection
      */
-    public function getAll($page = 1, $limit = 50, $filter = [])
+    public function getAll(int $page = 1, int $limit = 50, array $filter = [])
     {
         $raw = $this->client->get('admin/price_rules.json', array_merge(['page' => $page, 'limit' => $limit], $filter));
 
@@ -41,11 +45,12 @@ class PriceRule extends CollectionEntity
     }
 
     /**
-     * @param array $params
-     *
      * @return Collection
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
-    public function getByParams($params)
+    public function getByParams(array $params)
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/price_rules.json", $params);
 
@@ -57,9 +62,10 @@ class PriceRule extends CollectionEntity
     }
 
     /**
-     * @param ShopifyPriceRule $priceRule
-     *
      * @return ShopifyPriceRule | object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(ShopifyPriceRule $priceRule)
     {
@@ -75,15 +81,16 @@ class PriceRule extends CollectionEntity
      *
      * @return object
      */
-    public function createFromArray($array)
+    public function createFromArray(array $array)
     {
         return $this->unserializeModel($array, ShopifyPriceRule::class);
     }
 
     /**
-     * @param ShopifyPriceRule $priceRule
-     *
      * @return ShopifyPriceRule | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyPriceRule $priceRule)
     {
@@ -95,9 +102,10 @@ class PriceRule extends CollectionEntity
     }
 
     /**
-     * @param ShopifyPriceRule $priceRule
+     * @return array
      *
-     * @return ShopifyPriceRule | object
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifyPriceRule $priceRule)
     {

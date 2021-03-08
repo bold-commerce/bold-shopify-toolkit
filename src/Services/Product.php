@@ -2,6 +2,7 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Image as ShopifyImage;
 use BoldApps\ShopifyToolkit\Models\Metafield as ShopifyMetafield;
 use BoldApps\ShopifyToolkit\Models\Option as ShopifyOption;
@@ -12,6 +13,7 @@ use BoldApps\ShopifyToolkit\Services\Image as ImageService;
 use BoldApps\ShopifyToolkit\Services\Metafield as MetafieldService;
 use BoldApps\ShopifyToolkit\Services\Option as OptionService;
 use BoldApps\ShopifyToolkit\Services\Variant as VariantService;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Product extends CollectionEntity
@@ -49,11 +51,10 @@ class Product extends CollectionEntity
     /**
      * Product constructor.
      *
-     * @param Client           $client
-     * @param Variant          $variantService
-     * @param Option           $optionService
-     * @param Image            $imageService
-     * @param MetafieldService $metafieldService
+     * @param Client  $client
+     * @param Variant $variantService
+     * @param Option  $optionService
+     * @param Image   $imageService
      */
     public function __construct(
         ShopifyClient $client,
@@ -70,12 +71,12 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param bool           $publish
-     *
      * @return object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
-    public function create(ShopifyProduct $product, $publish = true)
+    public function create(ShopifyProduct $product, bool $publish = true)
     {
         $serializedModel = ['product' => array_merge($this->serializeModel($product), ['published' => $publish])];
 
@@ -85,12 +86,14 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param       $id
-     * @param array $filter
+     * @param $id
      *
      * @return ShopifyProduct | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getById($id, $filter = [])
+    public function getById($id, array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/products/$id.json", $filter);
 
@@ -100,16 +103,15 @@ class Product extends CollectionEntity
     }
 
     /**
+     * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     *
      * @deprecated Use getByParams()
      * @see getByParams()
-     *
-     * @param int   $page
-     * @param int   $limit
-     * @param array $filter
-     *
-     * @return Collection
      */
-    public function getAll($page = 1, $limit = 50, $filter = [])
+    public function getAll(int $page = 1, int $limit = 50, array $filter = [])
     {
         $raw = $this->client->get('admin/products.json', array_merge(['page' => $page, 'limit' => $limit], $filter));
 
@@ -121,11 +123,12 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param array $params
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getByParams($params)
+    public function getByParams(array $params)
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/products.json", $params);
 
@@ -137,12 +140,12 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param array $productIds
-     * @param array $filter
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getByProductIdArray($productIds, $filter = [])
+    public function getByProductIdArray(array $productIds, array $filter = [])
     {
         $products = [];
         $limit = 250;
@@ -170,9 +173,10 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct $product
-     *
      * @return object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyProduct $product)
     {
@@ -184,9 +188,10 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct $product
-     *
      * @return array | null
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifyProduct $product)
     {
@@ -194,11 +199,12 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param array $filter
-     *
      * @return int
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function count($filter = [])
+    public function count(array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/products/count.json", $filter);
 
@@ -206,20 +212,18 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param array $array
-     *
      * @return object
      */
-    public function createFromArray($array)
+    public function createFromArray(array $array)
     {
         return $this->unserializeModel($array, ShopifyProduct::class);
     }
 
     /**
-     * @param ShopifyProduct   $product
-     * @param ShopifyMetafield $metafield
-     *
      * @return ShopifyMetafield | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function createOrUpdateMetafield(ShopifyProduct $product, ShopifyMetafield $metafield)
     {
@@ -231,12 +235,12 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param array          $filter
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getMetafields(ShopifyProduct $product, $filter = [])
+    public function getMetafields(ShopifyProduct $product, array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/products/{$product->getId()}/metafields.json", $filter);
 
@@ -248,10 +252,12 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param                $id
-     * @param ShopifyProduct $product
+     * @param $id
      *
      * @return ShopifyMetafield | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getMetafield(ShopifyProduct $product, $id)
     {
@@ -261,10 +267,10 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct   $product
-     * @param ShopifyMetafield $metafield
-     *
      * @return array | null
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function deleteMetafield(ShopifyProduct $product, ShopifyMetafield $metafield)
     {
@@ -272,11 +278,12 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param int $metafieldId
-     *
      * @return array | null
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function deleteMetafieldById($metafieldId)
+    public function deleteMetafieldById(int $metafieldId)
     {
         return $this->client->delete("{$this->getApiBasePath()}/metafields/{$metafieldId}.json");
     }
@@ -302,11 +309,9 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param array $data
-     *
      * @return Collection | null
      */
-    protected function unserializeVariants($data)
+    protected function unserializeVariants(array $data)
     {
         if (null === $data) {
             return null;
@@ -340,11 +345,9 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param array $data
-     *
      * @return Collection | null
      */
-    protected function unserializeOptions($data)
+    protected function unserializeOptions(array $data)
     {
         if (null === $data) {
             return null;
@@ -372,11 +375,9 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param array $data
-     *
      * @return ShopifyImage | object
      */
-    protected function unserializeImage($data)
+    protected function unserializeImage(array $data)
     {
         if (null === $data) {
             return null;
@@ -406,11 +407,9 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param array $data
-     *
      * @return Collection | null
      */
-    protected function unserializeImages($data)
+    protected function unserializeImages(array $data)
     {
         if (null === $data) {
             return null;
@@ -448,7 +447,7 @@ class Product extends CollectionEntity
      *
      * @return Collection | null
      */
-    protected function unserializeMetafields($data)
+    protected function unserializeMetafields(array $data)
     {
         if (null === $data) {
             return null;

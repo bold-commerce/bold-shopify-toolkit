@@ -2,18 +2,20 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\CustomCollection as ShopifyCustomCollection;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class CustomCollection extends CollectionEntity
 {
     /**
-     * @param ShopifyCustomCollection $collection
-     * @param bool                    $publish
-     *
      * @return object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function create(ShopifyCustomCollection $collection, $publish = true)
+    public function create(ShopifyCustomCollection $collection, bool $publish = true)
     {
         $serializedModel = ['custom_collection' => array_merge($this->serializeModel($collection), ['published' => $publish])];
 
@@ -26,6 +28,9 @@ class CustomCollection extends CollectionEntity
      * @param $id
      *
      * @return ShopifyCustomCollection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getById($id)
     {
@@ -35,16 +40,15 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
+     * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     *
      * @deprecated Use getByParams()
      * @see getByParams()
-     *
-     * @param int   $page
-     * @param int   $limit
-     * @param array $filter
-     *
-     * @return Collection
      */
-    public function getAll($page = 1, $limit = 50, $filter = [])
+    public function getAll(int $page = 1, int $limit = 50, array $filter = [])
     {
         $raw = $this->client->get('admin/custom_collections.json', array_merge(['page' => $page, 'limit' => $limit], $filter));
 
@@ -58,7 +62,10 @@ class CustomCollection extends CollectionEntity
     /**
      * @param $params
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getByParams($params)
     {
@@ -72,9 +79,10 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomCollection $collection
-     *
      * @return object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyCustomCollection $collection)
     {
@@ -86,9 +94,10 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomCollection $collection
+     * @return array
      *
-     * @return object
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifyCustomCollection $collection)
     {
@@ -96,11 +105,12 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param array $filter
-     *
      * @return int
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function count($filter = [])
+    public function count(array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/custom_collections/count.json", $filter);
 
@@ -108,11 +118,12 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param $filter
-     *
      * @return int
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function countByParams($filter = [])
+    public function countByParams(array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/custom_collections/count.json", $filter);
 

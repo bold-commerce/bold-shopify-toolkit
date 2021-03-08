@@ -2,15 +2,18 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\RecurringApplicationCharge as ShopifyRecurringApplicationCharge;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class RecurringApplicationCharge extends Base
 {
     /**
-     * @param ShopifyRecurringApplicationCharge $recurringApplicationCharge
-     *
      * @return ShopifyRecurringApplicationCharge \ object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(ShopifyRecurringApplicationCharge $recurringApplicationCharge)
     {
@@ -25,6 +28,9 @@ class RecurringApplicationCharge extends Base
      * @param $id
      *
      * @return ShopifyRecurringApplicationCharge \ object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function getById($id)
     {
@@ -34,7 +40,7 @@ class RecurringApplicationCharge extends Base
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function getAll()
     {
@@ -47,9 +53,10 @@ class RecurringApplicationCharge extends Base
     }
 
     /**
-     * @param ShopifyRecurringApplicationCharge $recurringApplicationCharge
-     *
      * @return ShopifyRecurringApplicationCharge \ object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function activate(ShopifyRecurringApplicationCharge $recurringApplicationCharge)
     {
@@ -62,19 +69,16 @@ class RecurringApplicationCharge extends Base
     }
 
     /**
-     * @param ShopifyRecurringApplicationCharge $recurringApplicationCharge
-     *
-     * @return array
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function delete(ShopifyRecurringApplicationCharge $recurringApplicationCharge)
+    public function delete(ShopifyRecurringApplicationCharge $recurringApplicationCharge): array
     {
         return $this->client->delete("{$this->getApiBasePath()}/recurring_application_charges/{$recurringApplicationCharge->getId()}.json");
     }
 
     /**
      * @param $array
-     *
-     * @return ShopifyRecurringApplicationCharge | object
      */
     public function createFromArray($array)
     {

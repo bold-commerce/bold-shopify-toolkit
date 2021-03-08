@@ -2,15 +2,19 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\UsageCharge as ShopifyUsageCharge;
+use GuzzleHttp\Exception\GuzzleException;
 
 class UsageCharge extends Base
 {
     /**
      * @param $recurringChargeId
-     * @param ShopifyUsageCharge $usageCharge
      *
      * @return object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create($recurringChargeId, ShopifyUsageCharge $usageCharge)
     {
@@ -25,6 +29,9 @@ class UsageCharge extends Base
      * @param $recurringChargeId
      *
      * @return object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function getById($recurringChargeId)
     {

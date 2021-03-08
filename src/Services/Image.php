@@ -2,17 +2,19 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Image as ShopifyImage;
+use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Image extends Base
 {
     /**
-     * @param ShopifyProduct $product
-     * @param ShopifyImage   $image
-     *
      * @return object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function createImageForProduct(ShopifyProduct $product, ShopifyImage $image)
     {
@@ -34,12 +36,12 @@ class Image extends Base
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param array          $params
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getAllProductImages(ShopifyProduct $product, $params = [])
+    public function getAllProductImages(ShopifyProduct $product, array $params = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/products/{$product->getId()}/images.json", $params);
 
@@ -51,10 +53,12 @@ class Image extends Base
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param                $id
+     * @param $id
      *
      * @return ShopifyImage|object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getProductImageById(ShopifyProduct $product, $id)
     {
@@ -64,10 +68,10 @@ class Image extends Base
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param ShopifyImage   $image
-     *
      * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function deleteProductImage(ShopifyProduct $product, ShopifyImage $image)
     {

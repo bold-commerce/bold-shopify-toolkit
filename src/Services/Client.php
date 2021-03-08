@@ -2,22 +2,24 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
-use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
 use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
+use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
+use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
 use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
 use BoldApps\ShopifyToolkit\Models\PageInfo;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\SetCookie;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use function GuzzleHttp\Psr7\parse_header;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
-use function GuzzleHttp\Psr7\parse_header;
 
 class Client
 {
@@ -44,11 +46,6 @@ class Client
 
     /**
      * Client constructor.
-     *
-     * @param ShopBaseInfo         $shopBaseInfo
-     * @param ShopAccessInfo       $shopAccessInfo
-     * @param GuzzleClient         $client
-     * @param RequestHookInterface $requestHookInterface
      */
     public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, RequestHookInterface $requestHookInterface)
     {
@@ -60,8 +57,6 @@ class Client
 
     /**
      * @param $path
-     * @param array  $params
-     * @param array  $cookies
      * @param string $password
      * @param bool   $frontendApi
      *
@@ -69,8 +64,11 @@ class Client
      * Cookies is an array of SetCookie objects. See the Cart service for an example.
      *
      * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function get($path, $params = [], array $cookies = [], $password = null, $frontendApi = false)
+    public function get($path, array $params = [], array $cookies = [], string $password = null, bool $frontendApi = false)
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken()];
 
@@ -85,9 +83,18 @@ class Client
 
     /**
      * @param string $path
-     * @param array  $params
+     *
+     * @return string|null
+     *
+     * @throws BadRequestException
+     * @throws GuzzleException
+     * @throws NotAcceptableException
+     * @throws NotFoundException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
+     * @throws UnprocessableEntityException
      */
-    public function getRedirectLocation($path, $params = [])
+    public function getRedirectLocation($path, array $params = [])
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken()];
 
@@ -102,8 +109,7 @@ class Client
 
     /**
      * @param $path
-     * @param array  $params
-     * @param array  $cookies
+     * @param $body
      * @param string $password
      * @param bool   $frontendApi
      *
@@ -111,8 +117,11 @@ class Client
      * Cookies is an array of SetCookie objects. See the Cart service for an example.
      *
      * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function post($path, $params, $body, array $cookies = [], $password = null, $frontendApi = false, $extraHeaders = [])
+    public function post($path, array $params, $body, array $cookies = [], $password = null, $frontendApi = false, array $extraHeaders = [])
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
         $headers = array_merge($headers, $extraHeaders);
@@ -135,6 +144,9 @@ class Client
      * @param $body
      *
      * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function put($path, $params, $body)
     {
@@ -154,6 +166,9 @@ class Client
      * @param array $params
      *
      * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete($path, $params = [])
     {
@@ -167,8 +182,6 @@ class Client
     }
 
     /**
-     * @param Request       $request
-     * @param array         $cookies
      * @param string | null $password
      *
      * $cookies is an array of SetCookie objects. see the Cart service for examples.
@@ -176,12 +189,8 @@ class Client
      *
      * @return array|null
      *
-     * @throws UnauthorizedException
-     * @throws NotFoundException
-     * @throws NotAcceptableException
-     * @throws UnprocessableEntityException
-     * @throws TooManyRequestsException
-     * @throws BadRequestException
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     private function sendRequestToShopify(Request $request, array $cookies = [], $password = null)
     {
@@ -257,16 +266,14 @@ class Client
     }
 
     /**
-     * @param Request $request
-     *
-     * @return null|string
+     * @return string|null
      *
      * @throws NotAcceptableException
      * @throws NotFoundException
      * @throws TooManyRequestsException
      * @throws UnauthorizedException
      * @throws UnprocessableEntityException
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      * @throws BadRequestException
      */
     private function getRedirectResponseFromShopify(Request $request)
@@ -333,7 +340,7 @@ class Client
     /**
      * @param string $location
      *
-     * @return null|string
+     * @return string|null
      */
     private function validateRedirectLocation($location)
     {

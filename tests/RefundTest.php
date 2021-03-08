@@ -1,19 +1,19 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use BoldApps\ShopifyToolkit\Models\Refund as ShopifyRefund;
-use BoldApps\ShopifyToolkit\Services\Refund as RefundService;
-use BoldApps\ShopifyToolkit\Models\Transaction;
 use BoldApps\ShopifyToolkit\Models\OrderAdjustment;
+use BoldApps\ShopifyToolkit\Models\Refund as ShopifyRefund;
 use BoldApps\ShopifyToolkit\Models\RefundLineItem;
+use BoldApps\ShopifyToolkit\Models\Transaction;
+use BoldApps\ShopifyToolkit\Services\Refund as RefundService;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\TestCase;
 
 class RefundTest extends TestCase
 {
     /** @var RefundService */
     private $refundService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $client = $this->createMock(\BoldApps\ShopifyToolkit\Services\Client::class);
         $refundLineItemService = new \BoldApps\ShopifyToolkit\Services\RefundLineItem($client);
@@ -24,7 +24,7 @@ class RefundTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyRefundSerializesProperly()
+    public function shopifyRefundSerializesProperly()
     {
         $refundEntity = new ShopifyRefund();
         $refundEntity->setOrderId(123456);
@@ -98,7 +98,7 @@ class RefundTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyRefundDeserializesProperly()
+    public function shopifyRefundDeserializesProperly()
     {
         $refundJson = '{
             "id": 929361464,

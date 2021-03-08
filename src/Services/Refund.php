@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 class Refund extends Base
 {
     /**
-     * @var \BoldApps\ShopifyToolkit\Services\RefundLineItem
+     * @var RefundLineItem
      */
     protected $refundLineItemService;
 
@@ -52,9 +52,10 @@ class Refund extends Base
     ];
 
     /**
-     * @param ShopifyRefund $refund
-     *
      * @return ShopifyRefund | object
+     *
+     * @throws \BoldApps\ShopifyToolkit\Exceptions\ShopifyException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function create(ShopifyRefund $refund)
     {
@@ -66,9 +67,10 @@ class Refund extends Base
     }
 
     /**
-     * @param ShopifyRefund $refund
-     *
      * @return ShopifyRefund | object
+     *
+     * @throws \BoldApps\ShopifyToolkit\Exceptions\ShopifyException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function calculate(ShopifyRefund $refund)
     {
@@ -84,7 +86,7 @@ class Refund extends Base
      *
      * @return ShopifyRefund | object
      */
-    public function createFromArray($array)
+    public function createFromArray(array $array)
     {
         return $this->unserializeModel($array, ShopifyRefund::class);
     }

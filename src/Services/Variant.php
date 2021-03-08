@@ -2,18 +2,20 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Metafield as ShopifyMetafield;
 use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
 use BoldApps\ShopifyToolkit\Models\Variant as ShopifyVariant;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Variant extends Base
 {
     /**
-     * @param ShopifyProduct $product
-     * @param ShopifyVariant $variant
-     *
      * @return object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(ShopifyProduct $product, ShopifyVariant $variant)
     {
@@ -38,6 +40,9 @@ class Variant extends Base
      * @param $id
      *
      * @return ShopifyVariant
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getById($id)
     {
@@ -47,12 +52,12 @@ class Variant extends Base
     }
 
     /**
-     * @param int   $productId
-     * @param array $filter
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getAllByProductId($productId, $filter = [])
+    public function getAllByProductId(int $productId, array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/products/$productId/variants.json", $filter);
 
@@ -64,9 +69,10 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant $variant
-     *
      * @return object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyVariant $variant)
     {
@@ -78,10 +84,10 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param ShopifyVariant $variant
+     * @return array
      *
-     * @return object
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifyProduct $product, ShopifyVariant $variant)
     {
@@ -89,11 +95,11 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant   $variant
-     * @param ShopifyMetafield $metafield
-     *
      * @return Collection
-     **/
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     */
     public function createMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
     {
         $serializedModel = ['metafield' => array_merge($this->serializeModel($metafield))];
@@ -104,10 +110,10 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant   $variant
-     * @param ShopifyMetafield $metafield
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function updateMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
     {
@@ -119,12 +125,12 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant $variant
-     * @param array          $params
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getMetafields(ShopifyVariant $variant, $params = [])
+    public function getMetafields(ShopifyVariant $variant, array $params = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/variants/{$variant->getId()}/metafields.json", $params);
 
@@ -136,10 +142,10 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant   $variant
-     * @param ShopifyMetafield $metafield
+     * @return array
      *
-     * @return Collection
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function deleteMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
     {
@@ -147,9 +153,10 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyMetafield $metafield
+     * @return array
      *
-     * @return Collection
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function deleteMetafieldById(ShopifyMetafield $metafield)
     {
@@ -157,11 +164,9 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant $variant
-     *
      * @return array
      */
-    public function serializeVariantCreateUpdate($variant)
+    public function serializeVariantCreateUpdate(ShopifyVariant $variant)
     {
         $serializedModel = $this->serializeModel($variant);
 

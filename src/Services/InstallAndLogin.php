@@ -6,6 +6,7 @@ use BoldApps\ShopifyToolkit\Contracts\ApplicationInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
@@ -23,10 +24,6 @@ class InstallAndLogin
 
     /**
      * InstallAndLogin constructor.
-     *
-     * @param ApplicationInfo $applicationInfo
-     * @param ShopBaseInfo    $shopBaseInfo
-     * @param HttpClient      $client
      */
     public function __construct(
         ApplicationInfo $applicationInfo,
@@ -56,13 +53,10 @@ class InstallAndLogin
     }
 
     /**
-     * @param $code
-     *
-     * @return string
-     *
      * @throws BadRequestException
+     * @throws GuzzleException
      */
-    public function getAccessToken($code)
+    public function getAccessToken(string $code): string
     {
         $result = '';
         $path = 'admin/oauth/access_token.json';
@@ -115,7 +109,7 @@ class InstallAndLogin
             return false;
         }
 
-        $dataString = array();
+        $dataString = [];
 
         foreach ($query as $key => $value) {
             if ('hmac' == $key) {

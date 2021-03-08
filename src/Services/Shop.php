@@ -2,14 +2,19 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Metafield as ShopifyMetafield;
 use BoldApps\ShopifyToolkit\Models\Shop as ShopifyShop;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Shop extends Base
 {
     /**
      * @return ShopifyShop
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function get()
     {
@@ -18,6 +23,9 @@ class Shop extends Base
 
     /**
      * @return mixed
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function asArray()
     {
@@ -27,10 +35,10 @@ class Shop extends Base
     }
 
     /**
-     * @param ShopifyShop      $shop
-     * @param ShopifyMetafield $metafield
-     *
      * @return ShopifyMetafield | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function createOrUpdateMetafield(ShopifyShop $shop, ShopifyMetafield $metafield)
     {
@@ -42,9 +50,10 @@ class Shop extends Base
     }
 
     /**
-     * @param ShopifyMetafield $metafield
-     *
      * @return ShopifyMetafield | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getMetafield(ShopifyMetafield $metafield)
     {
@@ -54,9 +63,10 @@ class Shop extends Base
     }
 
     /**
-     * @param array $params
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getMetafields(array $params = [])
     {
@@ -70,9 +80,10 @@ class Shop extends Base
     }
 
     /**
-     * @param ShopifyMetafield $metafield
+     * @return array
      *
-     * @return Collection
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function deleteMetafield(ShopifyMetafield $metafield)
     {

@@ -1,15 +1,16 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\DiscountCode as ShopifyDiscountCode;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\DiscountCode as DiscountCodeService;
+use PHPUnit\Framework\TestCase;
 
-class DiscountCodeTest extends \PHPUnit\Framework\TestCase
+class DiscountCodeTest extends TestCase
 {
     /** @var DiscountCodeService */
     private $discountCodeService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
@@ -19,7 +20,7 @@ class DiscountCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyDiscountCodeSerializesProperly()
+    public function shopifyDiscountCodeSerializesProperly()
     {
         $discountCodeEntity = $this->createDiscountCodeEntity();
 
@@ -32,7 +33,7 @@ class DiscountCodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyDiscountCodeDeserializesProperly()
+    public function shopifyDiscountCodeDeserializesProperly()
     {
         $discountCodeJson = $this->getDiscountCodeJson();
         $jsonArray = (array) json_decode($discountCodeJson, true);

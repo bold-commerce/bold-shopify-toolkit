@@ -7,8 +7,6 @@ use BoldApps\ShopifyToolkit\Models\ApplicationCharge as ShopifyApplicationCharge
 class ApplicationCharge extends Base
 {
     /**
-     * @param ShopifyApplicationCharge $applicationCharge
-     *
      * @return ShopifyApplicationCharge \ object
      */
     public function create(ShopifyApplicationCharge $applicationCharge)
@@ -33,8 +31,6 @@ class ApplicationCharge extends Base
     }
 
     /**
-     * @param ShopifyApplicationCharge $applicationCharge
-     *
      * @return ShopifyApplicationCharge \ object
      */
     public function activate(ShopifyApplicationCharge $applicationCharge)
@@ -48,8 +44,6 @@ class ApplicationCharge extends Base
     }
 
     /**
-     * @param ShopifyApplicationCharge $applicationCharge
-     *
      * @return array
      */
     public function delete(ShopifyApplicationCharge $applicationCharge)

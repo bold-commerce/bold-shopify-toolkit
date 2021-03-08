@@ -1,15 +1,16 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\InventoryLevel as ShopifyInventoryLevel;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\InventoryLevel as InventoryLevelService;
+use PHPUnit\Framework\TestCase;
 
-class InventoryLevelTest extends \PHPUnit\Framework\TestCase
+class InventoryLevelTest extends TestCase
 {
     /** @var InventoryLevelService */
     private $inventoryLevelService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
@@ -19,7 +20,7 @@ class InventoryLevelTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyInventoryLevelSerializesProperly()
+    public function shopifyInventoryLevelSerializesProperly()
     {
         $inventoryLevelEntity = $this->inventoryLevelService->createFromArray($this->getInventoryLevelArray());
 
@@ -32,7 +33,7 @@ class InventoryLevelTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyInventoryLevelDeserializesProperly()
+    public function shopifyInventoryLevelDeserializesProperly()
     {
         $inventoryLevelJson = $this->getInventoryLevelJson();
         $jsonArray = (array) json_decode($inventoryLevelJson, true);

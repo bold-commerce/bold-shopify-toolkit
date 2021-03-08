@@ -2,17 +2,19 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Models\DraftOrder as ShopifyDraftOrder;
-use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
-use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
-use Illuminate\Support\Collection;
-use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
-use BoldApps\ShopifyToolkit\Services\DraftOrderLineItem as DraftOrderLineItemService;
-use BoldApps\ShopifyToolkit\Models\DraftOrderLineItem as DraftOrderLineItemModel;
-use BoldApps\ShopifyToolkit\Services\DraftOrderAppliedDiscount as AppliedDiscountService;
-use BoldApps\ShopifyToolkit\Models\DraftOrderAppliedDiscount as AppliedDiscountModel;
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Cart\Cart as CartModel;
+use BoldApps\ShopifyToolkit\Models\DraftOrder as ShopifyDraftOrder;
+use BoldApps\ShopifyToolkit\Models\DraftOrderAppliedDiscount as AppliedDiscountModel;
+use BoldApps\ShopifyToolkit\Models\DraftOrderLineItem as DraftOrderLineItemModel;
+use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
+use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
+use BoldApps\ShopifyToolkit\Services\DraftOrderAppliedDiscount as AppliedDiscountService;
+use BoldApps\ShopifyToolkit\Services\DraftOrderLineItem as DraftOrderLineItemService;
+use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
 use BoldApps\ShopifyToolkit\Traits\TranslatePropertiesTrait;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Collection;
 
 class DraftOrder extends Base
 {
@@ -44,10 +46,8 @@ class DraftOrder extends Base
     /**
      * DraftOrder constructor.
      *
-     * @param Client                                    $client
-     * @param \BoldApps\ShopifyToolkit\Services\TaxLine $taxLineService
-     * @param DraftOrderLineItemService                 $draftOrderLineItemService
-     * @param DraftOrderAppliedDiscount                 $appliedDiscountService
+     * @param Client                    $client
+     * @param DraftOrderAppliedDiscount $appliedDiscountService
      */
     public function __construct(
         ShopifyClient $client,
@@ -65,6 +65,9 @@ class DraftOrder extends Base
      * @param $shopifyDraftOrder
      *
      * @return object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create($shopifyDraftOrder)
     {
@@ -78,6 +81,9 @@ class DraftOrder extends Base
      * @param $id
      *
      * @return ShopifyDraftOrder
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getById($id)
     {
@@ -126,7 +132,10 @@ class DraftOrder extends Base
     /**
      * @param $id
      *
-     * @return object
+     * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete($id)
     {

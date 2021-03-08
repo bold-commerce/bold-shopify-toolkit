@@ -1,4 +1,4 @@
-FROM circleci/php:5.6.37-apache-jessie as base
+FROM circleci/php:7.4.15-apache-jessie as base
 
 FROM base
 ARG cache=1

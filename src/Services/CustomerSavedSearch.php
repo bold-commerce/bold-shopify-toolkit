@@ -2,9 +2,11 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Customer as CustomerModel;
 use BoldApps\ShopifyToolkit\Models\CustomerSavedSearch as CustomerSavedSearchModel;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class CustomerSavedSearch extends CollectionEntity
@@ -30,9 +32,10 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
-     * @param CustomerSavedSearchModel $customerSavedSearch
-     *
      * @return CustomerSavedSearchModel | object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(CustomerSavedSearchModel $customerSavedSearch)
     {
@@ -44,9 +47,10 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
-     * @param CustomerSavedSearchModel $customerSavedSearch
-     *
      * @return CustomerSavedSearchModel | object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function edit(CustomerSavedSearchModel $customerSavedSearch)
     {
@@ -58,21 +62,21 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
-     * @param CustomerSavedSearchModel $customerSavedSearch
-     *
-     * @return array
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function delete(CustomerSavedSearchModel $customerSavedSearch)
+    public function delete(CustomerSavedSearchModel $customerSavedSearch): array
     {
         return $this->client->delete("{$this->getApiBasePath()}/customer_saved_searches/{$customerSavedSearch->getId()}.json");
     }
 
     /**
-     * @param $params
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getByParams($params)
+    public function getByParams(array $params)
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/customer_saved_searches.json", $params);
 
@@ -84,12 +88,12 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
-     * @param int   $customerSavedSearchId
-     * @param array $params
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getAllCustomersById($customerSavedSearchId, $params = [])
+    public function getAllCustomersById(int $customerSavedSearchId, array $params = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/customer_saved_searches/$customerSavedSearchId/customers.json", $params);
 

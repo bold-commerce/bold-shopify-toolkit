@@ -2,7 +2,9 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Customer as ShopifyCustomer;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Customer extends CollectionEntity
@@ -11,6 +13,9 @@ class Customer extends CollectionEntity
      * @param $id
      *
      * @return ShopifyCustomer|object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function getById($id)
     {
@@ -20,16 +25,15 @@ class Customer extends CollectionEntity
     }
 
     /**
+     * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     *
      * @deprecated Use getByParams()
      * @see getByParams()
-     *
-     * @param int   $page
-     * @param int   $limit
-     * @param array $filter
-     *
-     * @return Collection
      */
-    public function getAll($page = 1, $limit = 50, $filter = [])
+    public function getAll(int $page = 1, int $limit = 50, array $filter = [])
     {
         $raw = $this->client->get('admin/customers.json', array_merge(['page' => $page, 'limit' => $limit], $filter));
 
@@ -41,11 +45,12 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param array $params
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getByParams($params)
+    public function getByParams(array $params)
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/customers.json", $params);
 
@@ -57,13 +62,14 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param array $parms
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function searchByParams($parms)
+    public function searchByParams(array $params)
     {
-        $raw = $this->client->get("{$this->getApiBasePath()}/customers/search.json", $parms);
+        $raw = $this->client->get("{$this->getApiBasePath()}/customers/search.json", $params);
 
         $customers = array_map(function ($customer) {
             return $this->unserializeModel($customer, ShopifyCustomer::class);
@@ -73,11 +79,12 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param array $filter
-     *
      * @return int
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function count($filter = [])
+    public function count(array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/customers/count.json", $filter);
 
@@ -85,11 +92,12 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param $filter
-     *
      * @return int
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function countByParams($filter = [])
+    public function countByParams(array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/customers/count.json", $filter);
 
@@ -107,9 +115,10 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomer $customer
-     *
      * @return ShopifyCustomer | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function create(ShopifyCustomer $customer)
     {
@@ -121,9 +130,10 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomer $customer
-     *
      * @return ShopifyCustomer | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyCustomer $customer)
     {
@@ -135,9 +145,10 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomer $customer
+     * @return array
      *
-     * @return ShopifyCustomer | object
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifyCustomer $customer)
     {
@@ -145,13 +156,12 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param int   $shopifyCustomerId
-     * @param array $params
-     * @param array $body
-     *
      * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function sendAccountCreationInvite($shopifyCustomerId, $params = [], $body = [])
+    public function sendAccountCreationInvite(int $shopifyCustomerId, array $params = [], array $body = [])
     {
         return $this->client->post("{$this->getApiBasePath()}/customers/{$shopifyCustomerId}/send_invite.json", $params, $body);
     }

@@ -2,15 +2,24 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
+use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
+use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
+use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
+use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
+use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
 use BoldApps\ShopifyToolkit\Models\DiscountCode as ShopifyDiscountCode;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class DiscountCode extends Base
 {
     /**
-     * @param ShopifyDiscountCode $discountCode
-     *
      * @return ShopifyDiscountCode | object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(ShopifyDiscountCode $discountCode)
     {
@@ -26,18 +35,18 @@ class DiscountCode extends Base
      *
      * @return object
      */
-    public function createFromArray($array)
+    public function createFromArray(array $array)
     {
         return $this->unserializeModel($array, ShopifyDiscountCode::class);
     }
 
     /**
-     * @param int   $priceRuleId
-     * @param array $filter
-     *
      * @return Collection
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
-    public function getAllByPriceRuleId($priceRuleId, $filter = [])
+    public function getAllByPriceRuleId(int $priceRuleId, array $filter = [])
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/price_rules/$priceRuleId/discount_codes.json", $filter);
 
@@ -49,12 +58,12 @@ class DiscountCode extends Base
     }
 
     /**
-     * @param int $priceRuleId
-     * @param int $discountCodeId
-     *
      * @return ShopifyDiscountCode | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getByDiscountCodeId($priceRuleId, $discountCodeId)
+    public function getByDiscountCodeId(int $priceRuleId, int $discountCodeId)
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/price_rules/$priceRuleId/discount_codes/$discountCodeId.json");
 
@@ -62,11 +71,18 @@ class DiscountCode extends Base
     }
 
     /**
-     * @param string $discountCode
-     *
      * @return ShopifyDiscountCode | object | null
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     * @throws BadRequestException
+     * @throws NotAcceptableException
+     * @throws NotFoundException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
+     * @throws UnprocessableEntityException
      */
-    public function lookup($discountCode)
+    public function lookup(string $discountCode)
     {
         $result = null;
         $redirectLocation = $this->client->getRedirectLocation("{$this->getApiBasePath()}/discount_codes/lookup.json", ['code' => $discountCode]);
@@ -80,9 +96,10 @@ class DiscountCode extends Base
     }
 
     /**
-     * @param ShopifyDiscountCode $discountCode
-     *
      * @return object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyDiscountCode $discountCode)
     {
@@ -94,11 +111,10 @@ class DiscountCode extends Base
     }
 
     /**
-     * @param ShopifyDiscountCode $discountCode
-     *
-     * @return array
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function delete(ShopifyDiscountCode $discountCode)
+    public function delete(ShopifyDiscountCode $discountCode): array
     {
         $priceRuleId = $discountCode->getPriceRuleId();
 

@@ -2,15 +2,18 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Country as ShopifyCountry;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Country extends Base
 {
     /**
-     * @param ShopifyCountry $country
-     *
      * @return ShopifyCountry | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function create(ShopifyCountry $country)
     {
@@ -35,6 +38,9 @@ class Country extends Base
      * @param array $filter
      *
      * @return int
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function count($filter = [])
     {
@@ -44,12 +50,15 @@ class Country extends Base
     }
 
     /**
-     * @deprecated Use getByParams()
-     * @see getByParams()
-     *
      * @param array $filter
      *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     *
+     * @deprecated Use getByParams()
+     * @see getByParams()
      */
     public function getAll($filter = [])
     {
@@ -66,6 +75,9 @@ class Country extends Base
      * @param array $params
      *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getByParams($params = [])
     {
@@ -83,6 +95,9 @@ class Country extends Base
      * @param array $filter
      *
      * @return ShopifyCountry | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getById($countryId, $filter = [])
     {
@@ -92,9 +107,10 @@ class Country extends Base
     }
 
     /**
-     * @param ShopifyCountry $country
-     *
      * @return object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyCountry $country)
     {
@@ -105,9 +121,10 @@ class Country extends Base
     }
 
     /**
-     * @param ShopifyCountry $country
-     *
      * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifyCountry $country)
     {

@@ -79,9 +79,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->attributes;
     }
 
-    /**
-     * @param array $attributes
-     */
     public function setAttributes(array $attributes)
     {
         $this->attributes = $attributes;

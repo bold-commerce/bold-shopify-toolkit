@@ -2,14 +2,18 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Fulfillment as ShopifyFulfillment;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Collection;
 
 class Fulfillment extends Base
 {
     /**
-     * @param ShopifyFulfillment $fulfillment
-     *
      * @return ShopifyFulfillment | object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(ShopifyFulfillment $fulfillment)
     {
@@ -21,11 +25,12 @@ class Fulfillment extends Base
     }
 
     /**
-     * @param int $orderId
+     * @return ShopifyFulfillment | Collection
      *
-     * @return ShopifyFulfillment | \Illuminate\Support\Collection
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
-    public function get($orderId)
+    public function get(int $orderId)
     {
         $raw = $this->client->get("{$this->getApiBasePath()}/orders/{$orderId}/fulfillments.json", []);
         $results = collect();

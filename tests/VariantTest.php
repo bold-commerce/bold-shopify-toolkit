@@ -1,15 +1,16 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Variant as ShopifyVariant;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\Variant as VariantService;
+use PHPUnit\Framework\TestCase;
 
-class VariantTest extends \PHPUnit\Framework\TestCase
+class VariantTest extends TestCase
 {
     /** @var VariantService */
     private $variantService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
@@ -19,7 +20,7 @@ class VariantTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyVariantSerializesProperly()
+    public function shopifyVariantSerializesProperly()
     {
         $variantEntity = $this->createVariantEntity();
 
@@ -32,7 +33,7 @@ class VariantTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyVariantDeserializesProperly()
+    public function shopifyVariantDeserializesProperly()
     {
         $variantJson = $this->getVariantJson();
         $jsonArray = (array) json_decode($variantJson, true);
@@ -46,7 +47,7 @@ class VariantTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyVariantWithoutInventorySerializesProperly()
+    public function shopifyVariantWithoutInventorySerializesProperly()
     {
         $variantEntity = $this->createVariantEntity();
 

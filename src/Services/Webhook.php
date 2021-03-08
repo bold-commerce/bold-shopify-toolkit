@@ -2,15 +2,18 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Webhook as ShopifyWebhook;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Webhook extends Base
 {
     /**
-     * @param ShopifyWebhook $webhook
-     *
      * @return object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(ShopifyWebhook $webhook)
     {
@@ -23,6 +26,9 @@ class Webhook extends Base
 
     /**
      * @return Collection
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function get()
     {
@@ -36,9 +42,10 @@ class Webhook extends Base
     }
 
     /**
-     * @param ShopifyWebhook $webhook
-     *
      * @return object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyWebhook $webhook)
     {
@@ -50,9 +57,10 @@ class Webhook extends Base
     }
 
     /**
-     * @param ShopifyWebhook $webhook
+     * @return array
      *
-     * @return null|object
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifyWebhook $webhook)
     {

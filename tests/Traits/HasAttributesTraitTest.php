@@ -1,7 +1,7 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItem;
 use BoldApps\ShopifyToolkit\Models\Cart\Cart;
+use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItem;
 use BoldApps\ShopifyToolkit\Services\Cart as CartService;
 use BoldApps\ShopifyToolkit\Services\Client;
 
@@ -10,7 +10,7 @@ class HasAttributesTraitTest extends \PHPUnit\Framework\TestCase
     /** @var \BoldApps\ShopifyToolkit\Models\Customer */
     private $customerObject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $client = $this->createMock(Client::class);
         $this->cartService = new CartService($client);

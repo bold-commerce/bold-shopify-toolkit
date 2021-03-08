@@ -2,12 +2,13 @@
 
 namespace BoldApps\ShopifyToolkit\Support;
 
-use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
+use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
+use GuzzleHttp\Psr7\Response;
 
 class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
 {
-    /** @var \GuzzleHttp\Psr7\Response|null */
+    /** @var Response|null */
     private $response;
 
     /**
@@ -18,7 +19,7 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
     }
 
     /**
-     * @param \GuzzleHttp\Psr7\Response|null $response
+     * @param Response|null $response
      */
     public function afterRequest($response)
     {
@@ -26,7 +27,7 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
     }
 
     /**
-     * @param \GuzzleHttp\Psr7\Response|null $response
+     * @param Response|null $response
      */
     public function sleep($response)
     {
@@ -48,10 +49,7 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
         }
     }
 
-    /**
-     * @return int
-     */
-    private function getCallLimitPercent()
+    private function getCallLimitPercent(): int
     {
         $callLimitRatio = $this->getCallLimitRatio();
         $callsMade = $callLimitRatio[0];
@@ -64,10 +62,7 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
         return $callsMade / $callLimit * 100;
     }
 
-    /**
-     * @return array
-     */
-    private function getCallLimitRatio()
+    private function getCallLimitRatio(): array
     {
         if (null !== $this->response) {
             $callLimitHeader = $this->response->getHeader('http_x_shopify_shop_api_call_limit');
@@ -77,6 +72,6 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
             }
         }
 
-        return array(1, 100);
+        return [1, 100];
     }
 }

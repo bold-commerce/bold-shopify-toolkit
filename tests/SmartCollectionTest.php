@@ -4,8 +4,9 @@ use BoldApps\ShopifyToolkit\Models\SmartCollection as ShopifySmartCollection;
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\SmartCollection as SmartCollectionService;
 use BoldApps\ShopifyToolkit\Services\SmartCollectionRule as SmartCollectionRuleService;
+use PHPUnit\Framework\TestCase;
 
-class SmartCollectionTest extends \PHPUnit\Framework\TestCase
+class SmartCollectionTest extends TestCase
 {
     /** @var SmartCollectionService */
     private $smartCollectionService;
@@ -13,7 +14,7 @@ class SmartCollectionTest extends \PHPUnit\Framework\TestCase
     /** @var SmartCollectionRuleService */
     private $smartCollectionRuleService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
@@ -24,7 +25,7 @@ class SmartCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifySmartCollectionSerializesProperly()
+    public function shopifySmartCollectionSerializesProperly()
     {
         $smartCollectionEntity = $this->createSmartCollectionEntity();
 
@@ -37,7 +38,7 @@ class SmartCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifySmartCollectionDeserializesProperly()
+    public function shopifySmartCollectionDeserializesProperly()
     {
         $smartCollectionJson = $this->getSmartCollectionJson();
         $jsonArray = (array) json_decode($smartCollectionJson, true);

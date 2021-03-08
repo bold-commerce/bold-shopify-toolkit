@@ -2,16 +2,16 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Collect as ShopifyCollect;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Collect extends CollectionEntity
 {
     /**
      * Collect constructor.
-     *
-     * @param ShopifyClient $client
      */
     public function __construct(ShopifyClient $client)
     {
@@ -19,9 +19,10 @@ class Collect extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCollect $collect
-     *
      * @return ShopifyCollect | object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(ShopifyCollect $collect)
     {
@@ -36,6 +37,9 @@ class Collect extends CollectionEntity
      * @param int $id
      *
      * @return ShopifyCollect | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getById($id)
     {
@@ -48,6 +52,9 @@ class Collect extends CollectionEntity
      * @param array $params
      *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getByParams($params = [])
     {
@@ -64,6 +71,9 @@ class Collect extends CollectionEntity
      * @param array $params
      *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function count($params = [])
     {
@@ -73,9 +83,10 @@ class Collect extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCollect $collect
-     *
      * @return ShopifyCollect | array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifyCollect $collect)
     {

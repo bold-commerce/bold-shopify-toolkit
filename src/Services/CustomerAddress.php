@@ -2,19 +2,21 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Customer as ShopifyCustomer;
 use BoldApps\ShopifyToolkit\Models\CustomerAddress as ShopifyCustomerAddress;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class CustomerAddress extends Base
 {
     /**
-     * @param ShopifyCustomer $customer
-     * @param int             $id
-     *
      * @return ShopifyCustomerAddress|object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
-    public function getById($customer, $id)
+    public function getById(ShopifyCustomer $customer, int $id)
     {
         $customerId = $customer->getId();
         $raw = $this->client->get("{$this->getApiBasePath()}/customers/$customerId/addresses/$id.json");
@@ -23,17 +25,15 @@ class CustomerAddress extends Base
     }
 
     /**
-     * @deprecated Use getByParams()
-     * @see getByParams()
-     *
-     * @param ShopifyCustomer $customer
-     * @param int             $page
-     * @param int             $limit
-     * @param array           $filter
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
+     *
+     * @see getByParams()
+     * @deprecated Use getByParams()
      */
-    public function getAll($customer, $page = 1, $limit = 50, $filter = [])
+    public function getAll(ShopifyCustomer $customer, int $page = 1, int $limit = 50, array $filter = [])
     {
         $customerId = $customer->getId();
         $raw = $this->client->get("admin/customers/$customerId/addresses.json", array_merge(['page' => $page, 'limit' => $limit], $filter));
@@ -46,12 +46,12 @@ class CustomerAddress extends Base
     }
 
     /**
-     * @param ShopifyCustomer $customer
-     * @param array           $params
-     *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function getByParams($customer, $params = [])
+    public function getByParams(ShopifyCustomer $customer, array $params = [])
     {
         $customerId = $customer->getId();
         $raw = $this->client->get("{$this->getApiBasePath()}/customers/$customerId/addresses.json", $params);
@@ -64,12 +64,12 @@ class CustomerAddress extends Base
     }
 
     /**
-     * @param ShopifyCustomer        $customer
-     * @param ShopifyCustomerAddress $address
-     *
      * @return ShopifyCustomerAddress | object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
-    public function create($customer, ShopifyCustomerAddress $address)
+    public function create(ShopifyCustomer $customer, ShopifyCustomerAddress $address)
     {
         $customerId = $customer->getId();
         $serializedModel = ['address' => array_merge($this->serializeModel($address))];

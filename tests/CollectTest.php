@@ -3,13 +3,14 @@
 use BoldApps\ShopifyToolkit\Models\Collect as ShopifyCollect;
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\Collect as CollectService;
+use PHPUnit\Framework\TestCase;
 
-class CollectTest extends \PHPUnit\Framework\TestCase
+class CollectTest extends TestCase
 {
     /** @var CollectService */
     private $collectService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
@@ -19,7 +20,7 @@ class CollectTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyCollectSerializesProperly()
+    public function shopifyCollectSerializesProperly()
     {
         $collectEntity = $this->createCollectEntity();
 
@@ -32,7 +33,7 @@ class CollectTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      */
-    public function ShopifyCollectDeserializesProperly()
+    public function shopifyCollectDeserializesProperly()
     {
         $collectJson = $this->getCollectJson();
         $jsonArray = (array) json_decode($collectJson, true);

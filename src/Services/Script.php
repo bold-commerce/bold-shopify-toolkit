@@ -2,15 +2,18 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Models\Script as ShopifyScript;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class Script extends Base
 {
     /**
-     * @param ShopifyScript $script
-     *
      * @return object
+     *
+     * @throws ShopifyException
+     * @throws GuzzleException
      */
     public function create(ShopifyScript $script)
     {
@@ -23,6 +26,9 @@ class Script extends Base
 
     /**
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function get()
     {
@@ -39,6 +45,9 @@ class Script extends Base
      * @param $url
      *
      * @return Collection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function getByUrl($url)
     {
@@ -52,9 +61,10 @@ class Script extends Base
     }
 
     /**
-     * @param ShopifyScript $script
-     *
      * @return object
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function update(ShopifyScript $script)
     {
@@ -66,9 +76,10 @@ class Script extends Base
     }
 
     /**
-     * @param ShopifyScript $script
-     *
      * @return array
+     *
+     * @throws GuzzleException
+     * @throws ShopifyException
      */
     public function delete(ShopifyScript $script)
     {

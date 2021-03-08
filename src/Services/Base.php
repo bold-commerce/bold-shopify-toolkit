@@ -46,8 +46,6 @@ abstract class Base
     }
 
     /**
-     * @param Serializeable|null $entity
-     *
      * @return array
      */
     public function serializeModel(Serializeable $entity = null)
@@ -163,9 +161,6 @@ abstract class Base
         return $this->shopifyApiVersion;
     }
 
-    /**
-     * @param string $shopifyApiVersion
-     */
     public function setShopifyApiVersion(string $shopifyApiVersion)
     {
         $this->shopifyApiVersion = $shopifyApiVersion;

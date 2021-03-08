@@ -4,9 +4,9 @@ namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
 use BoldApps\ShopifyToolkit\Models\Asset as AssetModel;
+use BoldApps\ShopifyToolkit\Models\Theme as ShopifyTheme;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use BoldApps\ShopifyToolkit\Services\Theme as ShopifyThemeService;
-use BoldApps\ShopifyToolkit\Models\Theme as ShopifyTheme;
 use Illuminate\Support\Collection;
 
 class Asset extends Base
@@ -50,7 +50,7 @@ class Asset extends Base
     /**
      * @param string $key
      *
-     * @return null|object
+     * @return object|null
      *
      * @throws \Exception
      */
@@ -113,8 +113,6 @@ class Asset extends Base
     }
 
     /**
-     * @param AssetModel $asset
-     *
      * @return object
      */
     public function create(AssetModel $asset)
@@ -133,8 +131,6 @@ class Asset extends Base
     }
 
     /**
-     * @param AssetModel $asset
-     *
      * @return object
      */
     public function update(AssetModel $asset)
