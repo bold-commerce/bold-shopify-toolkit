@@ -76,6 +76,9 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
                 "prerequisite_quantity": 1,
                 "entitled_quantity": 2
             },
+            "prerequisite_to_entitlement_purchase": {
+              "prerequisite_amount": 20
+            },
             "title": "WINTER SALE"
         }';
     }
@@ -109,6 +112,7 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
             'prerequisite_quantity_range' => array('greater_than_or_equal_to' => 5),
             'prerequisite_shipping_price_range' => array('less_than_or_equal_to' => '17.0'),
             'prerequisite_to_entitlement_quantity_ratio' => array('prerequisite_quantity' => 1, 'entitled_quantity' => 2),
+            'prerequisite_to_entitlement_purchase' => array('prerequisite_amount' => 20),
             'title' => 'WINTER SALE',
         ];
     }
