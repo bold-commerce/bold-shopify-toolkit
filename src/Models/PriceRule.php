@@ -61,6 +61,9 @@ class PriceRule implements Serializeable, \JsonSerializable
     protected $prerequisiteToEntitlementQuantityRatio;
 
     /** @var array */
+    protected $prerequisiteToEntitlementPurchase;
+
+    /** @var array */
     protected $prerequisiteVariantIds;
 
     /** @var array */
@@ -358,11 +361,27 @@ class PriceRule implements Serializeable, \JsonSerializable
     }
 
     /**
+     * @return array
+     */
+    public function getPrerequisiteToEntitlementPurchase()
+    {
+        return $this->prerequisiteToEntitlementPurchase;
+    }
+
+    /**
      * @param array $prerequisiteToEntitlementQuantityRatio
      */
     public function setPrerequisiteToEntitlementQuantityRatio($prerequisiteToEntitlementQuantityRatio)
     {
         $this->prerequisiteToEntitlementQuantityRatio = $prerequisiteToEntitlementQuantityRatio;
+    }
+
+    /**
+     * @param array $prerequisiteToEntitlementPurchase
+     */
+    public function setPrerequisiteToEntitlementPurchase($prerequisiteToEntitlementPurchase)
+    {
+        $this->prerequisiteToEntitlementPurchase = $prerequisiteToEntitlementPurchase;
     }
 
     /**
