@@ -4,6 +4,7 @@ namespace BoldApps\Common\Test\Services\Shopify;
 
 use BoldApps\ShopifyToolkit\Contracts\ApplicationInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
+use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
 use BoldApps\ShopifyToolkit\Services\InstallAndLogin;
 use GuzzleHttp\Client as HttpClient;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +25,7 @@ class InstallAndLoginTest extends TestCase
     /** @var HttpClient */
     protected $client;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->applicationMock = $this->getMockBuilder(ApplicationInfo::class)->getMock();
         $this->shopBaseInfoMock = $this->getMockBuilder(ShopBaseInfo::class)->getMock();
@@ -74,11 +75,9 @@ class InstallAndLoginTest extends TestCase
         $this->assertEquals('abcdefedgegeadfasdfasdasf', $code);
     }
 
-    /**
-     * @expectedException \BoldApps\ShopifyToolkit\Exceptions\BadRequestException
-     */
     public function testGetAccessTokenBadToken()
     {
+        $this->expectException(BadRequestException::class);
         $mock = new MockHandler([
             new RequestException('Error Communicating with Server', new Request('GET', 'test'), new Response(400)),
         ]);

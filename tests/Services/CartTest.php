@@ -13,7 +13,7 @@ class CartTest extends TestCase
     /** @var HttpClient */
     private $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = $this->getMockBuilder(HttpClient::class)->getMock();
     }

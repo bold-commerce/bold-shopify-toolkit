@@ -14,7 +14,7 @@ class OrderTest extends TestCase
     /** @var OrderService */
     private $orderService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $client = $this->createMock(Client::class);
         $taxLineService = new TaxLineService($client);

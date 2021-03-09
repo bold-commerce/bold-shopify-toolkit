@@ -10,7 +10,7 @@ class HasAttributesTraitTest extends \PHPUnit\Framework\TestCase
     /** @var \BoldApps\ShopifyToolkit\Models\Customer */
     private $customerObject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $client = $this->createMock(Client::class);
         $this->cartService = new CartService($client);

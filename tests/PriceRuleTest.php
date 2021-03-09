@@ -3,13 +3,14 @@
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\PriceRule as ShopifyPriceRule;
 use BoldApps\ShopifyToolkit\Services\PriceRule as PriceRuleService;
+use PHPUnit\Framework\TestCase;
 
-class PriceRuleTest extends \PHPUnit\Framework\TestCase
+class PriceRuleTest extends TestCase
 {
     /** @var PriceRuleService */
     private $priceRuleService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);

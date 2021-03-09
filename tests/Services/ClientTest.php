@@ -35,7 +35,7 @@ class ClientTest extends TestCase
     /** @var string */
     protected $myShopifyDomain;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->myShopifyDomain = 'fight-club.myshopify.com';
 
@@ -373,7 +373,7 @@ class ClientTest extends TestCase
             [
                 'expected' => null,
                 'responseCode' => 303,
-                'responseHeader' => ['Location' => []],
+                'responseHeader' => ['Location' => null],
                 'exceptionClass' => null,
             ],
             [
