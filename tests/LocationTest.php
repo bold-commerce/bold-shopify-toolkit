@@ -61,6 +61,7 @@ class LocationTest extends \PHPUnit\Framework\TestCase
             "country_name": "United States",
             "province_code": "NY",
             "legacy": false,
+            "active": true,
             "admin_graphql_api_id": "gid://shopify/Location/487838322"
         }';
     }
@@ -82,6 +83,7 @@ class LocationTest extends \PHPUnit\Framework\TestCase
             'country_name' => 'United States',
             'province_code' => 'NY',
             'legacy' => false,
+            'active' => true,
             'admin_graphql_api_id' => 'gid://shopify/Location/487838322',
         ];
     }
