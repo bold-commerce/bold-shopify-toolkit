@@ -39,6 +39,9 @@ class Location implements Serializeable, \JsonSerializable
     /** @var bool */
     protected $legacy;
 
+    /** @var bool */
+    protected $active;
+
     /** @var string */
     protected $name;
 
@@ -215,6 +218,22 @@ class Location implements Serializeable, \JsonSerializable
     public function setLegacy($legacy)
     {
         $this->legacy = $legacy;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
     }
 
     /**
