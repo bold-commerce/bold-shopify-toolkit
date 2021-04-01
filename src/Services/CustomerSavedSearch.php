@@ -44,6 +44,18 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
+     * @param int $customerSavedSearchId
+     *
+     * @return CustomerSavedSearchModel | object
+     */
+    public function get($customerSavedSearchId)
+    {
+        $raw = $this->client->get("{$this->getApiBasePath()}/customer_saved_searches/$customerSavedSearchId.json");
+
+        return $this->unserializeModel($raw['customer_saved_search'], CustomerSavedSearchModel::class);
+    }
+
+    /**
      * @param CustomerSavedSearchModel $customerSavedSearch
      *
      * @return CustomerSavedSearchModel | object
