@@ -8,6 +8,7 @@ use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
 use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
@@ -167,8 +168,8 @@ class Client
     }
 
     /**
-     * @param Request       $request
-     * @param array         $cookies
+     * @param Request $request
+     * @param array $cookies
      * @param string | null $password
      *
      * $cookies is an array of SetCookie objects. see the Cart service for examples.
@@ -182,6 +183,7 @@ class Client
      * @throws UnprocessableEntityException
      * @throws TooManyRequestsException
      * @throws BadRequestException
+     * @throws ShopifyException
      */
     private function sendRequestToShopify(Request $request, array $cookies = [], $password = null)
     {
@@ -245,7 +247,7 @@ class Client
                 case 429:
                     throw (new TooManyRequestsException($e->getMessage()))->setResponse($response);
                 default:
-                    throw $e;
+                    throw (new ShopifyException($e->getMessage()))->setResponse($response);
             }
         } catch (\Exception $e) {
             $response = null;
@@ -268,6 +270,7 @@ class Client
      * @throws UnprocessableEntityException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws BadRequestException
+     * @throws ShopifyException
      */
     private function getRedirectResponseFromShopify(Request $request)
     {
