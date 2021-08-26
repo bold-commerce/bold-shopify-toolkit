@@ -270,7 +270,6 @@ class Client
      * @throws UnprocessableEntityException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws BadRequestException
-     * @throws ShopifyException
      */
     private function getRedirectResponseFromShopify(Request $request)
     {
