@@ -147,9 +147,6 @@ class Shop implements Serializeable, \JsonSerializable
     /** @var string */
     protected $setupRequired;
 
-    /** @var string */
-    protected $forceSsl;
-
     /**
      * @return string
      */
@@ -583,13 +580,5 @@ class Shop implements Serializeable, \JsonSerializable
     public function getSetupRequired()
     {
         return $this->setupRequired;
-    }
-
-    /**
-     * @return string
-     */
-    public function getForceSsl()
-    {
-        return $this->forceSsl;
     }
 }

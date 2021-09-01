@@ -34,7 +34,7 @@ class CustomerSavedSearchTest extends TestCase
               ],
         ];
 
-        $expectedUrl = 'admin/api/2020-04/customer_saved_searches/123456789.json';
+        $expectedUrl = 'admin/api/2021-07/customer_saved_searches/123456789.json';
         $expectedCustomerSavedSearch = new CustomerSavedSearch();
         $expectedCustomerSavedSearch->setId(123456789);
         $expectedCustomerSavedSearch->setName('Accepts Marketing');
