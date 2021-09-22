@@ -8,6 +8,7 @@ use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
 use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
@@ -182,6 +183,7 @@ class Client
      * @throws UnprocessableEntityException
      * @throws TooManyRequestsException
      * @throws BadRequestException
+     * @throws ShopifyException
      */
     private function sendRequestToShopify(Request $request, array $cookies = [], $password = null)
     {
@@ -245,7 +247,7 @@ class Client
                 case 429:
                     throw (new TooManyRequestsException($e->getMessage()))->setResponse($response);
                 default:
-                    throw $e;
+                    throw (new ShopifyException($e->getMessage()))->setResponse($response);
             }
         } catch (\Exception $e) {
             $response = null;
