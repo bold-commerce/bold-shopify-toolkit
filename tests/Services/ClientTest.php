@@ -5,8 +5,14 @@ namespace BoldApps\Common\Test\Services\Shopify;
 use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
+use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
+use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
+use BoldApps\ShopifyToolkit\Exceptions\SeverErrorException;
+use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
 use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
+use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
+use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
 use BoldApps\ShopifyToolkit\Services\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
@@ -71,10 +77,19 @@ class ClientTest extends TestCase
         }
     }
 
-    public function testClientWillThrowExceptionWhenGetting429()
+    /**
+     * @param int    $responseCode
+     * @param mixed  $exceptionClass
+     * @param string $header
+     * @param string $requestId
+     * @param string $expectedRequestId
+     *
+     * @dataProvider getClientExceptionsProvider
+     */
+    public function testClientWillThrowExceptions($responseCode, $exceptionClass, $header, $requestId, $expectedRequestId)
     {
         // mock http client
-        $mock = new MockHandler([new Response(429)]);
+        $mock = new MockHandler([new Response($responseCode, [$header => $requestId])]);
         $handler = HandlerStack::create($mock);
         $mockHttpClient = new \GuzzleHttp\Client(['handler' => $handler]);
 
@@ -82,14 +97,19 @@ class ClientTest extends TestCase
             ->method('getMyShopifyDomain')
             ->will($this->returnValue($this->myShopifyDomain));
 
-        $this->expectException(TooManyRequestsException::class);
+        $this->expectException($exceptionClass);
 
         $this->client = new Client(
             $this->mockShopBaseInfo, $this->mockShopAccessInfo, $mockHttpClient,
             $this->mockRequestHookInterface
         );
 
-        $this->client->get('admin/orders/1.json');
+        try {
+            $this->client->get('admin/orders/1.json');
+        } catch (ShopifyException $e) {
+            $this->assertEquals($expectedRequestId, $e->getRequestId());
+            throw $e;
+        }
     }
 
     /**
@@ -399,6 +419,152 @@ class ClientTest extends TestCase
                 'responseCode' => 303,
                 'responseHeader' => ['Location' => ["https://$shopDomain/$adminURI.json"]],
                 'exceptionClass' => null,
+            ],
+        ];
+    }
+
+    public static function getClientExceptionsProvider()
+    {
+        return [
+            [
+                'responseCode' => 400,
+                'exceptionClass' => BadRequestException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 400,
+                'exceptionClass' => BadRequestException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
+            ],
+            [
+                'responseCode' => 401,
+                'exceptionClass' => UnauthorizedException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 401,
+                'exceptionClass' => UnauthorizedException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
+            ],
+            [
+                'responseCode' => 404,
+                'exceptionClass' => NotFoundException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 404,
+                'exceptionClass' => NotFoundException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
+            ],
+            [
+                'responseCode' => 406,
+                'exceptionClass' => NotAcceptableException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 406,
+                'exceptionClass' => NotAcceptableException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
+            ],
+            [
+                'responseCode' => 422,
+                'exceptionClass' => UnprocessableEntityException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 422,
+                'exceptionClass' => UnprocessableEntityException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
+            ],
+            [
+                'responseCode' => 429,
+                'exceptionClass' => TooManyRequestsException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 429,
+                'exceptionClass' => TooManyRequestsException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
+            ],
+            [
+                'responseCode' => 500,
+                'exceptionClass' => SeverErrorException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 500,
+                'exceptionClass' => SeverErrorException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
+            ],
+            [
+                'responseCode' => 501,
+                'exceptionClass' => SeverErrorException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 501,
+                'exceptionClass' => SeverErrorException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
+            ],
+            [
+                'responseCode' => 502,
+                'exceptionClass' => SeverErrorException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 502,
+                'exceptionClass' => SeverErrorException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
+            ],
+            [
+                'responseCode' => 599,
+                'exceptionClass' => SeverErrorException::class,
+                'header' => 'x-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => 'testrequestid',
+            ],
+            [
+                'responseCode' => 599,
+                'exceptionClass' => SeverErrorException::class,
+                'header' => 'x-not-request-id',
+                'requestId' => 'testrequestid',
+                'expectedRequestId' => '',
             ],
         ];
     }

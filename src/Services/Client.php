@@ -8,6 +8,7 @@ use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
 use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
+use BoldApps\ShopifyToolkit\Exceptions\SeverErrorException;
 use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
@@ -182,6 +183,7 @@ class Client
      * @throws UnprocessableEntityException
      * @throws TooManyRequestsException
      * @throws BadRequestException
+     * @throws SeverErrorException
      */
     private function sendRequestToShopify(Request $request, array $cookies = [], $password = null)
     {
@@ -231,21 +233,40 @@ class Client
                 throw $e;
             }
 
-            switch ($response->getStatusCode()) {
-                case 400:
-                    throw (new BadRequestException($e->getMessage()))->setResponse($response);
-                case 401:
-                    throw (new UnauthorizedException($e->getMessage()))->setResponse($response);
-                case 404:
-                    throw (new NotFoundException($e->getMessage()))->setResponse($response);
-                case 406:
-                    throw (new NotAcceptableException($e->getMessage()))->setResponse($response);
-                case 422:
-                    throw (new UnprocessableEntityException($e->getMessage()))->setResponse($response);
-                case 429:
-                    throw (new TooManyRequestsException($e->getMessage()))->setResponse($response);
-                default:
-                    throw $e;
+            $statusCode = $response->getStatusCode();
+            $requestIdArray = $response->getHeader('x-request-id');
+            $requestId = !empty($requestIdArray) ? $requestIdArray[0] : '';
+
+            if (400 == $statusCode) {
+                $badRequestException = new BadRequestException($e->getMessage());
+                $badRequestException->setResponse($response)->setRequestId($requestId);
+                throw $badRequestException;
+            } elseif (401 == $statusCode) {
+                $unauthorizedException = new UnauthorizedException($e->getMessage());
+                $unauthorizedException->setResponse($response)->setRequestId($requestId);
+                throw $unauthorizedException;
+            } elseif (404 == $statusCode) {
+                $notFoundException = new NotFoundException($e->getMessage());
+                $notFoundException->setResponse($response)->setRequestId($requestId);
+                throw $notFoundException;
+            } elseif (406 == $statusCode) {
+                $notAcceptableException = new NotAcceptableException($e->getMessage());
+                $notAcceptableException->setResponse($response)->setRequestId($requestId);
+                throw $notAcceptableException;
+            } elseif (422 == $statusCode) {
+                $unprocessableEntityException = new UnprocessableEntityException($e->getMessage());
+                $unprocessableEntityException->setResponse($response)->setRequestId($requestId);
+                throw $unprocessableEntityException;
+            } elseif (429 == $statusCode) {
+                $tooManyRequestsException = new TooManyRequestsException($e->getMessage());
+                $tooManyRequestsException->setResponse($response)->setRequestId($requestId);
+                throw $tooManyRequestsException;
+            } elseif ($statusCode >= 500 && $statusCode <= 599) {
+                $severErrorException = new SeverErrorException($e->getMessage());
+                $severErrorException->setResponse($response)->setRequestId($requestId);
+                throw $severErrorException;
+            } else {
+                throw $e;
             }
         } catch (\Exception $e) {
             $response = null;
