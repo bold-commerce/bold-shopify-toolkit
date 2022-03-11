@@ -23,6 +23,7 @@ class Metafield implements Serializeable, \JsonSerializable
 
     /**
      * @deprecated use $type
+     *
      * @var string
      */
     protected $valueType;
