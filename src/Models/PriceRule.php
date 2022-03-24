@@ -46,6 +46,9 @@ class PriceRule implements Serializeable, \JsonSerializable
     protected $prerequisiteSavedSearchIds;
 
     /** @var array */
+    protected $customerSegmentPrerequisiteIds;
+
+    /** @var array */
     protected $prerequisiteCustomerIds;
 
     /** @var array */
@@ -286,6 +289,22 @@ class PriceRule implements Serializeable, \JsonSerializable
     public function setPrerequisiteSavedSearchIds($prerequisiteSavedSearchIds)
     {
         $this->prerequisiteSavedSearchIds = $prerequisiteSavedSearchIds;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCustomerSegmentPrerequisiteIds()
+    {
+        return $this->customerSegmentPrerequisiteIds;
+    }
+
+    /**
+     * @param array
+     */
+    public function setCustomerSegmentPrerequisiteIds($customerSegmentPrerequisiteIds)
+    {
+        $this->customerSegmentPrerequisiteIds = $customerSegmentPrerequisiteIds;
     }
 
     /**
