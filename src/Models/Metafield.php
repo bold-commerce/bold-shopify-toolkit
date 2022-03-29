@@ -21,13 +21,6 @@ class Metafield implements Serializeable, \JsonSerializable
     /** @var string */
     protected $value;
 
-    /**
-     * @deprecated use $type
-     *
-     * @var string
-     */
-    protected $valueType;
-
     /** @var string */
     protected $type;
 
@@ -111,31 +104,12 @@ class Metafield implements Serializeable, \JsonSerializable
     }
 
     /**
-     * @deprecated use $type
-     * @return string
-     */
-    public function getValueType()
-    {
-        return $this->valueType;
-    }
-
-    /**
-     * @deprecated use $type
-     * @param string $valueType
-     */
-    public function setValueType($valueType)
-    {
-        $this->valueType = $valueType;
-    }
-
-    /**
      * @return string
      */
     public function getType()
     {
         return $this->type;
     }
-
 
     /**
      * @param string $type
