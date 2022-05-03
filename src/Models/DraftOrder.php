@@ -91,6 +91,9 @@ class DraftOrder implements Serializeable, \JsonSerializable
     /** @var object */
     protected $appliedDiscount;
 
+    /** @var object */
+    protected $pollingInfo;
+
     /**
      * @return int
      */
@@ -505,5 +508,21 @@ class DraftOrder implements Serializeable, \JsonSerializable
     public function setAppliedDiscount($appliedDiscount)
     {
         $this->appliedDiscount = $appliedDiscount;
+    }
+
+    /**
+     * @return object
+     */
+    public function getPollingInfo()
+    {
+        return $this->pollingInfo;
+    }
+
+    /**
+     * @param object $pollingInfo
+     */
+    public function setPollingInfo($pollingInfo)
+    {
+        $this->pollingInfo = $pollingInfo;
     }
 }
