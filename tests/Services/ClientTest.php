@@ -203,6 +203,52 @@ class ClientTest extends TestCase
         $this->assertEquals($expectedHeaders, $sentHeaders);
     }
 
+    public function testClientWillApplyPollingInfoHeaders()
+    {
+        $headers = [
+            'retry-after' => [
+                0 => '4',
+            ],
+            'location' => [
+                0 => 'fight-club.myshopify.com/admin/draft_orders/123.json',
+            ],
+        ];
+
+        // mock http client
+        $mock = new MockHandler([
+            new Response(202, $headers, '{"draft_order":{"id":"123"}}'),
+        ]);
+
+        $container = [];
+        $history = Middleware::history($container);
+        $handlerStack = HandlerStack::create($mock);
+        // Add the history middleware to the handler stack.
+        $handlerStack->push($history);
+        $mockHttpClient = new \GuzzleHttp\Client(['handler' => $handlerStack]);
+
+        $this->mockShopBaseInfo->expects($this->any())
+            ->method('getMyShopifyDomain')
+            ->will($this->returnValue($this->myShopifyDomain));
+
+        $this->client = new Client(
+            $this->mockShopBaseInfo, $this->mockShopAccessInfo, $mockHttpClient,
+            $this->mockRequestHookInterface
+        );
+        $raw = $this->client->post(
+            'admin/draft_orders.json',
+            [],
+            '{}',
+            [],
+            null,
+            false,
+            []
+        );
+
+        $pollingInfo = $this->client->getPollingInfo();
+        $this->assertEquals($pollingInfo->getLocation(), $headers['location'][0]);
+        $this->assertEquals($pollingInfo->getRetryAfter(), $headers['retry-after'][0]);
+    }
+
     public function testPostWithPasswordSendsPasswordAuthenticationRequest()
     {
         $expectedHeaders = [
@@ -393,7 +439,7 @@ class ClientTest extends TestCase
             [
                 'expected' => null,
                 'responseCode' => 303,
-                'responseHeader' => ['Location' => []],
+                'responseHeader' => ['Location' => ['']],
                 'exceptionClass' => null,
             ],
             [

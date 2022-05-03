@@ -13,6 +13,7 @@ use BoldApps\ShopifyToolkit\Exceptions\TooManyRequestsException;
 use BoldApps\ShopifyToolkit\Exceptions\UnauthorizedException;
 use BoldApps\ShopifyToolkit\Exceptions\UnprocessableEntityException;
 use BoldApps\ShopifyToolkit\Models\PageInfo;
+use BoldApps\ShopifyToolkit\Models\PollingInfo;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\SetCookie;
 use GuzzleHttp\Exception\RequestException;
@@ -42,6 +43,9 @@ class Client
 
     /** @var PageInfo */
     protected $pageInfo;
+
+    /** @var PollingInfo */
+    protected $pollingInfo;
 
     /**
      * Client constructor.
@@ -226,6 +230,16 @@ class Client
             } else {
                 $this->clearPageInfo();
             }
+
+            $statusCode = $response->getStatusCode();
+            $pollingInfo = new PollingInfo();
+            if (202 === $statusCode) {
+                $location = $response->getHeader('location') ? $response->getHeader('location')[0] : '';
+                $retryAfter = $response->getHeader('retry-after') ? $response->getHeader('retry-after')[0] : '';
+                $pollingInfo->setLocation($location);
+                $pollingInfo->setRetryAfter($retryAfter);
+            }
+            $this->pollingInfo = $pollingInfo;
         } catch (RequestException $e) {
             $response = $e->getResponse();
 
@@ -445,5 +459,13 @@ class Client
     {
         $pageInfo = new PageInfo();
         $this->pageInfo = $pageInfo;
+    }
+
+    /**
+     * @return object
+     */
+    public function getPollingInfo()
+    {
+        return $this->pollingInfo;
     }
 }

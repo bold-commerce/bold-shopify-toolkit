@@ -118,7 +118,6 @@ class PriceRuleTest extends \PHPUnit\Framework\TestCase
             'entitled_collection_ids' => array(),
             'entitled_country_ids' => array(),
             'prerequisite_saved_search_ids' => array(),
-            'customer_segment_prerequisite_ids' => null,
             'prerequisite_customer_ids' => array(),
             'prerequisite_product_ids' => array(),
             'prerequisite_variant_ids' => array(),

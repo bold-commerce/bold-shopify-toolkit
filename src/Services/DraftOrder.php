@@ -2,17 +2,18 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Models\DraftOrder as ShopifyDraftOrder;
-use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
-use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
-use Illuminate\Support\Collection;
-use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
-use BoldApps\ShopifyToolkit\Services\DraftOrderLineItem as DraftOrderLineItemService;
-use BoldApps\ShopifyToolkit\Models\DraftOrderLineItem as DraftOrderLineItemModel;
-use BoldApps\ShopifyToolkit\Services\DraftOrderAppliedDiscount as AppliedDiscountService;
-use BoldApps\ShopifyToolkit\Models\DraftOrderAppliedDiscount as AppliedDiscountModel;
 use BoldApps\ShopifyToolkit\Models\Cart\Cart as CartModel;
+use BoldApps\ShopifyToolkit\Models\DraftOrder as ShopifyDraftOrder;
+use BoldApps\ShopifyToolkit\Models\DraftOrderAppliedDiscount as AppliedDiscountModel;
+use BoldApps\ShopifyToolkit\Models\DraftOrderLineItem as DraftOrderLineItemModel;
+use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
+use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
+use BoldApps\ShopifyToolkit\Services\DraftOrderAppliedDiscount as AppliedDiscountService;
+use BoldApps\ShopifyToolkit\Services\DraftOrderLineItem as DraftOrderLineItemService;
+use BoldApps\ShopifyToolkit\Services\PollingInfo as PollingInfoService;
+use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
 use BoldApps\ShopifyToolkit\Traits\TranslatePropertiesTrait;
+use Illuminate\Support\Collection;
 
 class DraftOrder extends Base
 {
@@ -27,6 +28,9 @@ class DraftOrder extends Base
     /** @var DraftOrderAppliedDiscount */
     protected $appliedDiscountService;
 
+    /** @var PollingInfoService */
+    protected $pollingInfoService;
+
     /** @var array */
     protected $unserializationExceptions = [
         'tax_lines' => 'unserializeTaxLines',
@@ -39,25 +43,29 @@ class DraftOrder extends Base
         'taxLines' => 'serializeTaxLines',
         'lineItems' => 'serializeLineItems',
         'appliedDiscount' => 'serializeAppliedDiscount',
+        'pollingInfo' => 'serializePollingInfo',
     ];
 
     /**
      * DraftOrder constructor.
      *
-     * @param Client                                    $client
-     * @param \BoldApps\ShopifyToolkit\Services\TaxLine $taxLineService
-     * @param DraftOrderLineItemService                 $draftOrderLineItemService
-     * @param DraftOrderAppliedDiscount                 $appliedDiscountService
+     * @param Client                    $client
+     * @param TaxLine                   $taxLineService
+     * @param DraftOrderLineItemService $draftOrderLineItemService
+     * @param DraftOrderAppliedDiscount $appliedDiscountService
+     * @param PollingInfoService        $pollingInfoService
      */
     public function __construct(
         ShopifyClient $client,
         TaxLineService $taxLineService,
         DraftOrderLineItemService $draftOrderLineItemService,
-        AppliedDiscountService $appliedDiscountService)
-    {
+        AppliedDiscountService $appliedDiscountService,
+        PollingInfoService $pollingInfoService
+        ) {
         $this->taxLineService = $taxLineService;
         $this->draftOrderLineItemService = $draftOrderLineItemService;
         $this->appliedDiscountService = $appliedDiscountService;
+        $this->pollingInfoService = $pollingInfoService;
         parent::__construct($client);
     }
 
@@ -71,7 +79,10 @@ class DraftOrder extends Base
         $serializedModel = ['draft_order' => $this->serializeModel($shopifyDraftOrder)];
         $raw = $this->client->post("{$this->getApiBasePath()}/draft_orders.json", [], $serializedModel);
 
-        return $this->unserializeModel($raw['draft_order'], ShopifyDraftOrder::class);
+        $result = $this->unserializeModel($raw['draft_order'], ShopifyDraftOrder::class);
+        $result->setPollingInfo($this->client->getPollingInfo());
+
+        return $result;
     }
 
     /**
@@ -84,6 +95,7 @@ class DraftOrder extends Base
         $raw = $this->client->get("{$this->getApiBasePath()}/draft_orders/$id.json");
 
         $result = $this->unserializeModel($raw['draft_order'], ShopifyDraftOrder::class);
+        $result->setPollingInfo($this->client->getPollingInfo());
 
         return $result;
     }
@@ -235,5 +247,19 @@ class DraftOrder extends Base
         }
 
         return $this->appliedDiscountService->serializeModel($appliedDiscount);
+    }
+
+    /**
+     * @param $pollingInfo
+     *
+     * @return array
+     */
+    protected function serializePollingInfo($pollingInfo)
+    {
+        if (null === $pollingInfo) {
+            return;
+        }
+
+        return $this->pollingInfoService->serializeModel($pollingInfo);
     }
 }

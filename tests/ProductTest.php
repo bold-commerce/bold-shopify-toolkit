@@ -436,7 +436,6 @@ class ProductTest extends \PHPUnit\Framework\TestCase
                 [
                     'key' => 'new',
                     'value' => 'newvalue',
-                    'value_type' => 'string',
                     'namespace' => 'global',
                 ],
             ],
