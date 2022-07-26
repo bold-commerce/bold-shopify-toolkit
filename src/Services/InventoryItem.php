@@ -53,6 +53,7 @@ class InventoryItem extends CollectionEntity
     {
         $serializedModel = ['inventory_item' => $this->serializeModel($inventoryItem)];
         $raw = $this->client->put("{$this->getApiBasePath()}/inventory_items/{$inventoryItem->getId()}.json", [], $serializedModel);
+
         return $this->unserializeModel($raw['inventory_item'], ShopifyInventoryItem::class);
     }
 }
