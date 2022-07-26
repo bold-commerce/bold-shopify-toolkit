@@ -217,5 +217,4 @@ class InventoryItem implements Serializeable, \JsonSerializable
     {
         $this->updatedAt = $updatedAt;
     }
-
 }
