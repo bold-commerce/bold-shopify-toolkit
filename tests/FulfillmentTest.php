@@ -3,13 +3,14 @@
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Fulfillment as ShopifyFulfillment;
 use BoldApps\ShopifyToolkit\Services\Fulfillment as FulfillmentService;
+use PHPUnit\Framework\TestCase;
 
-class FulfillmentTest extends \PHPUnit\Framework\TestCase
+class FulfillmentTest extends TestCase
 {
     /** @var FulfillmentService */
     private $fulfillmentService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);

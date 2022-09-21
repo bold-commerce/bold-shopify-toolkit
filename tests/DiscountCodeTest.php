@@ -3,13 +3,14 @@
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\DiscountCode as ShopifyDiscountCode;
 use BoldApps\ShopifyToolkit\Services\DiscountCode as DiscountCodeService;
+use PHPUnit\Framework\TestCase;
 
-class DiscountCodeTest extends \PHPUnit\Framework\TestCase
+class DiscountCodeTest extends TestCase
 {
     /** @var DiscountCodeService */
     private $discountCodeService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);

@@ -13,7 +13,7 @@ class RefundTest extends TestCase
     /** @var RefundService */
     private $refundService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $client = $this->createMock(\BoldApps\ShopifyToolkit\Services\Client::class);
         $refundLineItemService = new \BoldApps\ShopifyToolkit\Services\RefundLineItem($client);

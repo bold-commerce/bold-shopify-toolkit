@@ -3,13 +3,14 @@
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Variant as ShopifyVariant;
 use BoldApps\ShopifyToolkit\Services\Variant as VariantService;
+use PHPUnit\Framework\TestCase;
 
-class VariantTest extends \PHPUnit\Framework\TestCase
+class VariantTest extends TestCase
 {
     /** @var VariantService */
     private $variantService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);

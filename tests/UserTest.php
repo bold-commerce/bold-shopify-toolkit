@@ -2,13 +2,14 @@
 
 use BoldApps\ShopifyToolkit\Models\User as ShopifyUser;
 use BoldApps\ShopifyToolkit\Services\User as UserService;
+use PHPUnit\Framework\TestCase;
 
-class UserTest extends \PHPUnit\Framework\TestCase
+class UserTest extends TestCase
 {
     /** @var UserService */
     private $userService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var \BoldApps\ShopifyToolkit\Services\Client $client */
         $client = $this->createMock(\BoldApps\ShopifyToolkit\Services\Client::class);

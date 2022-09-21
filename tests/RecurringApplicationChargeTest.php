@@ -3,13 +3,14 @@
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\RecurringApplicationCharge;
 use BoldApps\ShopifyToolkit\Services\RecurringApplicationCharge as RecurringApplicationChargeService;
+use PHPUnit\Framework\TestCase;
 
-class RecurringApplicationChargeTest extends \PHPUnit\Framework\TestCase
+class RecurringApplicationChargeTest extends TestCase
 {
     /** @var RecurringApplicationChargeService */
     private $recurringApplicationChargeService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);

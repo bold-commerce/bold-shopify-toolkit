@@ -41,7 +41,7 @@ class ClientTest extends TestCase
     /** @var string */
     protected $myShopifyDomain;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->myShopifyDomain = 'fight-club.myshopify.com';
 
