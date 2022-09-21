@@ -7,12 +7,12 @@ use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
 use BoldApps\ShopifyToolkit\Services\InstallAndLogin;
 use GuzzleHttp\Client as HttpClient;
-use PHPUnit\Framework\TestCase;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\TestCase;
 
 class InstallAndLoginTest extends TestCase
 {

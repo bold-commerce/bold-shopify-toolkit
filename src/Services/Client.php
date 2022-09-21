@@ -2,9 +2,9 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
-use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
 use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
+use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
+use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
 use BoldApps\ShopifyToolkit\Exceptions\BadRequestException;
 use BoldApps\ShopifyToolkit\Exceptions\NotAcceptableException;
 use BoldApps\ShopifyToolkit\Exceptions\NotFoundException;
@@ -17,9 +17,9 @@ use BoldApps\ShopifyToolkit\Models\PollingInfo;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\SetCookie;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Header;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
-use function GuzzleHttp\Psr7\parse_header;
 
 class Client
 {
@@ -49,11 +49,6 @@ class Client
 
     /**
      * Client constructor.
-     *
-     * @param ShopBaseInfo         $shopBaseInfo
-     * @param ShopAccessInfo       $shopAccessInfo
-     * @param GuzzleClient         $client
-     * @param RequestHookInterface $requestHookInterface
      */
     public function __construct(ShopBaseInfo $shopBaseInfo, ShopAccessInfo $shopAccessInfo, GuzzleClient $client, RequestHookInterface $requestHookInterface)
     {
@@ -66,7 +61,6 @@ class Client
     /**
      * @param $path
      * @param array  $params
-     * @param array  $cookies
      * @param string $password
      * @param bool   $frontendApi
      *
@@ -108,7 +102,6 @@ class Client
     /**
      * @param $path
      * @param array  $params
-     * @param array  $cookies
      * @param string $password
      * @param bool   $frontendApi
      *
@@ -172,9 +165,7 @@ class Client
     }
 
     /**
-     * @param Request       $request
-     * @param array         $cookies
-     * @param string | null $password
+     * @param string|null $password
      *
      * $cookies is an array of SetCookie objects. see the Cart service for examples.
      * If password is set it will attempt to authenticate with the frontend /password route first.
@@ -214,7 +205,7 @@ class Client
             }
 
             foreach ($cookies as $cookie) {
-                //set the cookies that were passed in for the next request
+                // set the cookies that were passed in for the next request
                 $cookie->setDomain($domain);
                 $cookieJar->setCookie($cookie);
             }
@@ -292,9 +283,7 @@ class Client
     }
 
     /**
-     * @param Request $request
-     *
-     * @return null|string
+     * @return string|null
      *
      * @throws NotAcceptableException
      * @throws NotFoundException
@@ -368,7 +357,7 @@ class Client
     /**
      * @param string $location
      *
-     * @return null|string
+     * @return string|null
      */
     private function validateRedirectLocation($location)
     {
@@ -408,7 +397,7 @@ class Client
         $next = null;
         $prev = null;
 
-        $links = parse_header($linkHeader);
+        $links = Header::parse($linkHeader);
         foreach ($links as $link) {
             $rel = isset($link['rel']) ? $link['rel'] : null;
             if ('previous' == $rel) {

@@ -38,7 +38,7 @@ class InventoryLevel extends CollectionEntity
      * @param int $inventoryItemId
      * @param int $availableAdjustment
      *
-     * @return ShopifyInventoryLevel | object
+     * @return ShopifyInventoryLevel|object
      */
     public function adjust($locationId, $inventoryItemId, $availableAdjustment)
     {
@@ -57,7 +57,7 @@ class InventoryLevel extends CollectionEntity
      * @param int  $available
      * @param bool $disconnectIfNecessary
      *
-     * @return ShopifyInventoryLevel | object
+     * @return ShopifyInventoryLevel|object
      */
     public function set($locationId, $inventoryItemId, $available, $disconnectIfNecessary = false)
     {
@@ -76,7 +76,7 @@ class InventoryLevel extends CollectionEntity
      * @param int  $inventoryItemId
      * @param bool $relocateIfNecessary
      *
-     * @return ShopifyInventoryLevel | object
+     * @return ShopifyInventoryLevel|object
      */
     public function connect($locationId, $inventoryItemId, $relocateIfNecessary = false)
     {
@@ -90,9 +90,7 @@ class InventoryLevel extends CollectionEntity
     }
 
     /**
-     * @param ShopifyInventoryLevel $inventoryLevel
-     *
-     * @return ShopifyInventoryLevel | object
+     * @return ShopifyInventoryLevel|object
      */
     public function delete(ShopifyInventoryLevel $inventoryLevel)
     {

@@ -7,9 +7,9 @@ use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 
 abstract class Base
 {
-    const BASE_API_PATH = 'admin/api/%s';
+    public const BASE_API_PATH = 'admin/api/%s';
 
-    const DEFAULT_API_VERSION = '2021-07';
+    public const DEFAULT_API_VERSION = '2021-07';
 
     /** @var string */
     protected $shopifyApiVersion = self::DEFAULT_API_VERSION;
@@ -46,8 +46,6 @@ abstract class Base
     }
 
     /**
-     * @param Serializeable|null $entity
-     *
      * @return array
      */
     public function serializeModel(Serializeable $entity = null)
@@ -111,7 +109,7 @@ abstract class Base
                 $property->setAccessible(true);
                 $property->setValue($instance, $value);
             } catch (\ReflectionException $e) {
-                //dump($e);
+                // dump($e);
             }
         }
 
@@ -163,9 +161,6 @@ abstract class Base
         return $this->shopifyApiVersion;
     }
 
-    /**
-     * @param string $shopifyApiVersion
-     */
     public function setShopifyApiVersion(string $shopifyApiVersion)
     {
         $this->shopifyApiVersion = $shopifyApiVersion;

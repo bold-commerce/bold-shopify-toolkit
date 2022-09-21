@@ -8,9 +8,7 @@ use Illuminate\Support\Collection;
 class DiscountCode extends Base
 {
     /**
-     * @param ShopifyDiscountCode $discountCode
-     *
-     * @return ShopifyDiscountCode | object
+     * @return ShopifyDiscountCode|object
      */
     public function create(ShopifyDiscountCode $discountCode)
     {
@@ -52,7 +50,7 @@ class DiscountCode extends Base
      * @param int $priceRuleId
      * @param int $discountCodeId
      *
-     * @return ShopifyDiscountCode | object
+     * @return ShopifyDiscountCode|object
      */
     public function getByDiscountCodeId($priceRuleId, $discountCodeId)
     {
@@ -64,7 +62,7 @@ class DiscountCode extends Base
     /**
      * @param string $discountCode
      *
-     * @return ShopifyDiscountCode | object | null
+     * @return ShopifyDiscountCode|object|null
      */
     public function lookup($discountCode)
     {
@@ -80,8 +78,6 @@ class DiscountCode extends Base
     }
 
     /**
-     * @param ShopifyDiscountCode $discountCode
-     *
      * @return object
      */
     public function update(ShopifyDiscountCode $discountCode)
@@ -94,8 +90,6 @@ class DiscountCode extends Base
     }
 
     /**
-     * @param ShopifyDiscountCode $discountCode
-     *
      * @return array
      */
     public function delete(ShopifyDiscountCode $discountCode)

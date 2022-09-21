@@ -7,9 +7,7 @@ use BoldApps\ShopifyToolkit\Models\Fulfillment as ShopifyFulfillment;
 class Fulfillment extends Base
 {
     /**
-     * @param ShopifyFulfillment $fulfillment
-     *
-     * @return ShopifyFulfillment | object
+     * @return ShopifyFulfillment|object
      */
     public function create(ShopifyFulfillment $fulfillment)
     {
@@ -23,7 +21,7 @@ class Fulfillment extends Base
     /**
      * @param int $orderId
      *
-     * @return ShopifyFulfillment | \Illuminate\Support\Collection
+     * @return ShopifyFulfillment|\Illuminate\Support\Collection
      */
     public function get($orderId)
     {

@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 class RecurringApplicationCharge extends Base
 {
     /**
-     * @param ShopifyRecurringApplicationCharge $recurringApplicationCharge
-     *
      * @return ShopifyRecurringApplicationCharge \ object
      */
     public function create(ShopifyRecurringApplicationCharge $recurringApplicationCharge)
@@ -47,8 +45,6 @@ class RecurringApplicationCharge extends Base
     }
 
     /**
-     * @param ShopifyRecurringApplicationCharge $recurringApplicationCharge
-     *
      * @return ShopifyRecurringApplicationCharge \ object
      */
     public function activate(ShopifyRecurringApplicationCharge $recurringApplicationCharge)
@@ -62,8 +58,6 @@ class RecurringApplicationCharge extends Base
     }
 
     /**
-     * @param ShopifyRecurringApplicationCharge $recurringApplicationCharge
-     *
      * @return array
      */
     public function delete(ShopifyRecurringApplicationCharge $recurringApplicationCharge)
@@ -74,7 +68,7 @@ class RecurringApplicationCharge extends Base
     /**
      * @param $array
      *
-     * @return ShopifyRecurringApplicationCharge | object
+     * @return ShopifyRecurringApplicationCharge|object
      */
     public function createFromArray($array)
     {

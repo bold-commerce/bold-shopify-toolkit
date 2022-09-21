@@ -2,16 +2,13 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
 use BoldApps\ShopifyToolkit\Models\Image as ShopifyImage;
+use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
 use Illuminate\Support\Collection;
 
 class Image extends Base
 {
     /**
-     * @param ShopifyProduct $product
-     * @param ShopifyImage   $image
-     *
      * @return object
      */
     public function createImageForProduct(ShopifyProduct $product, ShopifyImage $image)
@@ -26,7 +23,7 @@ class Image extends Base
     /**
      * @param $array
      *
-     * @return ShopifyImage | object
+     * @return ShopifyImage|object
      */
     public function createFromArray($array)
     {
@@ -34,8 +31,7 @@ class Image extends Base
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param array          $params
+     * @param array $params
      *
      * @return Collection
      */
@@ -51,8 +47,7 @@ class Image extends Base
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param                $id
+     * @param $id
      *
      * @return ShopifyImage|object
      */
@@ -64,9 +59,6 @@ class Image extends Base
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param ShopifyImage   $image
-     *
      * @return array
      */
     public function deleteProductImage(ShopifyProduct $product, ShopifyImage $image)

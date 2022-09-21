@@ -9,7 +9,7 @@ class Metafield extends Base
     /**
      * @param array $array
      *
-     * @return ShopifyMetafield | object
+     * @return ShopifyMetafield|object
      */
     public function createFromArray($array)
     {

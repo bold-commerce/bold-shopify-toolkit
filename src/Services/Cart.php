@@ -3,8 +3,8 @@
 namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Exceptions\ShopifyException;
-use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItemModel;
 use BoldApps\ShopifyToolkit\Models\Cart\Cart as CartModel;
+use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItemModel;
 use BoldApps\ShopifyToolkit\Models\Option as OptionModel;
 use GuzzleHttp\Cookie\SetCookie;
 use Illuminate\Support\Collection;
@@ -62,7 +62,7 @@ class Cart extends Base
         }
 
         if (count($cart->getAttributes())) {
-            //can't just set attributes to an empty array, gotta set the values to blank
+            // can't just set attributes to an empty array, gotta set the values to blank
             $clearedAttributes = $cart->getAttributes();
             foreach ($clearedAttributes as &$attribute) {
                 $attribute = '';
@@ -82,9 +82,8 @@ class Cart extends Base
     }
 
     /**
-     * @param CartModel     $cart
-     * @param string        $cartToken
-     * @param string | null $password
+     * @param string      $cartToken
+     * @param string|null $password
      *
      * @return object
      */

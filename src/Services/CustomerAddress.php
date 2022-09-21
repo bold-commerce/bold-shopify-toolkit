@@ -64,10 +64,9 @@ class CustomerAddress extends Base
     }
 
     /**
-     * @param ShopifyCustomer        $customer
-     * @param ShopifyCustomerAddress $address
+     * @param ShopifyCustomer $customer
      *
-     * @return ShopifyCustomerAddress | object
+     * @return ShopifyCustomerAddress|object
      */
     public function create($customer, ShopifyCustomerAddress $address)
     {

@@ -2,11 +2,11 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
+use BoldApps\ShopifyToolkit\Models\SmartCollection as ShopifySmartCollection;
 use BoldApps\ShopifyToolkit\Models\SmartCollectionRule as ShopifySmartCollectionRule;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
-use BoldApps\ShopifyToolkit\Models\SmartCollection as ShopifySmartCollection;
 use BoldApps\ShopifyToolkit\Services\SmartCollectionRule as SmartCollectionRuleService;
-use BoldApps\ShopifyToolkit\Models\Product as ShopifyProduct;
 use Illuminate\Support\Collection;
 
 class SmartCollection extends CollectionEntity
@@ -17,8 +17,7 @@ class SmartCollection extends CollectionEntity
     /**
      * SmartCollection constructor.
      *
-     * @param Client                     $client
-     * @param SmartCollectionRuleService $ruleService
+     * @param Client $client
      */
     public function __construct(
         ShopifyClient $client,
@@ -43,8 +42,7 @@ class SmartCollection extends CollectionEntity
     ];
 
     /**
-     * @param ShopifySmartCollection $collection
-     * @param bool                   $publish
+     * @param bool $publish
      *
      * @return object
      */
@@ -62,7 +60,7 @@ class SmartCollection extends CollectionEntity
     /**
      * @param $array
      *
-     * @return ShopifySmartCollection | object
+     * @return ShopifySmartCollection|object
      */
     public function createFromArray($array)
     {
@@ -137,8 +135,6 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param ShopifySmartCollection $collection
-     *
      * @return object
      */
     public function update(ShopifySmartCollection $collection)
@@ -151,8 +147,6 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param ShopifySmartCollection $collection
-     *
      * @return array
      */
     public function delete(ShopifySmartCollection $collection)

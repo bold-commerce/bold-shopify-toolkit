@@ -21,7 +21,7 @@ class InventoryItem extends CollectionEntity
      * @param       $id
      * @param array $filter
      *
-     * @return ShopifyInventoryItem | object
+     * @return ShopifyInventoryItem|object
      */
     public function getById($id, $filter = [])
     {
@@ -47,7 +47,7 @@ class InventoryItem extends CollectionEntity
     }
 
     /**
-     * @return ShopifyInventoryItem | object
+     * @return ShopifyInventoryItem|object
      */
     public function update(ShopifyInventoryItem $inventoryItem)
     {

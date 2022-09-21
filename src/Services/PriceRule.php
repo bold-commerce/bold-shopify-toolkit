@@ -10,7 +10,7 @@ class PriceRule extends CollectionEntity
     /**
      * @param $id
      *
-     * @return ShopifyPriceRule | object
+     * @return ShopifyPriceRule|object
      */
     public function getById($id)
     {
@@ -57,9 +57,7 @@ class PriceRule extends CollectionEntity
     }
 
     /**
-     * @param ShopifyPriceRule $priceRule
-     *
-     * @return ShopifyPriceRule | object
+     * @return ShopifyPriceRule|object
      */
     public function create(ShopifyPriceRule $priceRule)
     {
@@ -81,9 +79,7 @@ class PriceRule extends CollectionEntity
     }
 
     /**
-     * @param ShopifyPriceRule $priceRule
-     *
-     * @return ShopifyPriceRule | object
+     * @return ShopifyPriceRule|object
      */
     public function update(ShopifyPriceRule $priceRule)
     {
@@ -95,9 +91,7 @@ class PriceRule extends CollectionEntity
     }
 
     /**
-     * @param ShopifyPriceRule $priceRule
-     *
-     * @return ShopifyPriceRule | object
+     * @return ShopifyPriceRule|object
      */
     public function delete(ShopifyPriceRule $priceRule)
     {

@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 class Webhook extends Base
 {
     /**
-     * @param ShopifyWebhook $webhook
-     *
      * @return object
      */
     public function create(ShopifyWebhook $webhook)
@@ -36,8 +34,6 @@ class Webhook extends Base
     }
 
     /**
-     * @param ShopifyWebhook $webhook
-     *
      * @return object
      */
     public function update(ShopifyWebhook $webhook)
@@ -50,9 +46,7 @@ class Webhook extends Base
     }
 
     /**
-     * @param ShopifyWebhook $webhook
-     *
-     * @return null|object
+     * @return object|null
      */
     public function delete(ShopifyWebhook $webhook)
     {

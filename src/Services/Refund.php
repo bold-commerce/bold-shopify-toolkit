@@ -52,9 +52,7 @@ class Refund extends Base
     ];
 
     /**
-     * @param ShopifyRefund $refund
-     *
-     * @return ShopifyRefund | object
+     * @return ShopifyRefund|object
      */
     public function create(ShopifyRefund $refund)
     {
@@ -66,9 +64,7 @@ class Refund extends Base
     }
 
     /**
-     * @param ShopifyRefund $refund
-     *
-     * @return ShopifyRefund | object
+     * @return ShopifyRefund|object
      */
     public function calculate(ShopifyRefund $refund)
     {
@@ -82,7 +78,7 @@ class Refund extends Base
     /**
      * @param $array
      *
-     * @return ShopifyRefund | object
+     * @return ShopifyRefund|object
      */
     public function createFromArray($array)
     {

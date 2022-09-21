@@ -23,10 +23,6 @@ class InstallAndLogin
 
     /**
      * InstallAndLogin constructor.
-     *
-     * @param ApplicationInfo $applicationInfo
-     * @param ShopBaseInfo    $shopBaseInfo
-     * @param HttpClient      $client
      */
     public function __construct(
         ApplicationInfo $applicationInfo,
@@ -115,7 +111,7 @@ class InstallAndLogin
             return false;
         }
 
-        $dataString = array();
+        $dataString = [];
 
         foreach ($query as $key => $value) {
             if ('hmac' == $key) {

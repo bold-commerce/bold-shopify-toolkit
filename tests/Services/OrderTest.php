@@ -5,8 +5,8 @@ namespace BoldApps\ShopifyToolkit\Test\Services;
 use BoldApps\ShopifyToolkit\Models\CancelOrder;
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\Order as OrderService;
-use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
 use BoldApps\ShopifyToolkit\Services\OrderLineItem as OrderLineItemService;
+use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
 use PHPUnit\Framework\TestCase;
 
 class OrderTest extends TestCase

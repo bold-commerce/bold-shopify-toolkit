@@ -1,4 +1,4 @@
-FROM circleci/php:7.4.15 as base
+FROM cimg/php:8.1.9 as base
 
 FROM base
 ARG cache=1

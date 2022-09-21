@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 class Script extends Base
 {
     /**
-     * @param ShopifyScript $script
-     *
      * @return object
      */
     public function create(ShopifyScript $script)
@@ -52,8 +50,6 @@ class Script extends Base
     }
 
     /**
-     * @param ShopifyScript $script
-     *
      * @return object
      */
     public function update(ShopifyScript $script)
@@ -66,8 +62,6 @@ class Script extends Base
     }
 
     /**
-     * @param ShopifyScript $script
-     *
      * @return array
      */
     public function delete(ShopifyScript $script)

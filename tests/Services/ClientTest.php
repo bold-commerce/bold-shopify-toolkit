@@ -29,13 +29,13 @@ class ClientTest extends TestCase
     /** @var Client */
     protected $client;
 
-    /** @var Mock | ShopBaseInfo */
+    /** @var Mock|ShopBaseInfo */
     protected $mockShopBaseInfo;
 
-    /** @var Mock | ShopAccessInfo */
+    /** @var Mock|ShopAccessInfo */
     protected $mockShopAccessInfo;
 
-    /** @var Mock | RequestHookInterface */
+    /** @var Mock|RequestHookInterface */
     protected $mockRequestHookInterface;
 
     /** @var string */
@@ -113,7 +113,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @param null|string $expected
+     * @param string|null $expected
      * @param int         $responseCode
      * @param array       $responseHeader
      * @param mixed       $exceptionClass
@@ -197,7 +197,7 @@ class ClientTest extends TestCase
         /* @var Request $sentRequest */
         $sentRequest = $container[0]['request'];
         $sentHeaders = $sentRequest->getHeaders();
-        //User agent varies per system.
+        // User agent varies per system.
         unset($sentHeaders['User-Agent']);
 
         $this->assertEquals($expectedHeaders, $sentHeaders);
@@ -290,7 +290,7 @@ class ClientTest extends TestCase
         /* @var Request $sentRequest */
         $sentRequest = $container[0]['request'];
         $sentHeaders = $sentRequest->getHeaders();
-        //User agent varies per system.
+        // User agent varies per system.
         unset($sentHeaders['User-Agent']);
 
         $this->assertEquals($expectedHeaders, $sentHeaders);
@@ -321,7 +321,7 @@ class ClientTest extends TestCase
             $this->mockRequestHookInterface
         );
 
-        $this->callMethod($this->client, 'parsePageInfo', array($linkHeader));
+        $this->callMethod($this->client, 'parsePageInfo', [$linkHeader]);
 
         $pageInfo = $this->client->getPageInfo();
 
@@ -360,7 +360,7 @@ class ClientTest extends TestCase
             $this->mockRequestHookInterface
         );
 
-        $parsedLinks = $this->callMethod($this->client, 'parseHeader', array($linkHeader));
+        $parsedLinks = $this->callMethod($this->client, 'parseHeader', [$linkHeader]);
 
         $this->assertEquals($expectedHeaderLinks, $parsedLinks);
     }
@@ -368,7 +368,6 @@ class ClientTest extends TestCase
     /**
      * @param object $obj
      * @param string $name
-     * @param array  $args
      *
      * @return mixed
      *

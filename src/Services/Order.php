@@ -4,12 +4,12 @@ namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Models\CancelOrder;
 use BoldApps\ShopifyToolkit\Models\Order as ShopifyOrder;
-use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
 use BoldApps\ShopifyToolkit\Models\OrderLineItem as OrderLineItemModel;
-use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
-use BoldApps\ShopifyToolkit\Services\OrderLineItem as OrderLineItemService;
-use Illuminate\Support\Collection;
+use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
+use BoldApps\ShopifyToolkit\Services\OrderLineItem as OrderLineItemService;
+use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
+use Illuminate\Support\Collection;
 
 class Order extends CollectionEntity
 {
@@ -34,8 +34,7 @@ class Order extends CollectionEntity
     /**
      * Order constructor.
      *
-     * @param Client         $client
-     * @param TaxLineService $taxLineService
+     * @param Client $client
      */
     public function __construct(ShopifyClient $client, TaxLineService $taxLineService, OrderLineItemService $lineItemService)
     {
@@ -119,7 +118,7 @@ class Order extends CollectionEntity
     /**
      * @param ShopifyOrder $order
      *
-     * @return ShopifyOrder | object
+     * @return ShopifyOrder|object
      */
     public function update($order)
     {
@@ -133,7 +132,7 @@ class Order extends CollectionEntity
     /**
      * @param ShopifyOrder $order
      *
-     * @return ShopifyOrder | object
+     * @return ShopifyOrder|object
      */
     public function create($order)
     {
@@ -147,7 +146,7 @@ class Order extends CollectionEntity
     /**
      * @param ShopifyOrder $order
      *
-     * @return ShopifyOrder | object
+     * @return ShopifyOrder|object
      */
     public function createTest($order)
     {
@@ -161,10 +160,10 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param int                $id
-     * @param CancelOrder | null $cancelOrder
+     * @param int              $id
+     * @param CancelOrder|null $cancelOrder
      *
-     * @return ShopifyOrder | object
+     * @return ShopifyOrder|object
      */
     public function cancel($id, $cancelOrder = null)
     {

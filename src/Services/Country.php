@@ -8,9 +8,7 @@ use Illuminate\Support\Collection;
 class Country extends Base
 {
     /**
-     * @param ShopifyCountry $country
-     *
-     * @return ShopifyCountry | object
+     * @return ShopifyCountry|object
      */
     public function create(ShopifyCountry $country)
     {
@@ -82,7 +80,7 @@ class Country extends Base
      * @param int   $countryId
      * @param array $filter
      *
-     * @return ShopifyCountry | object
+     * @return ShopifyCountry|object
      */
     public function getById($countryId, $filter = [])
     {
@@ -92,8 +90,6 @@ class Country extends Base
     }
 
     /**
-     * @param ShopifyCountry $country
-     *
      * @return object
      */
     public function update(ShopifyCountry $country)
@@ -105,8 +101,6 @@ class Country extends Base
     }
 
     /**
-     * @param ShopifyCountry $country
-     *
      * @return array
      */
     public function delete(ShopifyCountry $country)

@@ -1,7 +1,7 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\CustomerSavedSearch as ShopifyCustomerSavedSearch;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\CustomerSavedSearch as CustomerSavedSearchService;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class CustomerSavedSearchTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyCustomerSavedSearchSerializesProperly()
+    public function shopifyCustomerSavedSearchSerializesProperly()
     {
         $customerSavedSearchEntity = $this->createCustomerSavedSearchEntity();
 
@@ -33,7 +33,7 @@ class CustomerSavedSearchTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyCustomerSavedSearchDeserializesProperly()
+    public function shopifyCustomerSavedSearchDeserializesProperly()
     {
         $customerSavedSearchJson = $this->getCustomerSavedSearchJson();
         $jsonArray = (array) json_decode($customerSavedSearchJson, true);

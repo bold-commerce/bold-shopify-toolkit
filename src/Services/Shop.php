@@ -27,10 +27,7 @@ class Shop extends Base
     }
 
     /**
-     * @param ShopifyShop      $shop
-     * @param ShopifyMetafield $metafield
-     *
-     * @return ShopifyMetafield | object
+     * @return ShopifyMetafield|object
      */
     public function createOrUpdateMetafield(ShopifyShop $shop, ShopifyMetafield $metafield)
     {
@@ -42,9 +39,7 @@ class Shop extends Base
     }
 
     /**
-     * @param ShopifyMetafield $metafield
-     *
-     * @return ShopifyMetafield | object
+     * @return ShopifyMetafield|object
      */
     public function getMetafield(ShopifyMetafield $metafield)
     {
@@ -54,8 +49,6 @@ class Shop extends Base
     }
 
     /**
-     * @param array $params
-     *
      * @return Collection
      */
     public function getMetafields(array $params = [])
@@ -70,8 +63,6 @@ class Shop extends Base
     }
 
     /**
-     * @param ShopifyMetafield $metafield
-     *
      * @return Collection
      */
     public function deleteMetafield(ShopifyMetafield $metafield)

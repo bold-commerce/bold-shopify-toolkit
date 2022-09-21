@@ -15,7 +15,7 @@ class CustomerSavedSearchTest extends TestCase
     /** @var CustomerSavedSearchService */
     private $customerSavedSearchService;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

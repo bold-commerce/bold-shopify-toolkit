@@ -8,8 +8,7 @@ use Illuminate\Support\Collection;
 class CustomCollection extends CollectionEntity
 {
     /**
-     * @param ShopifyCustomCollection $collection
-     * @param bool                    $publish
+     * @param bool $publish
      *
      * @return object
      */
@@ -72,8 +71,6 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomCollection $collection
-     *
      * @return object
      */
     public function update(ShopifyCustomCollection $collection)
@@ -86,8 +83,6 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomCollection $collection
-     *
      * @return object
      */
     public function delete(ShopifyCustomCollection $collection)

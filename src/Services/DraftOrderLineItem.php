@@ -2,15 +2,15 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItem;
+use BoldApps\ShopifyToolkit\Models\DraftOrderAppliedDiscount as AppliedDiscountModel;
 use BoldApps\ShopifyToolkit\Models\DraftOrderLineItem as DraftOrderLineItemModel;
+use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use BoldApps\ShopifyToolkit\Services\DraftOrderAppliedDiscount as AppliedDiscountService;
-use BoldApps\ShopifyToolkit\Models\DraftOrderAppliedDiscount as AppliedDiscountModel;
 use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
-use BoldApps\ShopifyToolkit\Models\TaxLine as TaxLineModel;
-use BoldApps\ShopifyToolkit\Models\Cart\Item as CartItem;
-use Illuminate\Support\Collection;
 use BoldApps\ShopifyToolkit\Traits\TranslatePropertiesTrait;
+use Illuminate\Support\Collection;
 
 class DraftOrderLineItem extends Base
 {
@@ -39,7 +39,6 @@ class DraftOrderLineItem extends Base
      *
      * @param Client                    $client
      * @param DraftOrderAppliedDiscount $appliedDiscountService
-     * @param TaxLineService            $taxlineService
      */
     public function __construct(ShopifyClient $client,
                                 AppliedDiscountService $appliedDiscountService,
@@ -61,8 +60,6 @@ class DraftOrderLineItem extends Base
     }
 
     /**
-     * @param CartItem $cartItem
-     *
      * @return DraftOrderLineItemModel
      */
     public function createDraftOrderLineItemFromCartItem(CartItem $cartItem)

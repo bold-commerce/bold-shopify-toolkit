@@ -10,9 +10,6 @@ use Illuminate\Support\Collection;
 class Variant extends Base
 {
     /**
-     * @param ShopifyProduct $product
-     * @param ShopifyVariant $variant
-     *
      * @return object
      */
     public function create(ShopifyProduct $product, ShopifyVariant $variant)
@@ -64,8 +61,6 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant $variant
-     *
      * @return object
      */
     public function update(ShopifyVariant $variant)
@@ -78,9 +73,6 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param ShopifyVariant $variant
-     *
      * @return object
      */
     public function delete(ShopifyProduct $product, ShopifyVariant $variant)
@@ -89,9 +81,6 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant   $variant
-     * @param ShopifyMetafield $metafield
-     *
      * @return Collection
      **/
     public function createMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
@@ -104,9 +93,6 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant   $variant
-     * @param ShopifyMetafield $metafield
-     *
      * @return Collection
      */
     public function updateMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
@@ -119,8 +105,7 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant $variant
-     * @param array          $params
+     * @param array $params
      *
      * @return Collection
      */
@@ -136,9 +121,6 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyVariant   $variant
-     * @param ShopifyMetafield $metafield
-     *
      * @return Collection
      */
     public function deleteMetafield(ShopifyVariant $variant, ShopifyMetafield $metafield)
@@ -147,8 +129,6 @@ class Variant extends Base
     }
 
     /**
-     * @param ShopifyMetafield $metafield
-     *
      * @return Collection
      */
     public function deleteMetafieldById(ShopifyMetafield $metafield)

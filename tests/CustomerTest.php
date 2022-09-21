@@ -1,7 +1,7 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Customer as ShopifyCustomer;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\Customer as CustomerService;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class CustomerTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyCustomerSerializesProperly()
+    public function shopifyCustomerSerializesProperly()
     {
         $customerEntity = $this->createCustomerEntity();
 
@@ -33,7 +33,7 @@ class CustomerTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyCustomerDeserializesProperly()
+    public function shopifyCustomerDeserializesProperly()
     {
         $customerJson = $this->getCustomerJson();
         $jsonArray = (array) json_decode($customerJson, true);

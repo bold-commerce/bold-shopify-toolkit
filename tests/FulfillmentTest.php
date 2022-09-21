@@ -1,7 +1,7 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Fulfillment as ShopifyFulfillment;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\Fulfillment as FulfillmentService;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class FulfillmentTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyFulfillmentSerializesProperly()
+    public function shopifyFulfillmentSerializesProperly()
     {
         $fulfillmentEntity = $this->createFulfillmentEntity();
 
@@ -33,7 +33,7 @@ class FulfillmentTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyFulfillmentDeserializesProperly()
+    public function shopifyFulfillmentDeserializesProperly()
     {
         $fulfillmentJson = $this->getFulfillmentJson();
         $jsonArray = (array) json_decode($fulfillmentJson, true);

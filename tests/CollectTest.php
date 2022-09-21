@@ -20,7 +20,7 @@ class CollectTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyCollectSerializesProperly()
+    public function shopifyCollectSerializesProperly()
     {
         $collectEntity = $this->createCollectEntity();
 
@@ -33,7 +33,7 @@ class CollectTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyCollectDeserializesProperly()
+    public function shopifyCollectDeserializesProperly()
     {
         $collectJson = $this->getCollectJson();
         $jsonArray = (array) json_decode($collectJson, true);

@@ -49,11 +49,10 @@ class Product extends CollectionEntity
     /**
      * Product constructor.
      *
-     * @param Client           $client
-     * @param Variant          $variantService
-     * @param Option           $optionService
-     * @param Image            $imageService
-     * @param MetafieldService $metafieldService
+     * @param Client  $client
+     * @param Variant $variantService
+     * @param Option  $optionService
+     * @param Image   $imageService
      */
     public function __construct(
         ShopifyClient $client,
@@ -70,8 +69,7 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param bool           $publish
+     * @param bool $publish
      *
      * @return object
      */
@@ -88,7 +86,7 @@ class Product extends CollectionEntity
      * @param       $id
      * @param array $filter
      *
-     * @return ShopifyProduct | object
+     * @return ShopifyProduct|object
      */
     public function getById($id, $filter = [])
     {
@@ -148,7 +146,7 @@ class Product extends CollectionEntity
         $limit = 250;
 
         for ($i = 0; $i < ceil(count($productIds) / $limit); ++$i) {
-            $idList = implode(',', array_slice($productIds, ($i * $limit), $limit));
+            $idList = implode(',', array_slice($productIds, $i * $limit, $limit));
 
             $params = array_merge(
                 $filter,
@@ -170,8 +168,6 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct $product
-     *
      * @return object
      */
     public function update(ShopifyProduct $product)
@@ -184,9 +180,7 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct $product
-     *
-     * @return array | null
+     * @return array|null
      */
     public function delete(ShopifyProduct $product)
     {
@@ -216,10 +210,7 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct   $product
-     * @param ShopifyMetafield $metafield
-     *
-     * @return ShopifyMetafield | object
+     * @return ShopifyMetafield|object
      */
     public function createOrUpdateMetafield(ShopifyProduct $product, ShopifyMetafield $metafield)
     {
@@ -231,8 +222,7 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct $product
-     * @param array          $filter
+     * @param array $filter
      *
      * @return Collection
      */
@@ -248,10 +238,9 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param                $id
-     * @param ShopifyProduct $product
+     * @param $id
      *
-     * @return ShopifyMetafield | object
+     * @return ShopifyMetafield|object
      */
     public function getMetafield(ShopifyProduct $product, $id)
     {
@@ -261,10 +250,7 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param ShopifyProduct   $product
-     * @param ShopifyMetafield $metafield
-     *
-     * @return array | null
+     * @return array|null
      */
     public function deleteMetafield(ShopifyProduct $product, ShopifyMetafield $metafield)
     {
@@ -274,7 +260,7 @@ class Product extends CollectionEntity
     /**
      * @param int $metafieldId
      *
-     * @return array | null
+     * @return array|null
      */
     public function deleteMetafieldById($metafieldId)
     {
@@ -284,7 +270,7 @@ class Product extends CollectionEntity
     /**
      * @param $entities
      *
-     * @return array | null
+     * @return array|null
      */
     protected function serializeVariants($entities)
     {
@@ -304,7 +290,7 @@ class Product extends CollectionEntity
     /**
      * @param array $data
      *
-     * @return Collection | null
+     * @return Collection|null
      */
     protected function unserializeVariants($data)
     {
@@ -322,7 +308,7 @@ class Product extends CollectionEntity
     /**
      * @param $entities
      *
-     * @return array | null
+     * @return array|null
      */
     protected function serializeOptions($entities)
     {
@@ -342,7 +328,7 @@ class Product extends CollectionEntity
     /**
      * @param array $data
      *
-     * @return Collection | null
+     * @return Collection|null
      */
     protected function unserializeOptions($data)
     {
@@ -360,7 +346,7 @@ class Product extends CollectionEntity
     /**
      * @param $entity
      *
-     * @return array | null
+     * @return array|null
      */
     protected function serializeImage($entity)
     {
@@ -374,7 +360,7 @@ class Product extends CollectionEntity
     /**
      * @param array $data
      *
-     * @return ShopifyImage | object
+     * @return ShopifyImage|object
      */
     protected function unserializeImage($data)
     {
@@ -388,7 +374,7 @@ class Product extends CollectionEntity
     /**
      * @param $entities
      *
-     * @return array | null
+     * @return array|null
      */
     protected function serializeImages($entities)
     {
@@ -408,7 +394,7 @@ class Product extends CollectionEntity
     /**
      * @param array $data
      *
-     * @return Collection | null
+     * @return Collection|null
      */
     protected function unserializeImages($data)
     {
@@ -426,7 +412,7 @@ class Product extends CollectionEntity
     /**
      * @param $entities
      *
-     * @return array | null
+     * @return array|null
      */
     protected function serializeMetafields($entities)
     {
@@ -446,7 +432,7 @@ class Product extends CollectionEntity
     /**
      * @param $data
      *
-     * @return Collection | null
+     * @return Collection|null
      */
     protected function unserializeMetafields($data)
     {

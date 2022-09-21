@@ -1,12 +1,12 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use BoldApps\ShopifyToolkit\Models\Refund as ShopifyRefund;
-use BoldApps\ShopifyToolkit\Services\Refund as RefundService;
-use BoldApps\ShopifyToolkit\Models\Transaction;
 use BoldApps\ShopifyToolkit\Models\OrderAdjustment;
+use BoldApps\ShopifyToolkit\Models\Refund as ShopifyRefund;
 use BoldApps\ShopifyToolkit\Models\RefundLineItem;
+use BoldApps\ShopifyToolkit\Models\Transaction;
+use BoldApps\ShopifyToolkit\Services\Refund as RefundService;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\TestCase;
 
 class RefundTest extends TestCase
 {
@@ -24,7 +24,7 @@ class RefundTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyRefundSerializesProperly()
+    public function shopifyRefundSerializesProperly()
     {
         $refundEntity = new ShopifyRefund();
         $refundEntity->setOrderId(123456);
@@ -57,7 +57,7 @@ class RefundTest extends TestCase
         $refundEntity->setTransactions(new Collection([$transactionLineItem]));
 
         $expected = [
-            'order_id' => 123456, //TODO: Remove this when ignored fields is implemented (Services\Base)
+            'order_id' => 123456, // TODO: Remove this when ignored fields is implemented (Services\Base)
             'notify' => false,
             'shipping' => [
                 'amount' => 25,
@@ -98,7 +98,7 @@ class RefundTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyRefundDeserializesProperly()
+    public function shopifyRefundDeserializesProperly()
     {
         $refundJson = '{
             "id": 929361464,

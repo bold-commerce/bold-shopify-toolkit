@@ -25,7 +25,7 @@ class SmartCollectionTest extends TestCase
     /**
      * @test
      */
-    public function ShopifySmartCollectionSerializesProperly()
+    public function shopifySmartCollectionSerializesProperly()
     {
         $smartCollectionEntity = $this->createSmartCollectionEntity();
 
@@ -38,7 +38,7 @@ class SmartCollectionTest extends TestCase
     /**
      * @test
      */
-    public function ShopifySmartCollectionDeserializesProperly()
+    public function shopifySmartCollectionDeserializesProperly()
     {
         $smartCollectionJson = $this->getSmartCollectionJson();
         $jsonArray = (array) json_decode($smartCollectionJson, true);
