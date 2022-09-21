@@ -9,7 +9,7 @@ class InventoryItemTest extends \PHPUnit\Framework\TestCase
     /** @var InventoryItemService */
     private $inventoryItemService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);

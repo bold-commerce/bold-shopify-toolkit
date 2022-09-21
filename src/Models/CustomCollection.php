@@ -96,7 +96,7 @@ class CustomCollection implements Serializeable, \JsonSerializable
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTemplateSuffix()
     {
@@ -104,7 +104,7 @@ class CustomCollection implements Serializeable, \JsonSerializable
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getPublishedScope()
     {

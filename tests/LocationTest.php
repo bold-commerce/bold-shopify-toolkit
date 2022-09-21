@@ -1,7 +1,7 @@
 <?php
 
-use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Location as ShopifyLocation;
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\Location as LocationService;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class LocationTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyLocationSerializesProperly()
+    public function shopifyLocationSerializesProperly()
     {
         $locationEntity = $this->locationService->createFromArray($this->getLocationArray());
 
@@ -33,7 +33,7 @@ class LocationTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyLocationDeserializesProperly()
+    public function shopifyLocationDeserializesProperly()
     {
         $locationJson = $this->getLocationJson();
         $jsonArray = (array) json_decode($locationJson, true);

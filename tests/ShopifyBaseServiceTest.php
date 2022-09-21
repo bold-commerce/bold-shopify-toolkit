@@ -2,9 +2,9 @@
 
 namespace BoldApps\Common\Test\Services\Shopify;
 
+use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Test\Fakes\FakeBase;
 use BoldApps\ShopifyToolkit\Test\Fakes\FakeModel;
-use BoldApps\ShopifyToolkit\Services\Client;
 use PHPUnit\Framework\TestCase;
 
 class ShopifyBaseServiceTest extends TestCase

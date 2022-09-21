@@ -61,11 +61,11 @@ class DraftOrder implements Serializeable, \JsonSerializable
     /** @var collection */
     protected $lineItems;
 
-    //TODO: implement object as a model
+    // TODO: implement object as a model
     /** @var object */
     protected $shippingAddress;
 
-    //TODO: implement object as a model
+    // TODO: implement object as a model
     /** @var object */
     protected $billingAddress;
 
@@ -75,7 +75,7 @@ class DraftOrder implements Serializeable, \JsonSerializable
     /** @var int */
     protected $orderId;
 
-    //TODO: implement object as a model
+    // TODO: implement object as a model
     /** @var object */
     protected $shippingLine;
 

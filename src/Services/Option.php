@@ -9,7 +9,7 @@ class Option extends Base
     /**
      * @param array $array
      *
-     * @return ShopifyOption | object
+     * @return ShopifyOption|object
      */
     public function createFromArray($array)
     {

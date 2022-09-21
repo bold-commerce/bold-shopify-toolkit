@@ -51,9 +51,7 @@ class DraftOrder extends Base
      *
      * @param Client                    $client
      * @param TaxLine                   $taxLineService
-     * @param DraftOrderLineItemService $draftOrderLineItemService
      * @param DraftOrderAppliedDiscount $appliedDiscountService
-     * @param PollingInfoService        $pollingInfoService
      */
     public function __construct(
         ShopifyClient $client,

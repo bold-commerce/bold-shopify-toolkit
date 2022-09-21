@@ -22,7 +22,7 @@ class CustomerSavedSearch extends CollectionEntity
     /**
      * @param $array
      *
-     * @return CustomerSavedSearchModel | object
+     * @return CustomerSavedSearchModel|object
      */
     public function createFromArray($array)
     {
@@ -30,9 +30,7 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
-     * @param CustomerSavedSearchModel $customerSavedSearch
-     *
-     * @return CustomerSavedSearchModel | object
+     * @return CustomerSavedSearchModel|object
      */
     public function create(CustomerSavedSearchModel $customerSavedSearch)
     {
@@ -46,7 +44,7 @@ class CustomerSavedSearch extends CollectionEntity
     /**
      * @param int $customerSavedSearchId
      *
-     * @return CustomerSavedSearchModel | object
+     * @return CustomerSavedSearchModel|object
      */
     public function get($customerSavedSearchId)
     {
@@ -56,9 +54,7 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
-     * @param CustomerSavedSearchModel $customerSavedSearch
-     *
-     * @return CustomerSavedSearchModel | object
+     * @return CustomerSavedSearchModel|object
      */
     public function edit(CustomerSavedSearchModel $customerSavedSearch)
     {
@@ -70,8 +66,6 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
-     * @param CustomerSavedSearchModel $customerSavedSearch
-     *
      * @return array
      */
     public function delete(CustomerSavedSearchModel $customerSavedSearch)

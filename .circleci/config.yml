@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/php:5.6.37-apache-jessie
+      - image: cimg/php:8.1.9
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -21,16 +21,16 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
+          - v2-dependencies-{{ checksum "composer.json" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          - v2-dependencies-
 
       - run:
           name: Install Composer
           command: |
             php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
             php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
-            php composer-setup.php --version=1.10.16
+            php composer-setup.php --version=2.3.10
             php -r "unlink('composer-setup.php');"
 
       - run: php composer.phar install
@@ -38,7 +38,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
+          key: v2-dependencies-{{ checksum "composer.json" }}
 
       # Run tests!
       - run: vendor/bin/phpunit tests

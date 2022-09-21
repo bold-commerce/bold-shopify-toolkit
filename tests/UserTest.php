@@ -19,7 +19,7 @@ class UserTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyRefundSerializesProperly()
+    public function shopifyRefundSerializesProperly()
     {
         $userEntity = new ShopifyUser();
         $userEntity->setId(55347909);
@@ -48,7 +48,7 @@ class UserTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyUserDeserializesProperly()
+    public function shopifyUserDeserializesProperly()
     {
         $expected = new ShopifyUser();
         $expected->setId(55347909);
@@ -67,7 +67,7 @@ class UserTest extends TestCase
         $expected->setPhoneValidated(true);
         $expected->setTfaEnabled(false);
 
-        //from the shopify documentation
+        // from the shopify documentation
         $userJson = $this->getUserJson();
         $jsonArray = (array) json_decode($userJson, true);
 

@@ -10,8 +10,6 @@ class Collect extends CollectionEntity
 {
     /**
      * Collect constructor.
-     *
-     * @param ShopifyClient $client
      */
     public function __construct(ShopifyClient $client)
     {
@@ -19,9 +17,7 @@ class Collect extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCollect $collect
-     *
-     * @return ShopifyCollect | object
+     * @return ShopifyCollect|object
      */
     public function create(ShopifyCollect $collect)
     {
@@ -35,7 +31,7 @@ class Collect extends CollectionEntity
     /**
      * @param int $id
      *
-     * @return ShopifyCollect | object
+     * @return ShopifyCollect|object
      */
     public function getById($id)
     {
@@ -73,9 +69,7 @@ class Collect extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCollect $collect
-     *
-     * @return ShopifyCollect | array
+     * @return ShopifyCollect|array
      */
     public function delete(ShopifyCollect $collect)
     {

@@ -2,8 +2,8 @@
 
 namespace BoldApps\ShopifyToolkit\Support;
 
-use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
+use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 
 class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
 {
@@ -77,6 +77,6 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
             }
         }
 
-        return array(1, 100);
+        return [1, 100];
     }
 }

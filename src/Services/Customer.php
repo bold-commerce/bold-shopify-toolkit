@@ -99,7 +99,7 @@ class Customer extends CollectionEntity
     /**
      * @param $array
      *
-     * @return ShopifyCustomer | object
+     * @return ShopifyCustomer|object
      */
     public function createFromArray($array)
     {
@@ -107,9 +107,7 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomer $customer
-     *
-     * @return ShopifyCustomer | object
+     * @return ShopifyCustomer|object
      */
     public function create(ShopifyCustomer $customer)
     {
@@ -121,9 +119,7 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomer $customer
-     *
-     * @return ShopifyCustomer | object
+     * @return ShopifyCustomer|object
      */
     public function update(ShopifyCustomer $customer)
     {
@@ -135,9 +131,7 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param ShopifyCustomer $customer
-     *
-     * @return ShopifyCustomer | object
+     * @return ShopifyCustomer|object
      */
     public function delete(ShopifyCustomer $customer)
     {

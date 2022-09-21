@@ -2,8 +2,8 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-use BoldApps\ShopifyToolkit\Models\Location as ShopifyLocation;
 use BoldApps\ShopifyToolkit\Models\InventoryLevel as ShopifyInventoryLevel;
+use BoldApps\ShopifyToolkit\Models\Location as ShopifyLocation;
 use Illuminate\Support\Collection;
 
 class Location extends Base

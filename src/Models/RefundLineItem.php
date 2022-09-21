@@ -2,8 +2,8 @@
 
 namespace BoldApps\ShopifyToolkit\Models;
 
-use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 use BoldApps\ShopifyToolkit\Contracts\Serializeable;
+use BoldApps\ShopifyToolkit\Traits\HasAttributesTrait;
 
 class RefundLineItem implements Serializeable, \JsonSerializable
 {

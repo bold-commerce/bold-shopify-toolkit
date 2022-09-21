@@ -51,10 +51,10 @@ class Customer implements Serializeable, \JsonSerializable
     /** @var string */
     protected $lastOrderName;
 
-    /** @var $array */
+    /** @var */
     protected $defaultAddress;
 
-    /** @var $array */
+    /** @var */
     protected $addresses;
 
     /** @var string */

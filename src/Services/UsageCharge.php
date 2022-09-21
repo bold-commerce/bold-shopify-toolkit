@@ -8,7 +8,6 @@ class UsageCharge extends Base
 {
     /**
      * @param $recurringChargeId
-     * @param ShopifyUsageCharge $usageCharge
      *
      * @return object
      */

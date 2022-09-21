@@ -2,9 +2,9 @@
 
 namespace BoldApps\Common\Test\Services\Shopify;
 
+use BoldApps\ShopifyToolkit\Models\Cart\Cart as CartModel;
 use BoldApps\ShopifyToolkit\Services\Cart;
 use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
-use BoldApps\ShopifyToolkit\Models\Cart\Cart as CartModel;
 use GuzzleHttp\Client as HttpClient;
 use PHPUnit\Framework\TestCase;
 

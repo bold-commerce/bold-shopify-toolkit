@@ -48,7 +48,7 @@ class ProductTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyProductSerializesProperly()
+    public function shopifyProductSerializesProperly()
     {
         /** @var ShopifyProduct $productEntity */
         $productEntity = $this->productService->createFromArray($this->getProductArray());
@@ -62,7 +62,7 @@ class ProductTest extends TestCase
     /**
      * @test
      */
-    public function ShopifyProductDeserializesProperly()
+    public function shopifyProductDeserializesProperly()
     {
         $productJson = $this->getProductJson();
         $jsonArray = (array) json_decode($productJson, true);

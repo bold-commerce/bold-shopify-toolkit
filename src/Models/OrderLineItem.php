@@ -204,9 +204,6 @@ class OrderLineItem implements Serializeable, \JsonSerializable
         $this->variantInventoryManagement = $variantInventoryManagement;
     }
 
-    /**
-     * @param array $properties
-     */
     public function setProperties(array $properties)
     {
         $this->properties = $properties;
@@ -228,9 +225,6 @@ class OrderLineItem implements Serializeable, \JsonSerializable
         $this->fulfillmentStatus = $fulfillmentStatus;
     }
 
-    /**
-     * @param Collection $taxLines
-     */
     public function setTaxLines(Collection $taxLines)
     {
         $this->taxLines = $taxLines;

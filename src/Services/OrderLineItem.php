@@ -3,9 +3,9 @@
 namespace BoldApps\ShopifyToolkit\Services;
 
 use BoldApps\ShopifyToolkit\Models\TaxLine as LineItemTaxLine;
+use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 use BoldApps\ShopifyToolkit\Services\TaxLine as TaxLineService;
 use Illuminate\Support\Collection;
-use BoldApps\ShopifyToolkit\Services\Client as ShopifyClient;
 
 class OrderLineItem extends Base
 {
@@ -25,8 +25,7 @@ class OrderLineItem extends Base
     /**
      * Order constructor.
      *
-     * @param Client         $client
-     * @param TaxLineService $taxLineService
+     * @param Client $client
      */
     public function __construct(ShopifyClient $client, TaxLineService $taxLineService)
     {
