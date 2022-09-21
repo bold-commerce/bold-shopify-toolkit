@@ -3,13 +3,14 @@
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\InventoryLevel as ShopifyInventoryLevel;
 use BoldApps\ShopifyToolkit\Services\InventoryLevel as InventoryLevelService;
+use PHPUnit\Framework\TestCase;
 
-class InventoryLevelTest extends \PHPUnit\Framework\TestCase
+class InventoryLevelTest extends TestCase
 {
     /** @var InventoryLevelService */
     private $inventoryLevelService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);

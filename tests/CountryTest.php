@@ -3,13 +3,14 @@
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Country as ShopifyCountry;
 use BoldApps\ShopifyToolkit\Services\Country as CountryService;
+use PHPUnit\Framework\TestCase;
 
-class CountryTest extends \PHPUnit\Framework\TestCase
+class CountryTest extends TestCase
 {
     /** @var CountryService */
     private $countryService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);

@@ -3,13 +3,14 @@
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Models\Image as ShopifyImage;
 use BoldApps\ShopifyToolkit\Services\Image as ImageService;
+use PHPUnit\Framework\TestCase;
 
-class ImageTest extends \PHPUnit\Framework\TestCase
+class ImageTest extends TestCase
 {
     /** @var ImageService */
     private $imageService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var Client $client */
         $client = $this->createMock(Client::class);
