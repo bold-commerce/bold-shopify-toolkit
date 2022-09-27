@@ -18,9 +18,6 @@ class Variant implements Serializeable, \JsonSerializable
     /** @var float */
     protected $compareAtPrice;
 
-    /** @var string */
-    protected $fulfillmentService;
-
     /** @var int */
     protected $grams;
 
@@ -139,22 +136,6 @@ class Variant implements Serializeable, \JsonSerializable
     public function setCompareAtPrice($compareAtPrice)
     {
         $this->compareAtPrice = $compareAtPrice;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFulfillmentService()
-    {
-        return $this->fulfillmentService;
-    }
-
-    /**
-     * @param string $fulfillmentService
-     */
-    public function setFulfillmentService($fulfillmentService)
-    {
-        $this->fulfillmentService = $fulfillmentService;
     }
 
     /**
