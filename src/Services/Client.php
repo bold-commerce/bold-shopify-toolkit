@@ -193,7 +193,7 @@ class Client
         try {
             $domain = $request->getUri()->getHost();
 
-            if ($password) {
+            if (!empty($password)) {
                 $uri = new Uri(sprintf('https://%s/password', $domain));
                 $authResponse = $this->client->post(
                     $uri,
@@ -273,11 +273,8 @@ class Client
             } else {
                 throw $e;
             }
-        } catch (\Exception $e) {
-            $response = null;
-        } finally {
-            $this->requestHookInterface->afterRequest($response);
         }
+        $this->requestHookInterface->afterRequest($response);
 
         return $result;
     }
