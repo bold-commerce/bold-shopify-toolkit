@@ -2,6 +2,9 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
+use BoldApps\ShopifyToolkit\Contracts\ApiRateLimiter;
+use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
+use BoldApps\ShopifyToolkit\Contracts\RateLimitKeyGenerator;
 use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
 use BoldApps\ShopifyToolkit\Contracts\ShopAccessInfo;
 use BoldApps\ShopifyToolkit\Contracts\ShopBaseInfo;
@@ -20,6 +23,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Header;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
+use GuzzleHttp\Utils;
 
 class Client
 {
@@ -211,9 +215,11 @@ class Client
             }
 
             $this->requestHookInterface->beforeRequest($request);
+            logger()->error('in toolkit Before Send');
             $response = $this->client->send($request, $options);
-
-            $result = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+            logger()->error('in toolkit After Send');
+            $result = Utils::jsonDecode((string) $response->getBody(), true);
+            logger()->error('in toolkit After Decode');
 
             $linkHeader = $response->getHeader('Link');
             if ($linkHeader) {
