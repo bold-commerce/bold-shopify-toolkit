@@ -22,7 +22,6 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockBuilder as Mock;
-use ReflectionClass;
 
 class ClientTest extends TestCase
 {
@@ -375,7 +374,7 @@ class ClientTest extends TestCase
      */
     private static function callMethod($obj, $name, array $args)
     {
-        $class = new ReflectionClass($obj);
+        $class = new \ReflectionClass($obj);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
 

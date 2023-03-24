@@ -51,10 +51,8 @@ class Customer implements Serializeable, \JsonSerializable
     /** @var string */
     protected $lastOrderName;
 
-    /** @var */
     protected $defaultAddress;
 
-    /** @var */
     protected $addresses;
 
     /** @var string */
@@ -302,25 +300,16 @@ class Customer implements Serializeable, \JsonSerializable
         $this->lastName = $lastName;
     }
 
-    /**
-     * @param $password
-     */
     public function setPassword($password)
     {
         $this->password = $password;
     }
 
-    /**
-     * @param $passwordConfirmation
-     */
     public function setPasswordConfirmation($passwordConfirmation)
     {
         $this->passwordConfirmation = $passwordConfirmation;
     }
 
-    /**
-     * @param $email
-     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -374,17 +363,11 @@ class Customer implements Serializeable, \JsonSerializable
         return $this->sendWelcomeEmail;
     }
 
-    /**
-     * @param $tags
-     */
     public function setTags($tags)
     {
         $this->tags = $tags;
     }
 
-    /**
-     * @param $addresses
-     */
     public function setAddresses($addresses)
     {
         $this->addresses = $addresses;

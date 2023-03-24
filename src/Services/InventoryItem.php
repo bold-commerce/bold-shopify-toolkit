@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 class InventoryItem extends CollectionEntity
 {
     /**
-     * @param $array
-     *
      * @return object
      */
     public function createFromArray($array)
@@ -18,7 +16,6 @@ class InventoryItem extends CollectionEntity
     }
 
     /**
-     * @param       $id
      * @param array $filter
      *
      * @return ShopifyInventoryItem|object

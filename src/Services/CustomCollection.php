@@ -22,8 +22,6 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyCustomCollection
      */
     public function getById($id)
@@ -55,8 +53,6 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param $params
-     *
      * @return \Illuminate\Support\Collection
      */
     public function getByParams($params)
@@ -103,8 +99,6 @@ class CustomCollection extends CollectionEntity
     }
 
     /**
-     * @param $filter
-     *
      * @return int
      */
     public function countByParams($filter = [])

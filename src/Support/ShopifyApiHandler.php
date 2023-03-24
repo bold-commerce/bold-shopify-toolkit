@@ -95,7 +95,7 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
                  */
             } elseif ($response->hasHeader('x-shopify-api-deprecated-reason')) {
                 /*
-                 * call something like logger()->warning($response->getHeader('X-Shopify-API-Deprecated-Reason'));
+                 * call something like logger()->warning($response->getHeader('x-shopify-api-deprecated-reason'));
                  */
             }
         }

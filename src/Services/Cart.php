@@ -95,8 +95,6 @@ class Cart extends Base
     }
 
     /**
-     * @param $cartToken
-     * @param $currency
      * @param null $password
      */
     public function switchCartCurrency($cartToken, $currency, $password = null)
@@ -106,8 +104,6 @@ class Cart extends Base
 
     /**
      * Builds the cookie needed for you to get a cart.
-     *
-     * @param $cartToken
      *
      * @return array
      */
@@ -121,8 +117,6 @@ class Cart extends Base
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeItems($entities)
@@ -159,8 +153,6 @@ class Cart extends Base
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeOptions($entities)

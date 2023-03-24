@@ -58,8 +58,6 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param $array
-     *
      * @return ShopifySmartCollection|object
      */
     public function createFromArray($array)
@@ -68,8 +66,6 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifySmartCollection
      */
     public function getById($id)
@@ -119,8 +115,6 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param $params
-     *
      * @return \Illuminate\Support\Collection
      */
     public function getByParams($params)
@@ -167,8 +161,6 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param $filter
-     *
      * @return int
      */
     public function countByParams($filter = [])
@@ -179,8 +171,6 @@ class SmartCollection extends CollectionEntity
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeRules($entities)

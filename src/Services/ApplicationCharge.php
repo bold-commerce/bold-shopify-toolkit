@@ -19,8 +19,6 @@ class ApplicationCharge extends Base
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyApplicationCharge \ object
      */
     public function getById($id)
