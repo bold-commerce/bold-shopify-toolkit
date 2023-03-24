@@ -275,9 +275,8 @@ class Client
             }
         } catch (\Exception $e) {
             $response = null;
-        } finally {
-            $this->requestHookInterface->afterRequest($response);
         }
+        $this->requestHookInterface->afterRequest($response);
 
         return $result;
     }
