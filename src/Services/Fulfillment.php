@@ -9,11 +9,12 @@ class Fulfillment extends Base
     /**
      * @return ShopifyFulfillment|object
      */
-    public function create(ShopifyFulfillment $fulfillment)
+    public function create(ShopifyFulfillment $fulfillment, array $lineItemsByFulfillmentOrders = [])
     {
         $serializedModel = ['fulfillment' => $this->serializeModel($fulfillment)];
+        $serializedModel['fulfillment']['line_items_by_fulfillment_order'] = $lineItemsByFulfillmentOrders;
 
-        $raw = $this->client->post("{$this->getApiBasePath()}/orders/{$fulfillment->getOrderId()}/fulfillments.json", [], $serializedModel);
+        $raw = $this->client->post("{$this->getApiBasePath()}/fulfillments.json", [], $serializedModel);
 
         return $this->unserializeModel($raw['fulfillment'], ShopifyFulfillment::class);
     }
