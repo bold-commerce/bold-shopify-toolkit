@@ -41,8 +41,8 @@ class DraftOrderLineItem extends Base
      * @param DraftOrderAppliedDiscount $appliedDiscountService
      */
     public function __construct(ShopifyClient $client,
-                                AppliedDiscountService $appliedDiscountService,
-                                TaxLineService $taxlineService)
+        AppliedDiscountService $appliedDiscountService,
+        TaxLineService $taxlineService)
     {
         $this->appliedDiscountService = $appliedDiscountService;
         $this->taxLineService = $taxlineService;

@@ -59,7 +59,7 @@ class DraftOrder extends Base
         DraftOrderLineItemService $draftOrderLineItemService,
         AppliedDiscountService $appliedDiscountService,
         PollingInfoService $pollingInfoService
-        ) {
+    ) {
         $this->taxLineService = $taxLineService;
         $this->draftOrderLineItemService = $draftOrderLineItemService;
         $this->appliedDiscountService = $appliedDiscountService;
