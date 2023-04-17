@@ -28,7 +28,6 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
     public function afterRequest($response)
     {
         $this->sleep($response);
-        $this->checkDeprecatedReason($response);
     }
 
     /**
@@ -84,20 +83,5 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
         }
 
         return [1, 100];
-    }
-
-    private function checkDeprecatedReason($response)
-    {
-        if (!empty($response) && is_a($response, Response::class)) {
-            if ($response->hasHeader('X-Shopify-API-Deprecated-Reason')) {
-                /*
-                 * call something like logger()->warning($response->getHeader('X-Shopify-API-Deprecated-Reason'));
-                 */
-            } elseif ($response->hasHeader('x-shopify-api-deprecated-reason')) {
-                /*
-                 * call something like logger()->warning($response->getHeader('x-shopify-api-deprecated-reason'));
-                 */
-            }
-        }
     }
 }

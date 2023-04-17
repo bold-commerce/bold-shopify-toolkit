@@ -124,3 +124,32 @@ This project is licensed under the Apache 2 License - see the [LICENSE.md](LICEN
 
 * Thanks to Shopify for making the best Developer Network!
 * Thanks to Bold Commerce Developers for making this amazing package
+
+## Advance Usage of ShopifyApihandler
+
+For example add a function like
+```php
+private function checkDeprecatedReason($response)
+{
+    if (!empty($response) && is_a($response, Response::class)) {
+        if ($response->hasHeader('X-Shopify-API-Deprecated-Reason')) {
+            /*
+             * call something like logger()->warning($response->getHeader('X-Shopify-API-Deprecated-Reason'));
+             */
+        } elseif ($response->hasHeader('x-shopify-api-deprecated-reason')) {
+            /*
+             * call something like logger()->warning($response->getHeader('x-shopify-api-deprecated-reason'));
+             */
+        }
+    }
+}
+```
+ then call the function in `afterRequest` function like 
+
+```php
+public function afterRequest($response)
+{
+    $this->sleep($response);
+    $this->checkDeprecatedReason($response);
+}
+```
