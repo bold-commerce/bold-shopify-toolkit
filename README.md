@@ -42,6 +42,13 @@ Bind the appropriate models during your request lifecycle.
 
     ...
 ```
+Or for apps that use container system this will look like below 
+```php
+        $shopifyApiHandler = new ShopifyApiHandler();
+        $this->getContainer()->addShared(RequestHookInterface::class, $shopifyApiHandler);
+        $this->getContainer()->addShared(ApiSleeper::class, $shopifyApiHandler);
+```
+above code can be part of a service provider class
 
 Bind the shop that will be using the toolkit before making calls to its services and/or models.
 ```php
@@ -106,7 +113,8 @@ See `tests/VariantTest.php` for an example of how to serialize and deserialize a
 
 ### Advance Usage of ShopifyApihandler
 
-For example add a function like
+To add additional functionality to ShopifyApihandler, one can subclass it and add additional functionality like below.
+For example add a function like below to throw warning messages if deprecated API call is being made
 ```php
 private function checkDeprecatedReason($response)
 {
@@ -123,15 +131,16 @@ private function checkDeprecatedReason($response)
     }
 }
 ```
-then call the function in `afterRequest` function like
+then call the function in overrided `afterRequest` function like below.
 
 ```php
 public function afterRequest($response)
 {
-    $this->sleep($response);
+    $this->sleep($response); 
     $this->checkDeprecatedReason($response);
 }
 ```
+Once can choose to call functions of parent class, if want to do clean implementation and to avoid duplicating logic/code.
 
 
 ## TODO
