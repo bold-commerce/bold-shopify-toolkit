@@ -111,41 +111,11 @@ $updatedVariant->getOption1(); //"Not pink"
 
 See `tests/VariantTest.php` for an example of how to serialize and deserialize a model.
 
-### Advance Usage of ShopifyApihandler
-
-To add additional functionality to ShopifyApihandler, one can subclass it and add additional functionality like below.
-For example add a function like below to throw warning messages if deprecated API call is being made
-```php
-private function checkDeprecatedReason($response)
-{
-    if (!empty($response) && is_a($response, Response::class)) {
-        if ($response->hasHeader('X-Shopify-API-Deprecated-Reason')) {
-            /*
-             * call something like logger()->warning($response->getHeader('X-Shopify-API-Deprecated-Reason'));
-             */
-        } elseif ($response->hasHeader('x-shopify-api-deprecated-reason')) {
-            /*
-             * call something like logger()->warning($response->getHeader('x-shopify-api-deprecated-reason'));
-             */
-        }
-    }
-}
-```
-then call the function in overrided `afterRequest` function like below.
-
-```php
-public function afterRequest($response)
-{
-    $this->sleep($response); 
-    $this->checkDeprecatedReason($response);
-}
-```
-Once can choose to call functions of parent class, if want to do clean implementation and to avoid duplicating logic/code.
-
 
 ## TODO
 
 * Add more tests
+* Add example of advance usage of ShopifyApiHandler
 
 ## Contributing
 
