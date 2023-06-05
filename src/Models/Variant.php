@@ -90,6 +90,7 @@ class Variant implements Serializeable, \JsonSerializable
     /** @var array */
     protected $metafields;
 
+    /** @var string */
     protected $fulfillmentService = 'manual';
 
     /**
@@ -525,7 +526,7 @@ class Variant implements Serializeable, \JsonSerializable
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFulfillmentService()
     {
@@ -533,7 +534,7 @@ class Variant implements Serializeable, \JsonSerializable
     }
 
     /**
-     * @param mixed $fulfillmentService
+     * @param string $fulfillmentService
      */
     public function setFulfillmentService($fulfillmentService): void
     {
