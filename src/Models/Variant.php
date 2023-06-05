@@ -90,6 +90,8 @@ class Variant implements Serializeable, \JsonSerializable
     /** @var array */
     protected $metafields;
 
+    protected $fulfillmentService = "manual";
+
     /**
      * @return string
      */
@@ -521,4 +523,22 @@ class Variant implements Serializeable, \JsonSerializable
     {
         $this->metafields = $metafields;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFulfillmentService()
+    {
+        return $this->fulfillmentService;
+    }
+
+    /**
+     * @param mixed $fulfillmentService
+     */
+    public function setFulfillmentService($fulfillmentService): void
+    {
+        $this->fulfillmentService = $fulfillmentService;
+    }
+
+
 }
