@@ -41,8 +41,8 @@ class DraftOrderLineItem extends Base
      * @param DraftOrderAppliedDiscount $appliedDiscountService
      */
     public function __construct(ShopifyClient $client,
-                                AppliedDiscountService $appliedDiscountService,
-                                TaxLineService $taxlineService)
+        AppliedDiscountService $appliedDiscountService,
+        TaxLineService $taxlineService)
     {
         $this->appliedDiscountService = $appliedDiscountService;
         $this->taxLineService = $taxlineService;
@@ -50,8 +50,6 @@ class DraftOrderLineItem extends Base
     }
 
     /**
-     * @param $array
-     *
      * @return object
      */
     public function createFromArray($array)
@@ -97,8 +95,6 @@ class DraftOrderLineItem extends Base
     }
 
     /**
-     * @param $entities
-     *
      * @return array
      */
     protected function serializeTaxLines($entities)
@@ -117,8 +113,6 @@ class DraftOrderLineItem extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return Collection
      */
     protected function unserializeTaxLines($data)
@@ -135,8 +129,6 @@ class DraftOrderLineItem extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return object
      */
     protected function unserializeAppliedDiscount($data)
@@ -149,8 +141,6 @@ class DraftOrderLineItem extends Base
     }
 
     /**
-     * @param $appliedDiscount
-     *
      * @return array
      */
     protected function serializeAppliedDiscount($appliedDiscount)

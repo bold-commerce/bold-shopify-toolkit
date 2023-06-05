@@ -82,9 +82,6 @@ class ApplicationCharge implements Serializeable, \JsonSerializable
         return $this->name;
     }
 
-    /**
-     * @param $name
-     */
     public function setName($name)
     {
         $this->name = $name;
@@ -98,9 +95,6 @@ class ApplicationCharge implements Serializeable, \JsonSerializable
         return $this->price;
     }
 
-    /**
-     * @param $price
-     */
     public function setPrice($price)
     {
         $this->price = $price;
@@ -114,9 +108,6 @@ class ApplicationCharge implements Serializeable, \JsonSerializable
         return $this->returnUrl;
     }
 
-    /**
-     * @param $returnUrl
-     */
     public function setReturnUrl($returnUrl)
     {
         $this->returnUrl = $returnUrl;
@@ -138,9 +129,6 @@ class ApplicationCharge implements Serializeable, \JsonSerializable
         return $this->test;
     }
 
-    /**
-     * @param $test
-     */
     public function setTest($test)
     {
         $this->test = $test;

@@ -32,8 +32,6 @@ class Variant extends Base
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyVariant
      */
     public function getById($id)

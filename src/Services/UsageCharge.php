@@ -7,8 +7,6 @@ use BoldApps\ShopifyToolkit\Models\UsageCharge as ShopifyUsageCharge;
 class UsageCharge extends Base
 {
     /**
-     * @param $recurringChargeId
-     *
      * @return object
      */
     public function create($recurringChargeId, ShopifyUsageCharge $usageCharge)
@@ -21,8 +19,6 @@ class UsageCharge extends Base
     }
 
     /**
-     * @param $recurringChargeId
-     *
      * @return object
      */
     public function getById($recurringChargeId)

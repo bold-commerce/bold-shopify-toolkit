@@ -59,7 +59,7 @@ class DraftOrder extends Base
         DraftOrderLineItemService $draftOrderLineItemService,
         AppliedDiscountService $appliedDiscountService,
         PollingInfoService $pollingInfoService
-        ) {
+    ) {
         $this->taxLineService = $taxLineService;
         $this->draftOrderLineItemService = $draftOrderLineItemService;
         $this->appliedDiscountService = $appliedDiscountService;
@@ -68,8 +68,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $shopifyDraftOrder
-     *
      * @return object
      */
     public function create($shopifyDraftOrder)
@@ -84,8 +82,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyDraftOrder
      */
     public function getById($id)
@@ -99,8 +95,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return ShopifyDraftOrder
      */
     public function createFromArray($data)
@@ -109,8 +103,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $cart
-     *
      * @return ShopifyDraftOrder
      */
     public function createDraftOrderFromCart(CartModel $cart)
@@ -134,8 +126,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $id
-     *
      * @return object
      */
     public function delete($id)
@@ -144,8 +134,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $entities
-     *
      * @return array
      */
     protected function serializeTaxLines($entities)
@@ -164,8 +152,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return Collection
      */
     protected function unserializeTaxLines($data)
@@ -182,8 +168,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $entities
-     *
      * @return array
      */
     protected function serializeLineItems($entities)
@@ -202,8 +186,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return Collection
      */
     protected function unserializeLineItems($data)
@@ -220,8 +202,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return object
      */
     protected function unserializeAppliedDiscount($data)
@@ -234,8 +214,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $appliedDiscount
-     *
      * @return array
      */
     protected function serializeAppliedDiscount($appliedDiscount)
@@ -248,8 +226,6 @@ class DraftOrder extends Base
     }
 
     /**
-     * @param $pollingInfo
-     *
      * @return array
      */
     protected function serializePollingInfo($pollingInfo)

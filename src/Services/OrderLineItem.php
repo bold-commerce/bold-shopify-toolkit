@@ -34,8 +34,6 @@ class OrderLineItem extends Base
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeTaxLines($entities)

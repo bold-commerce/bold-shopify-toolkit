@@ -5,8 +5,6 @@ namespace BoldApps\ShopifyToolkit\Traits;
 trait TranslatePropertiesTrait
 {
     /**
-     * @param $orderProperties
-     *
      * @return array
      */
     private static function translateProperties($orderProperties)

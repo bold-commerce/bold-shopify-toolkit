@@ -59,7 +59,6 @@ class Client
     }
 
     /**
-     * @param $path
      * @param array  $params
      * @param string $password
      * @param bool   $frontendApi
@@ -100,7 +99,6 @@ class Client
     }
 
     /**
-     * @param $path
      * @param array  $params
      * @param string $password
      * @param bool   $frontendApi
@@ -128,9 +126,7 @@ class Client
     }
 
     /**
-     * @param $path
      * @param array $params
-     * @param $body
      *
      * @return array
      */
@@ -148,7 +144,6 @@ class Client
     }
 
     /**
-     * @param $path
      * @param array $params
      *
      * @return array
@@ -415,8 +410,6 @@ class Client
 
     /**
      * Parses the next and previous page info from the links and sets the pageInfo of the client.
-     *
-     * @param $linkHeader
      */
     private function parsePageInfo($linkHeader)
     {

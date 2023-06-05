@@ -114,9 +114,6 @@ class RecurringApplicationCharge implements Serializeable, \JsonSerializable
         return $this->cappedAmount;
     }
 
-    /**
-     * @param $cappedAmount
-     */
     public function setCappedAmount($cappedAmount)
     {
         $this->cappedAmount = $cappedAmount;
@@ -130,9 +127,6 @@ class RecurringApplicationCharge implements Serializeable, \JsonSerializable
         return $this->balanceRemaining;
     }
 
-    /**
-     * @param $balanceRemaining
-     */
     public function seBalanceRemaining($balanceRemaining)
     {
         $this->balanceRemaining = $balanceRemaining;
@@ -162,9 +156,6 @@ class RecurringApplicationCharge implements Serializeable, \JsonSerializable
         return $this->name;
     }
 
-    /**
-     * @param $name
-     */
     public function setName($name)
     {
         $this->name = $name;
@@ -178,9 +169,6 @@ class RecurringApplicationCharge implements Serializeable, \JsonSerializable
         return $this->price;
     }
 
-    /**
-     * @param $price
-     */
     public function setPrice($price)
     {
         $this->price = $price;
@@ -194,9 +182,6 @@ class RecurringApplicationCharge implements Serializeable, \JsonSerializable
         return $this->returnUrl;
     }
 
-    /**
-     * @param $returnUrl
-     */
     public function setReturnUrl($returnUrl)
     {
         $this->returnUrl = $returnUrl;
@@ -218,9 +203,6 @@ class RecurringApplicationCharge implements Serializeable, \JsonSerializable
         return $this->terms;
     }
 
-    /**
-     * @param $terms
-     */
     public function setTerms($terms)
     {
         $this->terms = $terms;
@@ -234,9 +216,6 @@ class RecurringApplicationCharge implements Serializeable, \JsonSerializable
         return $this->test;
     }
 
-    /**
-     * @param $test
-     */
     public function setTest($test)
     {
         $this->test = $test;
