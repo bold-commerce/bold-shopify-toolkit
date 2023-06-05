@@ -119,6 +119,7 @@ class VariantTest extends TestCase
             'weight_unit' => 'kg',
             'old_inventory_quantity' => 0,
             'requires_shipping' => true,
+            'fulfillment_service' => 'manual',
         ];
     }
 
@@ -143,6 +144,7 @@ class VariantTest extends TestCase
             'weight' => '3',
             'weight_unit' => 'kg',
             'requires_shipping' => true,
+            'fulfillment_service' => 'manual',
         ];
     }
 }
