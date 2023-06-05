@@ -90,7 +90,7 @@ class Variant implements Serializeable, \JsonSerializable
     /** @var array */
     protected $metafields;
 
-    protected $fulfillmentService = "manual";
+    protected $fulfillmentService = 'manual';
 
     /**
      * @return string
@@ -539,6 +539,4 @@ class Variant implements Serializeable, \JsonSerializable
     {
         $this->fulfillmentService = $fulfillmentService;
     }
-
-
 }
