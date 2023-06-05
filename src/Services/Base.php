@@ -37,8 +37,6 @@ abstract class Base
 
     /**
      * Product constructor.
-     *
-     * @param $client
      */
     public function __construct(ShopifyClient $client)
     {
@@ -80,7 +78,6 @@ abstract class Base
 
     /**
      * @param array|null $data
-     * @param $className
      *
      * @return object
      */

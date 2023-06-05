@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 class Customer extends CollectionEntity
 {
     /**
-     * @param $id
-     *
      * @return ShopifyCustomer|object
      */
     public function getById($id)
@@ -85,8 +83,6 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param $filter
-     *
      * @return int
      */
     public function countByParams($filter = [])
@@ -97,8 +93,6 @@ class Customer extends CollectionEntity
     }
 
     /**
-     * @param $array
-     *
      * @return ShopifyCustomer|object
      */
     public function createFromArray($array)

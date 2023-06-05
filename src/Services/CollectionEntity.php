@@ -5,8 +5,6 @@ namespace BoldApps\ShopifyToolkit\Services;
 abstract class CollectionEntity extends Base
 {
     /**
-     * @param $params
-     *
      * @return \Illuminate\Support\Collection
      */
     abstract public function getByParams($params);

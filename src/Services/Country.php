@@ -20,8 +20,6 @@ class Country extends Base
     }
 
     /**
-     * @param $array
-     *
      * @return object
      */
     public function createFromArray($array)

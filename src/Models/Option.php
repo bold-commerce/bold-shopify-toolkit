@@ -56,9 +56,6 @@ class Option implements Serializeable, \JsonSerializable
         $this->productId = $productId;
     }
 
-    /**
-     * @param $values
-     */
     public function setValues($values)
     {
         $this->values = $values;

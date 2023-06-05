@@ -76,8 +76,6 @@ class Refund extends Base
     }
 
     /**
-     * @param $array
-     *
      * @return ShopifyRefund|object
      */
     public function createFromArray($array)
@@ -86,8 +84,6 @@ class Refund extends Base
     }
 
     /**
-     * @param $entity
-     *
      * @return array|null
      */
     public function serializeShipping($entity)
@@ -102,8 +98,6 @@ class Refund extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return float|Collection|null
      */
     public function deserializeShipping($data)
@@ -138,8 +132,6 @@ class Refund extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return Collection
      */
     public function deserializeRefundLineItems($data)
@@ -180,8 +172,6 @@ class Refund extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return Collection|null
      */
     public function deserializeTransactions($data)
@@ -200,8 +190,6 @@ class Refund extends Base
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     public function serializeOrderAdjustments($entities)
@@ -224,8 +212,6 @@ class Refund extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return Collection|null
      */
     public function deserializeOrderAdjustments($data)

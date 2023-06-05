@@ -265,9 +265,6 @@ class Fulfillment implements Serializeable, \JsonSerializable
         return $this->locationId;
     }
 
-    /**
-     * @param $locationId
-     */
     public function setLocationId($locationId)
     {
         $this->locationId = $locationId;

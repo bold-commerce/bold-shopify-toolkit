@@ -54,8 +54,6 @@ class ShippingZone extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return Collection
      */
     public function unserializeCountries($data)
@@ -73,8 +71,6 @@ class ShippingZone extends Base
     }
 
     /**
-     * @param $data
-     *
      * @return Collection
      */
     public function unserializeProvinces($data)

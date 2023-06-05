@@ -42,6 +42,13 @@ Bind the appropriate models during your request lifecycle.
 
     ...
 ```
+Or for apps that use container system this will look like below 
+```php
+        $shopifyApiHandler = new ShopifyApiHandler();
+        $this->getContainer()->addShared(RequestHookInterface::class, $shopifyApiHandler);
+        $this->getContainer()->addShared(ApiSleeper::class, $shopifyApiHandler);
+```
+above code can be part of a service provider class
 
 Bind the shop that will be using the toolkit before making calls to its services and/or models.
 ```php
@@ -104,9 +111,11 @@ $updatedVariant->getOption1(); //"Not pink"
 
 See `tests/VariantTest.php` for an example of how to serialize and deserialize a model.
 
+
 ## TODO
 
 * Add more tests
+* Add example of advance usage of ShopifyApiHandler
 
 ## Contributing
 
@@ -124,3 +133,4 @@ This project is licensed under the Apache 2 License - see the [LICENSE.md](LICEN
 
 * Thanks to Shopify for making the best Developer Network!
 * Thanks to Bold Commerce Developers for making this amazing package
+

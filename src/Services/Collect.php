@@ -77,8 +77,6 @@ class Collect extends CollectionEntity
     }
 
     /**
-     * @param $array
-     *
      * @return object
      */
     public function createFromArray($array)

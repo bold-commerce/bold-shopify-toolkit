@@ -4,21 +4,26 @@ namespace BoldApps\ShopifyToolkit\Support;
 
 use BoldApps\ShopifyToolkit\Contracts\ApiSleeper;
 use BoldApps\ShopifyToolkit\Contracts\RequestHookInterface;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
 {
-    /** @var \GuzzleHttp\Psr7\Response|null */
+    /** @var Response|null */
     private $response;
 
     /**
-     * @param \GuzzleHttp\Psr7\Request|null $request
+     * @param Request|null $request
      */
     public function beforeRequest($request)
     {
+        /*
+         * Can be used to log request body and/or header for error tracing or debugging
+         */
     }
 
     /**
-     * @param \GuzzleHttp\Psr7\Response|null $response
+     * @param Response|null $response
      */
     public function afterRequest($response)
     {
@@ -26,7 +31,7 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
     }
 
     /**
-     * @param \GuzzleHttp\Psr7\Response|null $response
+     * @param Response|null $response
      */
     public function sleep($response)
     {
@@ -70,7 +75,7 @@ class ShopifyApiHandler implements RequestHookInterface, ApiSleeper
     private function getCallLimitRatio()
     {
         if (null !== $this->response) {
-            $callLimitHeader = $this->response->getHeader('http_x_shopify_shop_api_call_limit');
+            $callLimitHeader = $this->response->getHeader('X-Shopify-Shop-Api-Call-Limit');
 
             if (isset($callLimitHeader[0])) {
                 return explode('/', $callLimitHeader[0]);

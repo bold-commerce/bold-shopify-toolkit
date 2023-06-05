@@ -35,7 +35,6 @@ class InstallAndLogin
     }
 
     /**
-     * @param $scope
      * @param string $redirect_url
      *
      * @return string
@@ -52,8 +51,6 @@ class InstallAndLogin
     }
 
     /**
-     * @param $code
-     *
      * @return string
      *
      * @throws BadRequestException
@@ -100,8 +97,6 @@ class InstallAndLogin
 
     /**
      * This usually will be something the ParameterBag from a symphony request object toArrayed.
-     *
-     * @param $query
      *
      * @return bool
      */

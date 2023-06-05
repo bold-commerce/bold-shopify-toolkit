@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 class InventoryLevel extends CollectionEntity
 {
     /**
-     * @param $array
-     *
      * @return object
      */
     public function createFromArray($array)

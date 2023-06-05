@@ -47,9 +47,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->note;
     }
 
-    /**
-     * @param $note
-     */
     public function setNote($note)
     {
         $this->note = $note;
@@ -63,9 +60,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->token;
     }
 
-    /**
-     * @param $token
-     */
     public function setToken($token)
     {
         $this->token = $token;
@@ -92,9 +86,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->originalTotalPrice;
     }
 
-    /**
-     * @param $value
-     */
     public function setOriginalTotalPrice($value)
     {
         $this->originalTotalPrice = $value;
@@ -108,9 +99,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->totalPrice;
     }
 
-    /**
-     * @param $value
-     */
     public function setTotalPrice($value)
     {
         $this->totalPrice = $value;
@@ -124,9 +112,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->totalDiscount;
     }
 
-    /**
-     * @param $value
-     */
     public function setTotalDiscount($value)
     {
         $this->totalDiscount = $value;
@@ -140,9 +125,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->totalWeight;
     }
 
-    /**
-     * @param $value
-     */
     public function setTotalWeight($value)
     {
         $this->totalWeight = $value;
@@ -156,9 +138,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->itemCount;
     }
 
-    /**
-     * @param $value
-     */
     public function setItemCount($value)
     {
         $this->itemCount = $value;
@@ -172,9 +151,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->requiresShipping;
     }
 
-    /**
-     * @param $value
-     */
     public function setRequiresShipping($value)
     {
         $this->requiresShipping = $value;
@@ -188,9 +164,6 @@ class Cart implements Serializeable, \JsonSerializable
         return $this->items;
     }
 
-    /**
-     * @param $values
-     */
     public function setItems($values)
     {
         $this->items = $values;

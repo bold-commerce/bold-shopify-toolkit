@@ -33,8 +33,6 @@ class Theme extends Base
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyTheme
      */
     public function getById($id)
