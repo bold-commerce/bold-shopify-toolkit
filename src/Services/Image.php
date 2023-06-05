@@ -21,8 +21,6 @@ class Image extends Base
     }
 
     /**
-     * @param $array
-     *
      * @return ShopifyImage|object
      */
     public function createFromArray($array)
@@ -47,8 +45,6 @@ class Image extends Base
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyImage|object
      */
     public function getProductImageById(ShopifyProduct $product, $id)

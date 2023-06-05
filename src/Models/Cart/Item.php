@@ -146,9 +146,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->variantId;
     }
 
-    /**
-     * @param $variantId
-     */
     public function setVariantId($variantId)
     {
         $this->variantId = $variantId;
@@ -210,9 +207,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->originalPrice;
     }
 
-    /**
-     * @param $originalPrice
-     */
     public function setOriginalPrice($originalPrice)
     {
         $this->originalPrice = $originalPrice;
@@ -226,9 +220,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->discountedPrice;
     }
 
-    /**
-     * @param $discountedPrice
-     */
     public function setDiscountedPrice($discountedPrice)
     {
         $this->discountedPrice = $discountedPrice;
@@ -242,9 +233,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->linePrice;
     }
 
-    /**
-     * @param $linePrice
-     */
     public function setLinePrice($linePrice)
     {
         $this->linePrice = $linePrice;
@@ -258,9 +246,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->originalLinePrice;
     }
 
-    /**
-     * @param $originalLinePrice
-     */
     public function setOriginalLinePrice($originalLinePrice)
     {
         $this->originalLinePrice = $originalLinePrice;
@@ -274,9 +259,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->totalDiscount;
     }
 
-    /**
-     * @param $totalDiscount
-     */
     public function setTotalDiscount($totalDiscount)
     {
         $this->totalDiscount = $totalDiscount;
@@ -338,9 +320,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->vendor;
     }
 
-    /**
-     * @param $vendor
-     */
     public function setVendor($vendor)
     {
         $this->vendor = $vendor;
@@ -354,9 +333,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->productId;
     }
 
-    /**
-     * @param $productId
-     */
     public function setProductId($productId)
     {
         $this->productId = $productId;
@@ -370,9 +346,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->giftCard;
     }
 
-    /**
-     * @param $giftCard
-     */
     public function setGiftCard($giftCard)
     {
         $this->giftCard = $giftCard;
@@ -386,9 +359,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->url;
     }
 
-    /**
-     * @param $url
-     */
     public function setUrl($url)
     {
         $this->url = $url;
@@ -402,9 +372,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->image;
     }
 
-    /**
-     * @param $image
-     */
     public function setImage($image)
     {
         $this->image = $image;
@@ -418,9 +385,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->handle;
     }
 
-    /**
-     * @param $handle
-     */
     public function setHandle($handle)
     {
         $this->handle = $handle;
@@ -434,9 +398,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->requiresShipping;
     }
 
-    /**
-     * @param $requiresShipping
-     */
     public function setRequiresShipping($requiresShipping)
     {
         $this->requiresShipping = $requiresShipping;
@@ -450,9 +411,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->productType;
     }
 
-    /**
-     * @param $productType
-     */
     public function setProductType($productType)
     {
         $this->productType = $productType;
@@ -466,9 +424,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->productTitle;
     }
 
-    /**
-     * @param $productTitle
-     */
     public function setProductTitle($productTitle)
     {
         $this->productTitle = $productTitle;
@@ -482,9 +437,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->productDescription;
     }
 
-    /**
-     * @param $productDescription
-     */
     public function setProductDescription($productDescription)
     {
         $this->productDescription = $productDescription;
@@ -498,9 +450,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->variantTitle;
     }
 
-    /**
-     * @param $variantTitle
-     */
     public function setVariantTitle($variantTitle)
     {
         $this->variantTitle = $variantTitle;
@@ -514,9 +463,6 @@ class Item implements Serializeable, \JsonSerializable
         return $this->variantOptions;
     }
 
-    /**
-     * @param $variantOptions
-     */
     public function setVariantOptions($variantOptions)
     {
         $this->variantOptions = $variantOptions;

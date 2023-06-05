@@ -83,7 +83,6 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param       $id
      * @param array $filter
      *
      * @return ShopifyProduct|object
@@ -238,8 +237,6 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyMetafield|object
      */
     public function getMetafield(ShopifyProduct $product, $id)
@@ -268,8 +265,6 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeVariants($entities)
@@ -306,8 +301,6 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeOptions($entities)
@@ -344,8 +337,6 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $entity
-     *
      * @return array|null
      */
     protected function serializeImage($entity)
@@ -372,8 +363,6 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeImages($entities)
@@ -410,8 +399,6 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeMetafields($entities)
@@ -430,8 +417,6 @@ class Product extends CollectionEntity
     }
 
     /**
-     * @param $data
-     *
      * @return Collection|null
      */
     protected function unserializeMetafields($data)

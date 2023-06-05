@@ -34,8 +34,6 @@ class Script extends Base
     }
 
     /**
-     * @param $url
-     *
      * @return Collection
      */
     public function getByUrl($url)

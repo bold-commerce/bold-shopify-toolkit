@@ -44,8 +44,6 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyOrder|object
      */
     public function getById($id)
@@ -76,8 +74,6 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param $params
-     *
      * @return Collection
      */
     public function getByParams($params)
@@ -104,8 +100,6 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param $filter
-     *
      * @return int
      */
     public function countByParams($filter = [])
@@ -174,8 +168,6 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeTaxLines($entities)
@@ -215,8 +207,6 @@ class Order extends CollectionEntity
     }
 
     /**
-     * @param $entities
-     *
      * @return array|null
      */
     protected function serializeLineItems($entities)

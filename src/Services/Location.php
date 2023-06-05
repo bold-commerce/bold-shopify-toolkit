@@ -9,8 +9,6 @@ use Illuminate\Support\Collection;
 class Location extends Base
 {
     /**
-     * @param $array
-     *
      * @return object
      */
     public function createFromArray($array)
@@ -33,8 +31,6 @@ class Location extends Base
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyLocation
      */
     public function getById($id)
@@ -55,8 +51,6 @@ class Location extends Base
     }
 
     /**
-     * @param $id
-     *
      * @return Collection
      */
     public function getLocationInventoryLevels($id)

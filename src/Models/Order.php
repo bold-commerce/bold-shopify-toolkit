@@ -1139,9 +1139,6 @@ class Order implements Serializeable, \JsonSerializable
         $this->fulfillments = $fulfillments;
     }
 
-    /**
-     * @param $status
-     */
     public function setFulfillmentStatus($status)
     {
         $this->fulfillmentStatus = $status;

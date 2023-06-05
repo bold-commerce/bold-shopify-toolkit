@@ -20,8 +20,6 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
-     * @param $array
-     *
      * @return CustomerSavedSearchModel|object
      */
     public function createFromArray($array)
@@ -74,8 +72,6 @@ class CustomerSavedSearch extends CollectionEntity
     }
 
     /**
-     * @param $params
-     *
      * @return Collection
      */
     public function getByParams($params)

@@ -20,8 +20,6 @@ class RecurringApplicationCharge extends Base
     }
 
     /**
-     * @param $id
-     *
      * @return ShopifyRecurringApplicationCharge \ object
      */
     public function getById($id)
@@ -66,8 +64,6 @@ class RecurringApplicationCharge extends Base
     }
 
     /**
-     * @param $array
-     *
      * @return ShopifyRecurringApplicationCharge|object
      */
     public function createFromArray($array)

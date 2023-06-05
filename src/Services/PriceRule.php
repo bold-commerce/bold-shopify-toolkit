@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 class PriceRule extends CollectionEntity
 {
     /**
-     * @param $id
-     *
      * @return ShopifyPriceRule|object
      */
     public function getById($id)
@@ -69,8 +67,6 @@ class PriceRule extends CollectionEntity
     }
 
     /**
-     * @param $array
-     *
      * @return object
      */
     public function createFromArray($array)
