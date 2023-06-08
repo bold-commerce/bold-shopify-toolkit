@@ -306,7 +306,6 @@ class ProductTest extends TestCase
                     'inventory_item_id' => 808950810,
                     'old_inventory_quantity' => 10,
                     'requires_shipping' => true,
-                    'fulfillment_service' => 'manual',
                 ],
                 [
                     'id' => 49148385,
@@ -329,7 +328,6 @@ class ProductTest extends TestCase
                     'inventory_item_id' => 49148385,
                     'old_inventory_quantity' => 20,
                     'requires_shipping' => true,
-                    'fulfillment_service' => 'manual',
                 ],
                 [
                     'id' => 39072856,
@@ -352,7 +350,6 @@ class ProductTest extends TestCase
                     'inventory_item_id' => 39072856,
                     'old_inventory_quantity' => 30,
                     'requires_shipping' => true,
-                    'fulfillment_service' => 'manual',
                 ],
                 [
                     'id' => 457924702,
@@ -375,7 +372,6 @@ class ProductTest extends TestCase
                     'inventory_item_id' => 457924702,
                     'old_inventory_quantity' => 40,
                     'requires_shipping' => true,
-                    'fulfillment_service' => 'manual',
                 ],
             ],
             'options' => [
