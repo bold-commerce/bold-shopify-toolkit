@@ -2,7 +2,7 @@
 
 namespace BoldApps\ShopifyToolkit\Services;
 
-class GraphQL extends base
+class GraphQL extends Base
 {
     public function query($query, $variables = [])
     {
