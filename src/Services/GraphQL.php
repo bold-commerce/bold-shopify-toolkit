@@ -11,6 +11,7 @@ class GraphQL extends Base
         if (!empty($variables)) {
             $data['variables'] = $variables;
         }
+
         return $this->client->post("{$this->getApiBasePath()}/graphql.json", [], $data);
     }
 }
