@@ -18,9 +18,6 @@ class UsageCharge implements Serializeable, \JsonSerializable
     /** @var float */
     protected $price;
 
-    /** @var string */
-    protected $billingOn;
-
     /** @var float */
     protected $balanceUsed;
 
@@ -76,22 +73,6 @@ class UsageCharge implements Serializeable, \JsonSerializable
     public function setPrice($price)
     {
         $this->price = $price;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBillingOn()
-    {
-        return $this->billingOn;
-    }
-
-    /**
-     * @param string $billingOn
-     */
-    public function setBillingOn($billingOn)
-    {
-        $this->billingOn = $billingOn;
     }
 
     /**
