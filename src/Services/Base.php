@@ -9,7 +9,7 @@ abstract class Base
 {
     public const BASE_API_PATH = 'admin/api/%s';
 
-    public const DEFAULT_API_VERSION = '2023-04';
+    public const DEFAULT_API_VERSION = '2023-10';
 
     /** @var string */
     protected $shopifyApiVersion = self::DEFAULT_API_VERSION;
@@ -60,7 +60,7 @@ abstract class Base
         }, $class->getProperties());
 
         foreach ($properties as $property) {
-            $value = $entity->{'get'.ucfirst($property)}();
+            $value = $entity->{'get' . ucfirst($property)}();
 
             if (isset($this->serializationExceptions[$property])) {
                 $value = $this->{$this->serializationExceptions[$property]}($value);

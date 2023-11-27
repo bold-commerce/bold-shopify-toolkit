@@ -3,6 +3,7 @@
 namespace Tests\Services;
 
 use BoldApps\ShopifyToolkit\Models\CustomerSavedSearch;
+use BoldApps\ShopifyToolkit\Services\Base;
 use BoldApps\ShopifyToolkit\Services\Client;
 use BoldApps\ShopifyToolkit\Services\CustomerSavedSearch as CustomerSavedSearchService;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +24,7 @@ class CustomerSavedSearchTest extends TestCase
         $this->customerSavedSearchService = new CustomerSavedSearchService($this->clientMock);
     }
 
-    public function testGetCallsCorrectEndpointAndReturnsUnserializedModel()
+    public function testGetCallsCorrectEndpointAndReturnsUnserializedModel(): void
     {
         $customerSavedSearchId = 123456789;
         $rawCustomerSavedSearch = [
@@ -31,10 +32,10 @@ class CustomerSavedSearchTest extends TestCase
                 'id' => 123456789,
                 'name' => 'Accepts Marketing',
                 'query' => 'accepts_marketing:1',
-              ],
+            ],
         ];
 
-        $expectedUrl = 'admin/api/2023-04/customer_saved_searches/123456789.json';
+        $expectedUrl = 'admin/api/' . Base::DEFAULT_API_VERSION . '/customer_saved_searches/123456789.json';
         $expectedCustomerSavedSearch = new CustomerSavedSearch();
         $expectedCustomerSavedSearch->setId(123456789);
         $expectedCustomerSavedSearch->setName('Accepts Marketing');
