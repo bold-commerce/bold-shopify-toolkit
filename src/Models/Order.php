@@ -50,9 +50,6 @@ class Order implements Serializeable, \JsonSerializable
     protected $financialStatus;
 
     /** @var string */
-    protected $gateway;
-
-    /** @var string */
     protected $landingSite;
 
     /** @var int */
@@ -321,14 +318,6 @@ class Order implements Serializeable, \JsonSerializable
     public function getFinancialStatus()
     {
         return $this->financialStatus;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGateway()
-    {
-        return $this->gateway;
     }
 
     /**
@@ -809,14 +798,6 @@ class Order implements Serializeable, \JsonSerializable
     public function setEmail($email)
     {
         $this->email = $email;
-    }
-
-    /**
-     * @param string $gateway
-     */
-    public function setGateway($gateway)
-    {
-        $this->gateway = $gateway;
     }
 
     /**
