@@ -131,9 +131,6 @@ class Order implements Serializeable, \JsonSerializable
     protected $paymentGatewayNames;
 
     /** @var string */
-    protected $processingMethod;
-
-    /** @var string */
     protected $source;
 
     /** @var int */
@@ -180,9 +177,6 @@ class Order implements Serializeable, \JsonSerializable
 
     /** @var array */
     protected $refunds;
-
-    /** @var object */
-    protected $paymentDetails;
 
     /** @var object */
     protected $customer;
@@ -507,14 +501,6 @@ class Order implements Serializeable, \JsonSerializable
     /**
      * @return string
      */
-    public function getProcessingMethod()
-    {
-        return $this->processingMethod;
-    }
-
-    /**
-     * @return string
-     */
     public function getSource()
     {
         return $this->source;
@@ -630,14 +616,6 @@ class Order implements Serializeable, \JsonSerializable
     public function getRefunds()
     {
         return $this->refunds;
-    }
-
-    /**
-     * @return object
-     */
-    public function getPaymentDetails()
-    {
-        return $this->paymentDetails;
     }
 
     /**
@@ -1017,14 +995,6 @@ class Order implements Serializeable, \JsonSerializable
     }
 
     /**
-     * @param string $processingMethod
-     */
-    public function setProcessingMethod($processingMethod)
-    {
-        $this->processingMethod = $processingMethod;
-    }
-
-    /**
      * @param string $source
      */
     public function setSource($source)
@@ -1147,14 +1117,6 @@ class Order implements Serializeable, \JsonSerializable
     public function setRefunds($refunds)
     {
         $this->refunds = $refunds;
-    }
-
-    /**
-     * @param object $paymentDetails
-     */
-    public function setPaymentDetails($paymentDetails)
-    {
-        $this->paymentDetails = $paymentDetails;
     }
 
     /**
