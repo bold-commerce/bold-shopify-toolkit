@@ -307,10 +307,9 @@ class Client
 
             // Redirect response
             if ($response->getStatusCode() >= 300 && $response->getStatusCode() < 400) {
-                $headers = $response->getHeaders();
-
-                if (!empty($headers) && !empty($headers[$locationIndex]) && count($headers[$locationIndex]) > 0) {
-                    $result = $this->validateRedirectLocation($headers[$locationIndex][0]);
+                $location = $response->getHeader($locationIndex);
+                if (!empty($location) && count($location) > 0) {
+                    $result = $this->validateRedirectLocation($location[0]);
                 }
             }
 
