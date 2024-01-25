@@ -64,13 +64,7 @@ class Theme extends Base
      */
     public function getAll($filter = [])
     {
-        $raw = $this->client->get('admin/themes.json', $filter);
-
-        $themes = array_map(function ($theme) {
-            return $this->unserializeModel($theme, ShopifyTheme::class);
-        }, $raw['themes']);
-
-        return new Collection($themes);
+        return $this->getByParams($filter);
     }
 
     /**
