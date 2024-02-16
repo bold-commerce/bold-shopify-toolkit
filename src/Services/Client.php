@@ -294,7 +294,7 @@ class Client
     private function getRedirectResponseFromShopify(Request $request)
     {
         $result = null;
-        $locationIndex = 'Location';
+        $locationIndex = 'location';
 
         $options = [
             'allow_redirects' => false,
