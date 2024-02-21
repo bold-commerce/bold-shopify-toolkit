@@ -60,7 +60,7 @@ abstract class Base
         }, $class->getProperties());
 
         foreach ($properties as $property) {
-            $value = $entity->{'get' . ucfirst($property)}();
+            $value = $entity->{'get'.ucfirst($property)}();
 
             if (isset($this->serializationExceptions[$property])) {
                 $value = $this->{$this->serializationExceptions[$property]}($value);
