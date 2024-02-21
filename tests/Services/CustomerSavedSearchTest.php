@@ -35,7 +35,7 @@ class CustomerSavedSearchTest extends TestCase
             ],
         ];
 
-        $expectedUrl = 'admin/api/' . Base::DEFAULT_API_VERSION . '/customer_saved_searches/123456789.json';
+        $expectedUrl = 'admin/api/'.Base::DEFAULT_API_VERSION.'/customer_saved_searches/123456789.json';
         $expectedCustomerSavedSearch = new CustomerSavedSearch();
         $expectedCustomerSavedSearch->setId(123456789);
         $expectedCustomerSavedSearch->setName('Accepts Marketing');
