@@ -129,6 +129,7 @@ class RefundTest extends TestCase
                         "sku": "IPOD2008RED",
                         "variant_title": "red",
                         "vendor": null,
+                        "fulfillment_service": "manual",
                         "product_id": 632910392,
                         "requires_shipping": true,
                         "taxable": true,
