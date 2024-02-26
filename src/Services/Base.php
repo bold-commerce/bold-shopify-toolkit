@@ -9,7 +9,7 @@ abstract class Base
 {
     public const BASE_API_PATH = 'admin/api/%s';
 
-    public const DEFAULT_API_VERSION = '2023-10';
+    public const DEFAULT_API_VERSION = '2024-01';
 
     /** @var string */
     protected $shopifyApiVersion = self::DEFAULT_API_VERSION;
