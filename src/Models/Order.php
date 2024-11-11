@@ -23,12 +23,6 @@ class Order implements Serializeable, \JsonSerializable
     protected $cancelledAt;
 
     /** @var string */
-    protected $cartToken;
-
-    /** @var string */
-    protected $checkoutToken;
-
-    /** @var string */
     protected $closedAt;
 
     /** @var bool */
@@ -90,12 +84,6 @@ class Order implements Serializeable, \JsonSerializable
 
     /** @var bool */
     protected $test;
-
-    /** @var string */
-    protected $token;
-
-    /** @var float */
-    protected $totalDiscounts;
 
     /** @var float */
     protected $totalLineItemsPrice;
@@ -245,22 +233,6 @@ class Order implements Serializeable, \JsonSerializable
     /**
      * @return string
      */
-    public function getCartToken()
-    {
-        return $this->cartToken;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCheckoutToken()
-    {
-        return $this->checkoutToken;
-    }
-
-    /**
-     * @return string
-     */
     public function getClosedAt()
     {
         return $this->closedAt;
@@ -400,22 +372,6 @@ class Order implements Serializeable, \JsonSerializable
     public function getTest()
     {
         return $this->test;
-    }
-
-    /**
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
-     * @return float
-     */
-    public function getTotalDiscounts()
-    {
-        return $this->totalDiscounts;
     }
 
     /**
@@ -715,22 +671,6 @@ class Order implements Serializeable, \JsonSerializable
     }
 
     /**
-     * @param string $cartToken
-     */
-    public function setCartToken($cartToken)
-    {
-        $this->cartToken = $cartToken;
-    }
-
-    /**
-     * @param string $checkoutToken
-     */
-    public function setCheckoutToken($checkoutToken)
-    {
-        $this->checkoutToken = $checkoutToken;
-    }
-
-    /**
      * @param string $closedAt
      */
     public function setClosedAt($closedAt)
@@ -888,22 +828,6 @@ class Order implements Serializeable, \JsonSerializable
     public function setTest($test)
     {
         $this->test = $test;
-    }
-
-    /**
-     * @param string $token
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-    }
-
-    /**
-     * @param float $totalDiscounts
-     */
-    public function setTotalDiscounts($totalDiscounts)
-    {
-        $this->totalDiscounts = $totalDiscounts;
     }
 
     /**
