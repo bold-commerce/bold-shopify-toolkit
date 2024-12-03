@@ -43,7 +43,7 @@ class Cart extends Base
     {
         $cookies = $this->getCartCookie($cartToken);
 
-        $raw = $this->client->post('cart/clear.json', [], [], $cookies, $password, true);
+        $raw = $this->client->post('cart/clear.json', [], null, $cookies, $password, true);
 
         if (empty($raw)) {
             // The request to clear cart has failed, we are unable to take any further action on the cart
