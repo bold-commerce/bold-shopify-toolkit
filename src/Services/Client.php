@@ -20,7 +20,6 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Header;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Utils;
 
 class Client
 {
@@ -122,7 +121,7 @@ class Client
         $uri = new Uri(sprintf('https://%s/%s', $domain, $path));
         $uri = $uri->withQuery(http_build_query($params));
 
-        $json = (is_null($body) ? null : json_encode($body));
+        $json = (is_null($body) ? null : \GuzzleHttp\json_encode($body));
 
         $request = new Request('POST', $uri, $headers, $json);
 
