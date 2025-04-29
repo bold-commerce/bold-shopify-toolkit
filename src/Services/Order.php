@@ -88,6 +88,29 @@ class Order extends CollectionEntity
     }
 
     /**
+     * @return Collection
+     */
+    public function getByParamsWithPagination(array $params): Collection
+    {   
+        $allOrders = [];
+        $nextPageInfo = '';
+
+        do {
+            $orders = $this->client->get('admin/orders.json', $params);
+
+            foreach ($orders['orders'] as $order) {
+                $allOrders[count($allOrders)] = $this->unserializeModel($order, ShopifyOrder::class);
+            };
+
+            $pageInfo = $this->client->getPageInfo();
+            $nextPageInfo = $pageInfo->getNext();
+            $params['page_info'] = $nextPageInfo;
+        } while (!empty($nextPageInfo));
+
+        return new Collection($allOrders);
+    }
+
+    /**
      * @param array $filter
      *
      * @return int
