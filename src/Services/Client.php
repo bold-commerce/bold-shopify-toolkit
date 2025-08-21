@@ -71,7 +71,7 @@ class Client
      *
      * @return array
      */
-    public function get($path, $params = [], array $cookies = [], $password = null, $frontendApi = false)
+    public function get($path, $params = [], array $cookies = [], ?string $password = null, $frontendApi = false)
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken()];
 
@@ -111,7 +111,7 @@ class Client
      *
      * @return array
      */
-    public function post($path, $params, $body, array $cookies = [], $password = null, $frontendApi = false, $extraHeaders = [])
+    public function post($path, $params, $body, array $cookies = [], ?string $password = null, $frontendApi = false, $extraHeaders = [])
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
         $headers = array_merge($headers, $extraHeaders);
@@ -178,7 +178,7 @@ class Client
      * @throws BadRequestException
      * @throws SeverErrorException
      */
-    private function sendRequestToShopify(Request $request, array $cookies = [], $password = null)
+    private function sendRequestToShopify(Request $request, array $cookies = [], ?string $password = null)
     {
         $result = null;
 
