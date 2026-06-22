@@ -121,7 +121,7 @@ class Client
         $uri = new Uri(sprintf('https://%s/%s', $domain, $path));
         $uri = $uri->withQuery(http_build_query($params));
 
-        $json = (is_null($body) ? null : \GuzzleHttp\json_encode($body));
+        $json = (is_null($body) ? null : \GuzzleHttp\Utils::jsonEncode($body));
 
         $request = new Request('POST', $uri, $headers, $json);
 
@@ -139,7 +139,7 @@ class Client
         $uri = new Uri(sprintf('https://%s/%s', $this->shopBaseInfo->getMyShopifyDomain(), $path));
         $uri = $uri->withQuery(http_build_query($params));
 
-        $json = \GuzzleHttp\json_encode($body);
+        $json = \GuzzleHttp\Utils::jsonEncode($body);
 
         $request = new Request('PUT', $uri, $headers, $json);
 
@@ -211,7 +211,7 @@ class Client
             $this->requestHookInterface->beforeRequest($request);
             $response = $this->client->send($request, $options);
 
-            $result = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+            $result = \GuzzleHttp\Utils::jsonDecode((string) $response->getBody(), true);
 
             $linkHeader = $response->getHeader('Link');
             if ($linkHeader) {
