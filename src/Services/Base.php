@@ -103,7 +103,6 @@ abstract class Base
 
                 $propertyName = $this->getJsonPropertyName($property);
                 $property = $class->getProperty($propertyName);
-                $property->setAccessible(true);
                 $property->setValue($instance, $value);
             } catch (\ReflectionException $e) {
                 // dump($e);
