@@ -46,7 +46,7 @@ abstract class Base
     /**
      * @return array
      */
-    public function serializeModel(Serializeable $entity = null)
+    public function serializeModel(?Serializeable $entity = null)
     {
         if (null === $entity) {
             return null;
@@ -103,7 +103,6 @@ abstract class Base
 
                 $propertyName = $this->getJsonPropertyName($property);
                 $property = $class->getProperty($propertyName);
-                $property->setAccessible(true);
                 $property->setValue($instance, $value);
             } catch (\ReflectionException $e) {
                 // dump($e);
