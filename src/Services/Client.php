@@ -71,7 +71,7 @@ class Client
      *
      * @return array
      */
-    public function get($path, $params = [], array $cookies = [], $password = null, $frontendApi = false)
+    public function get($path, $params = [], array $cookies = [], ?string $password = null, $frontendApi = false)
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken()];
 
@@ -111,7 +111,7 @@ class Client
      *
      * @return array
      */
-    public function post($path, $params, $body, array $cookies = [], $password = null, $frontendApi = false, $extraHeaders = [])
+    public function post($path, $params, $body, array $cookies = [], ?string $password = null, $frontendApi = false, $extraHeaders = [])
     {
         $headers = ['X-Shopify-Access-Token' => $this->shopAccessInfo->getToken(), 'Content-Type' => 'application/json', 'charset' => 'utf-8'];
         $headers = array_merge($headers, $extraHeaders);
@@ -121,7 +121,7 @@ class Client
         $uri = new Uri(sprintf('https://%s/%s', $domain, $path));
         $uri = $uri->withQuery(http_build_query($params));
 
-        $json = (is_null($body) ? null : \GuzzleHttp\json_encode($body));
+        $json = (is_null($body) ? null : json_encode($body, JSON_THROW_ON_ERROR));
 
         $request = new Request('POST', $uri, $headers, $json);
 
@@ -139,7 +139,7 @@ class Client
         $uri = new Uri(sprintf('https://%s/%s', $this->shopBaseInfo->getMyShopifyDomain(), $path));
         $uri = $uri->withQuery(http_build_query($params));
 
-        $json = \GuzzleHttp\json_encode($body);
+        $json = json_encode($body, JSON_THROW_ON_ERROR);
 
         $request = new Request('PUT', $uri, $headers, $json);
 
@@ -178,7 +178,7 @@ class Client
      * @throws BadRequestException
      * @throws SeverErrorException
      */
-    private function sendRequestToShopify(Request $request, array $cookies = [], $password = null)
+    private function sendRequestToShopify(Request $request, array $cookies = [], ?string $password = null)
     {
         $result = null;
 
@@ -211,7 +211,7 @@ class Client
             $this->requestHookInterface->beforeRequest($request);
             $response = $this->client->send($request, $options);
 
-            $result = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+            $result = json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
             $linkHeader = $response->getHeader('Link');
             if ($linkHeader) {

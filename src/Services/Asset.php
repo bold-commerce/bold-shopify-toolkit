@@ -41,7 +41,7 @@ class Asset extends Base
      *
      * @param int $themeId (optional)
      */
-    public function loadTheme($themeId = null)
+    public function loadTheme(?int $themeId = null)
     {
         if (null === $themeId) {
             $this->currentTheme = $this->shopifyTheme->getMain();

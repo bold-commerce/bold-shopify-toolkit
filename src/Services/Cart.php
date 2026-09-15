@@ -24,7 +24,7 @@ class Cart extends Base
     /**
      * @return CartModel
      */
-    public function get($cartToken, $password = null)
+    public function get($cartToken, ?string $password = null)
     {
         $raw = $this->client->get('cart.json', [], $this->getCartCookie($cartToken), $password, true);
 
@@ -39,7 +39,7 @@ class Cart extends Base
      *
      * @return CartModel|object
      */
-    public function clear($cartToken, $password = null)
+    public function clear($cartToken, ?string $password = null)
     {
         $cookies = $this->getCartCookie($cartToken);
 
@@ -87,7 +87,7 @@ class Cart extends Base
      *
      * @return object
      */
-    public function update(CartModel $cart, $cartToken, $password = null)
+    public function update(CartModel $cart, $cartToken, ?string $password = null)
     {
         $raw = $this->client->post('cart/update.json', [], $this->serializeModel($cart), $this->getCartCookie($cartToken), $password, true);
 
@@ -97,7 +97,7 @@ class Cart extends Base
     /**
      * @param null $password
      */
-    public function switchCartCurrency($cartToken, $currency, $password = null)
+    public function switchCartCurrency($cartToken, $currency, ?string $password = null)
     {
         $this->client->get('cart', ['currency' => $currency], $this->getCartCookie($cartToken), $password, true);
     }

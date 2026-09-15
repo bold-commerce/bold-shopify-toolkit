@@ -159,7 +159,7 @@ class Order extends CollectionEntity
      *
      * @return ShopifyOrder|object
      */
-    public function cancel($id, $cancelOrder = null)
+    public function cancel($id, ?CancelOrder $cancelOrder = null)
     {
         $serializedModel = $this->serializeModel($cancelOrder);
         $raw = $this->client->post("{$this->getApiBasePath()}/orders/{$id}/cancel.json", [], $serializedModel);
