@@ -46,7 +46,7 @@ abstract class Base
     /**
      * @return array
      */
-    public function serializeModel(Serializeable $entity = null)
+    public function serializeModel(?Serializeable $entity = null)
     {
         if (null === $entity) {
             return null;

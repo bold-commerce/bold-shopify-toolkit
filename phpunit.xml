@@ -1,10 +1,13 @@
-<phpunit colors="true" strict="true">
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="unit">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+    <coverage processUncoveredFiles="true">
+        <include>
             <directory suffix=".php">./src</directory>
-        </whitelist>
-        <blacklist>
-            <directory suffix=".php">./vendor</directory>
-        </blacklist>
-    </filter>
+        </include>
+    </coverage>
 </phpunit>

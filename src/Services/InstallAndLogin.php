@@ -86,7 +86,7 @@ class InstallAndLogin
 
             switch ($e->getResponse()->getStatusCode()) {
                 case 400:
-                    throw new BadRequestException(400, null, $e);
+                    throw new BadRequestException($e->getMessage(), 0, $e);
                 default:
                     throw $e;
             }
@@ -123,7 +123,7 @@ class InstallAndLogin
         sort($dataString);
 
         $string = implode('&', $dataString);
-        $signature = hash_hmac('sha256', $string, $this->applicationInfo->getApiSecret());
+        $signature = hash_hmac('sha256', $string, (string) $this->applicationInfo->getApiSecret());
 
         return $query['hmac'] == $signature;
     }

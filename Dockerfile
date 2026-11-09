@@ -1,4 +1,4 @@
-FROM cimg/php:8.1.9 as base
+FROM cimg/php:8.3 as base
 
 FROM base
 ARG cache=1

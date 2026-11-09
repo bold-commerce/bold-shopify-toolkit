@@ -47,6 +47,9 @@ class Client
     /** @var PollingInfo */
     protected $pollingInfo;
 
+    /** @var RequestHookInterface */
+    protected $requestHookInterface;
+
     /**
      * Client constructor.
      */
